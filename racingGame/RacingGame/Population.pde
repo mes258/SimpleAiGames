@@ -69,14 +69,14 @@ class Population {
     calculateFitnessSum();
 
     //the champion lives on 
-    newDots[0] = dots[bestDot].gimmeBaby();
+    newDots[0] = dots[bestDot].newBaby();
     newDots[0].isBest = true;
     for (int i = 1; i< newDots.length; i++) {
       //select parent based on fitness
       Dot parent = selectParent();
 
       //get baby from them
-      newDots[i] = parent.gimmeBaby();
+      newDots[i] = parent.newBaby();
     }
 
     dots = newDots.clone();
@@ -139,11 +139,14 @@ class Population {
     }
 
     bestDot = maxIndex;
-
+    println("Setting best dot");
+    println("checkpoint: ", dots[bestDot].atCheckpoint);
+    println("fitness: ", dots[bestDot].fitness);
     //if this dot reached the goal then reset the minimum number of steps it takes to get to the goal
     if (dots[bestDot].reachedGoal) {
       minStep = dots[bestDot].brain.step;
       println("step:", minStep);
+      
     }
   }
 }

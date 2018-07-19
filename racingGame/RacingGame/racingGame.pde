@@ -1,19 +1,22 @@
-PVector goal  = new PVector(10, 10);
+PVector goal  = new PVector(600, 100);
+PVector goal2 = new PVector(605, 650);
 PlayerCar car;
 Wall[] walls;
+Checkpoint[] cp;
 Population bots;
+int numberOfWalls = 0;
+int numberOfCheckpoints = 0;
 
 int generation = 1;
 void setup() {
   size(800, 800);
   frameRate(200);
   car = new PlayerCar();
-  bots = new Population(2000);
+  bots = new Population(3000);
   walls = new Wall[30];
   makeWalls();
-  //for(int i = 1; i < 10; i++){
-  //  walls[i] = new Wall(i*10, i*20, 30, 10);
-  //}
+  cp = new Checkpoint[35];
+  makeCheckpoints();
 }
 
 void draw() { 
@@ -21,15 +24,22 @@ void draw() {
   //draw goal
   fill(255, 0, 0);
   ellipse(goal.x, goal.y, 10, 10);
+  ellipse(goal2.x, goal2.y, 10, 10);
   
-  for(int i = 0; i < 3; i++){
+  for(int i = 0; i < numberOfWalls; i++){
     walls[i].show();
     car = carHitWall(car, walls[i]);
     for(int j = 0; j < bots.dots.length; j++){
       dotHitWall(bots.dots[j], walls[i]);
     }
   }
- 
+  
+  for(int i = 0; i < numberOfCheckpoints; i++){
+    cp[i].show();
+    for(int j = 0; j < bots.dots.length; j++){
+      dotHitCP(bots.dots[j], cp[i]);
+    }
+  }
     car.update();
     car.display();
   
@@ -39,7 +49,6 @@ void draw() {
     bots.calculateFitness();
     bots.naturalSelection();
     bots.mutateDemBabies();
-    generation++;
     if(car.dead){
       car.reset();
     }
@@ -74,6 +83,22 @@ boolean hitWall(float objX, float objY, float objW, float objH, Wall w){
           return a;
 
 }
+void dotHitCP(Dot d, Checkpoint c){
+  boolean b = hitCP(d.pos.x, d.pos.y, 1, 1, c);
+  if(b){
+    d.atCheckpoint = c.val;
+  }
+}
+
+boolean hitCP(float objX, float objY, float objW, float objH, Checkpoint c){
+  
+  boolean a =(objX + objW/2 <= c.x + c.w/2 && 
+              objX - objW/2 >= c.x - c.w/2 && 
+              objY + objH/2 <= c.y + c.h/2 && 
+              objY - objH/2 >= c.y - c.h/2);
+          return a;
+
+}
 
 void keyPressed() {
   int k = keyCode;
@@ -99,5 +124,29 @@ void makeWalls(){
   walls[0] = new Wall(100, 750, 15, 100);
   walls[1] = new Wall(75, 700, 50, 15);
   walls[2] = new Wall(50, 400, 15, 600);
+  walls[3] = new Wall(100, 100, 100, 15);
+  walls[4] = new Wall(200, 75, 15, 150);
+  walls[5] = new Wall(150, 150, 100, 15);
+  walls[6] = new Wall(100, 400, 15, 500);
+  
+  
+  numberOfWalls = 7;
+}
+
+void makeCheckpoints(){
+  for(int i = 0; i < 20; i++){
+     cp[i] = new Checkpoint(15, (i+1)*30, 19-i);
+  }
+  cp[20] = new Checkpoint(150, 70, 21);
+  cp[21] = new Checkpoint(150, 120, 22);
+  for(int i = 22; i< 31; i++){
+    int k = i-21;
+    if(i == 22){
+      cp[i] = new Checkpoint(75, k*70, 20);
+    } else{
+      cp[i] = new Checkpoint(75, k*70, i);
+    }
+  }
+  numberOfCheckpoints = 31;
 }
   
