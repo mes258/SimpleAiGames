@@ -12,10 +12,10 @@ void setup() {
   size(800, 800);
   frameRate(200);
   car = new PlayerCar();
-  bots = new Population(3000);
+  bots = new Population(2000);
   walls = new Wall[30];
   makeWalls();
-  cp = new Checkpoint[35];
+  cp = new Checkpoint[100];
   makeCheckpoints();
 }
 
@@ -25,6 +25,7 @@ void draw() {
   fill(255, 0, 0);
   ellipse(goal.x, goal.y, 10, 10);
   ellipse(goal2.x, goal2.y, 10, 10);
+  text(generation, 650, 20);
   
   for(int i = 0; i < numberOfWalls; i++){
     walls[i].show();
@@ -34,7 +35,7 @@ void draw() {
     }
   }
   
-  for(int i = 0; i < numberOfCheckpoints; i++){
+  for(int i = 2; i < numberOfCheckpoints; i++){
     cp[i].show();
     for(int j = 0; j < bots.dots.length; j++){
       dotHitCP(bots.dots[j], cp[i]);
@@ -49,6 +50,7 @@ void draw() {
     bots.calculateFitness();
     bots.naturalSelection();
     bots.mutateDemBabies();
+    generation++;
     if(car.dead){
       car.reset();
     }
@@ -135,18 +137,22 @@ void makeWalls(){
 
 void makeCheckpoints(){
   for(int i = 0; i < 20; i++){
-     cp[i] = new Checkpoint(15, (i+1)*30, 19-i);
+     cp[i] = new Checkpoint(20, (i+1)*30, 19-i);
   }
-  cp[20] = new Checkpoint(150, 70, 21);
-  cp[21] = new Checkpoint(150, 120, 22);
-  for(int i = 22; i< 31; i++){
-    int k = i-21;
-    if(i == 22){
-      cp[i] = new Checkpoint(75, k*70, 20);
+  cp[20] = new Checkpoint(115, 70, 19);
+  cp[21] = new Checkpoint(150, 70, 20);
+  cp[22] = new Checkpoint(185, 70, 21);
+  cp[23] = new Checkpoint(175, 120, 22);
+  cp[24] = new Checkpoint(140, 120, 23);
+  cp[25] = new Checkpoint(105, 120, 24);
+  for(int i = 26; i< 42; i++){
+    int k = i-25;
+    if(i == 26){
+      cp[i] = new Checkpoint(75, k*70, 18);
     } else{
-      cp[i] = new Checkpoint(75, k*70, i);
+      cp[i] = new Checkpoint(75, 70+(k*30), i);
     }
   }
-  numberOfCheckpoints = 31;
+  numberOfCheckpoints = 42;
 }
   

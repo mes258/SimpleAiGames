@@ -29,10 +29,10 @@ class Dot {
     if (isBest) {
       fill(0, 255, 0);
       ellipse(pos.x, pos.y, 8, 8);
-    } else if(atCheckpoint == 0) {//all other dots are just smaller black dots
+    } else if(atCheckpoint % 3 == 0) {//all other dots are just smaller black dots
       fill(0, 0, 0);
       ellipse(pos.x, pos.y, 2, 2);
-    } else if(atCheckpoint == 1) {
+    } else if(atCheckpoint % 3 == 1) {
       fill(255, 0, 0);
       ellipse(pos.x, pos.y, 4, 4);
     } else {
@@ -78,6 +78,7 @@ class Dot {
   //calculates the fitness
   void calculateFitness() {
     fitness = atCheckpoint * atCheckpoint;
+    fitness = fitness * fitness;
     //if(atCheckpoint == 0){
     //  float distanceToGoal = dist(pos.x, pos.y, goal.x, goal.y);
     //  fitness = 1.0/(distanceToGoal * distanceToGoal);
