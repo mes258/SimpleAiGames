@@ -14,9 +14,9 @@ class Dot {
   Dot() {
     brain = new Brain(1000);//new brain with 1000 instructions
     
-    atCheckpoint = 0;
+    atCheckpoint = 1;
     //start the dots at the bottom of the window with a no velocity or acceleration
-    pos = new PVector(50, height- 10);
+    pos = new PVector(20, height- 20);
     vel = new PVector(0, 0);
     acc = new PVector(0, 0);
   }
@@ -54,7 +54,7 @@ class Dot {
 
     //apply the acceleration and move the dot
     vel.add(acc);
-    vel.limit(5);//not too fast
+    vel.limit(6);//not too fast
     pos.add(vel);
   }
 
@@ -78,7 +78,7 @@ class Dot {
   //calculates the fitness
   void calculateFitness() {
     fitness = atCheckpoint * atCheckpoint;
-    fitness = fitness * fitness;
+    //fitness = fitness * fitness;
     //if(atCheckpoint == 0){
     //  float distanceToGoal = dist(pos.x, pos.y, goal.x, goal.y);
     //  fitness = 1.0/(distanceToGoal * distanceToGoal);

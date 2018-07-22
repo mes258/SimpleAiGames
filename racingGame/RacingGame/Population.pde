@@ -79,12 +79,12 @@ class Population {
       newDots[i] = parent.newBaby();
     }
 
-    dots = newDots.clone();
-    gen ++;
+    dots = newDots.clone(); 
+    gen++;
   }
 
 
-  //--------------------------------------------------------------------------------------------------------------------------------------
+  //---------------dots.-----------------------------------------------------------------------------------------------------------------------
   //you get it
   void calculateFitnessSum() {
     fitnessSum = 0;
@@ -119,9 +119,13 @@ class Population {
   }
 
   //------------------------------------------------------------------------------------------------------------------------------------------
-  //mutates all the brains of the babies
-  void mutateDemBabies() {
-    for (int i = 1; i< dots.length; i++) {
+  //void mutateDemBabies(){s  //  for (int i = 1; i< dots.length; i++) {
+  //    dots[i].brain.mutate();
+  //  }
+  //}
+  
+  void mutateDots(){
+    for(int i = 1; i < dots.length; i++){
       dots[i].brain.mutate();
     }
   }
@@ -131,17 +135,27 @@ class Population {
   void setBestDot() {
     float max = 0;
     int maxIndex = 0;
+    float secondMax = 0;
+    int secondMaxIndex = 0;
     for (int i = 0; i< dots.length; i++) {
       if (dots[i].fitness > max) {
         max = dots[i].fitness;
         maxIndex = i;
+      }else if(dots[i].fitness > secondMax){
+        secondMax = dots[i].fitness;
+        secondMaxIndex = i;
       }
+      dots[maxIndex].fitness = max*max;
+      dots[secondMaxIndex].fitness = secondMax*secondMax;
     }
 
     bestDot = maxIndex;
     println("Setting best dot");
     println("checkpoint: ", dots[bestDot].atCheckpoint);
     println("fitness: ", dots[bestDot].fitness);
+    println("second checkpoint: ", dots[secondMaxIndex].atCheckpoint);
+    println("second fitness", dots[secondMaxIndex].fitness);
+    println("");
     //if this dot reached the goal then reset the minimum number of steps it takes to get to the goal
     if (dots[bestDot].reachedGoal) {
       minStep = dots[bestDot].brain.step;

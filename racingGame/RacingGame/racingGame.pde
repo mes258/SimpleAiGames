@@ -8,8 +8,12 @@ int numberOfWalls = 0;
 int numberOfCheckpoints = 0;
 
 int generation = 1;
+void settings(){
+    size(720, 720);
+}
+
 void setup() {
-  size(800, 800);
+
   frameRate(200);
   car = new PlayerCar();
   bots = new Population(2000);
@@ -35,7 +39,7 @@ void draw() {
     }
   }
   
-  for(int i = 2; i < numberOfCheckpoints; i++){
+  for(int i = 0; i < numberOfCheckpoints; i++){
     cp[i].show();
     for(int j = 0; j < bots.dots.length; j++){
       dotHitCP(bots.dots[j], cp[i]);
@@ -49,7 +53,7 @@ void draw() {
     //genetic algorithm
     bots.calculateFitness();
     bots.naturalSelection();
-    bots.mutateDemBabies();
+    bots.mutateDots();
     generation++;
     if(car.dead){
       car.reset();
@@ -123,14 +127,13 @@ void keyReleased() {
 void makeWalls(){
   //         dist from: Left,Top,  w,  h
   //walls[x] = new Wall(500, 500, 50, 100);
-  walls[0] = new Wall(100, 750, 15, 100);
-  walls[1] = new Wall(75, 700, 50, 15);
-  walls[2] = new Wall(50, 400, 15, 600);
-  walls[3] = new Wall(100, 100, 100, 15);
-  walls[4] = new Wall(200, 75, 15, 150);
-  walls[5] = new Wall(150, 150, 100, 15);
-  walls[6] = new Wall(100, 400, 15, 500);
-  
+  walls[0] = new Wall(0,50, 390, 15, 660);
+  walls[1] = new Wall(1, 10, 60, 30, 15);
+  walls[2] = new Wall(2,100, 35, 15, 70);
+  walls[3] = new Wall(3,100, 100, 100, 15);
+  walls[4] = new Wall(4,200, 75, 15, 150);
+  walls[5] = new Wall(5,150, 150, 100, 15);
+  walls[6] = new Wall(6,100, 400, 15, 500);
   
   numberOfWalls = 7;
 }
@@ -139,20 +142,22 @@ void makeCheckpoints(){
   for(int i = 0; i < 20; i++){
      cp[i] = new Checkpoint(20, (i+1)*30, 19-i);
   }
-  cp[20] = new Checkpoint(115, 70, 19);
-  cp[21] = new Checkpoint(150, 70, 20);
-  cp[22] = new Checkpoint(185, 70, 21);
-  cp[23] = new Checkpoint(175, 120, 22);
-  cp[24] = new Checkpoint(140, 120, 23);
-  cp[25] = new Checkpoint(105, 120, 24);
-  for(int i = 26; i< 42; i++){
-    int k = i-25;
-    if(i == 26){
-      cp[i] = new Checkpoint(75, k*70, 18);
+  cp[20] = new Checkpoint(75, 50, 21);
+  cp[21] = new Checkpoint(75, 80, 22);
+  cp[22] = new Checkpoint(115, 80, 23);
+  cp[23] = new Checkpoint(155, 80, 24);
+  cp[24] = new Checkpoint(175, 100, 25);
+  cp[25] = new Checkpoint(155, 120, 26);
+  cp[26] = new Checkpoint(115, 120, 27);
+  for(int i = 27; i< 48; i++){
+    int k = i-26;
+    if(i == 27){
+      cp[i] = new Checkpoint(60, k*30, 20);
     } else{
       cp[i] = new Checkpoint(75, 70+(k*30), i);
     }
   }
-  numberOfCheckpoints = 42;
+  
+  numberOfCheckpoints = 48;
 }
   

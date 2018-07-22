@@ -14,8 +14,8 @@ class PlayerCar{
   boolean dead;
   PlayerCar() {
     c = color(175);
-    this.x = 10;
-    this.y = 750;
+    this.x = 20;
+    this.y = height -20;
     setBordersC() ;
   }
   
@@ -51,8 +51,8 @@ class PlayerCar{
   
   void reset(){
     dead = false;
-    x = 10; 
-    y = 750;
+    x = 20; 
+    y = height-20;
     setBordersC();
   }
 }
