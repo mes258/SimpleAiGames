@@ -135,12 +135,18 @@ class Population {
   void setBestDot() {
     float max = 0;
     int maxIndex = 0;
+    //int maxSteps = 0;
     float secondMax = 0;
     int secondMaxIndex = 0;
     for (int i = 0; i< dots.length; i++) {
       if (dots[i].fitness > max) {
         max = dots[i].fitness;
         maxIndex = i;
+        //maxSteps = dots[i].steps;
+      //}else if(dots[i].fitness == max && dots[i].steps < maxSteps){
+      //  max = dots[i].fitness;
+      //  maxIndex = i;
+      //  maxSteps = dots[i].steps;
       }else if(dots[i].fitness > secondMax){
         secondMax = dots[i].fitness;
         secondMaxIndex = i;

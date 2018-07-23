@@ -6,6 +6,7 @@ Checkpoint[] cp;
 Population bots;
 int numberOfWalls = 0;
 int numberOfCheckpoints = 0;
+Wall moveWall;
 
 int generation = 1;
 void settings(){
@@ -21,15 +22,21 @@ void setup() {
   makeWalls();
   cp = new Checkpoint[100];
   makeCheckpoints();
+  moveWall = new Wall(10, 500, 500, 20, 50, 400, 600, true, true);
 }
-
+int step = 0;
 void draw() { 
+  step++;
   background(255);
   //draw goal
   fill(255, 0, 0);
   ellipse(goal.x, goal.y, 10, 10);
   ellipse(goal2.x, goal2.y, 10, 10);
   text(generation, 650, 20);
+  
+  updateWall(moveWall);
+  rect(moveWall.x, moveWall.y, moveWall.w, moveWall.h);
+  
   
   for(int i = 0; i < numberOfWalls; i++){
     walls[i].show();
@@ -65,6 +72,42 @@ void draw() {
   }
 }
 
+void updateWall(Wall w){
+  if(w.increase){                //increase is true;
+    if(w.moveX){                    //moving x
+      if(w.x < w.max){                //x is less than max
+        w.x++;
+      }else{                          //x is more than max
+        w.increase = false;
+        w.x-=2;
+      }
+    }else{                          // moving y
+      if(w.y < w.max){                //y is less than max
+        w.y++;
+      }else{                          //y is more than max
+        w.increase = false;
+        w.y--;
+      }
+    }
+  }else{                      //increase is false
+    if(w.moveX){                    //moving x
+      if(w.x >= w.min){                //x is less than max
+        w.x--;
+      }else{                          //x is more than max
+        w.increase = true;
+        w.x++;
+      }
+    }else{                          // moving y
+      if(w.y >= w.min){                //y is less than max
+        w.y--;
+      }else{                          //y is more than max
+        w.increase = true;
+        w.y++;
+      }
+    }
+  }
+}
+
 void dotHitWall(Dot d, Wall w){
   boolean b = hitWall(d.pos.x, d.pos.y, 1, 1, w);
   if(b){
@@ -92,7 +135,10 @@ boolean hitWall(float objX, float objY, float objW, float objH, Wall w){
 void dotHitCP(Dot d, Checkpoint c){
   boolean b = hitCP(d.pos.x, d.pos.y, 1, 1, c);
   if(b){
-    d.atCheckpoint = c.val;
+    if(c.val > d.atCheckpoint){
+      d.atCheckpoint = c.val;
+    }
+    d.steps = step;
   }
 }
 

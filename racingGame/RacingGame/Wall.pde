@@ -3,12 +3,27 @@ class Wall {
   public float x, y, h, w;
   public String num;
   int totalDotsKilled = 0;
+  int min, max;
+  boolean moveX;
+  boolean increase;
   Wall(int n, float x, float y, float w, float h) {
     this.x = x;
     this.y = y;
     this.h = h;
     this.w = w;
     this.num = ""+n;
+  }
+  
+  Wall(int n, float x, float y, float w, float h, int min, int max, boolean moveX, boolean increase){
+    this.x = x;
+    this.y = y;
+    this.h = h;
+    this.w = w;
+    this.num = ""+n;
+    this.max = max;
+    this.min = min;
+    this.moveX = moveX;
+    this.increase = increase;
   }
   
   void show(){

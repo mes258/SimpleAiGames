@@ -7,6 +7,7 @@ class Dot {
   boolean dead = false;
   boolean reachedGoal = false;
   boolean isBest = false;//true if this dot is the best dot from the previous generation
+  int steps = 0;
   
   int atCheckpoint = 0;
   float fitness = 0;
