@@ -11,7 +11,7 @@ class Population {
   Population(int size) {
     dots = new Dot[size];
     for (int i = 0; i< size; i++) {
-      dots[i] = new Dot();
+      dots[i] = new Dot(0);
     }
   }
 
@@ -164,6 +164,7 @@ class Population {
     //println("Setting best dot");
     println("checkpoint: ", dots[bestDot].atCheckpoint);
     println("fitness: ", dots[bestDot].fitness);
+    println("RP: ", dots[bestDot].atRP);
     println("finished? ", atEnd);
     //println("second checkpoint: ", dots[secondMaxIndex].atCheckpoint);
     //println("second fitness", dots[secondMaxIndex].fitness);

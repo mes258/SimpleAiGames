@@ -12,10 +12,12 @@ class PlayerCar{
   float rightBorderC;
   float leftBorderC;
   boolean dead;
-  PlayerCar() {
+  int atRP = 0;
+  PlayerCar(int RP) {
     c = color(175);
     this.x = 20;
     this.y = height -20;
+    this.atRP = RP;
     setBordersC() ;
   }
   
@@ -51,8 +53,17 @@ class PlayerCar{
   
   void reset(){
     dead = false;
-    x = 20; 
-    y = height-20;
+    if(atRP == 0){
+      x = 20; 
+      y = height-20;
+    }else if(atRP == 1){
+      x = 100; 
+      y = 20;
+    }else if(atRP == 2){
+      x = 150; 
+      y = height-20;
+    }
+    
     setBordersC();
   }
 }

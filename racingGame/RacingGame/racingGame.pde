@@ -20,7 +20,7 @@ void settings(){
 void setup() {
 
   frameRate(200);
-  car = new PlayerCar();
+  car = new PlayerCar(0);
   bots = new Population(2000);
   walls = new Wall[30];
   makeWalls();
@@ -28,6 +28,9 @@ void setup() {
   makeCheckpoints();
   movingWalls = new Wall[30];
   makeMovingWalls();
+  
+  RP = new RestartPoint[10];
+  makeRPs();
   
 }
 int step = 0;
@@ -40,7 +43,13 @@ void draw() {
   ellipse(goal2.x, goal2.y, 10, 10);
   text(generation, 650, 20);
   
-  
+  for(int i = 0; i < numberOfRPs; i++){
+    RP[i].show();
+    car = carHitRP(car, RP[i]);
+    for(int j = 0; j < bots.dots.length; j++){
+      dotHitRP(bots.dots[j], RP[i]);
+    }
+  }
   
   for(int i = 0; i < numberOfMovingWalls; i++){
     updateWall(movingWalls[i]);
@@ -145,7 +154,6 @@ boolean hitWall(float objX, float objY, float objW, float objH, Wall w){
               objY + objH/2 <= w.y + w.h/2 && 
               objY - objH/2 >= w.y - w.h/2);
           return a;
-
 }
 void dotHitCP(Dot d, Checkpoint c){
   boolean b = hitCP(d.pos.x, d.pos.y, 1, 1, c);
@@ -162,8 +170,32 @@ boolean hitCP(float objX, float objY, float objW, float objH, Checkpoint c){
               objY + objH/2 <= c.y + c.h/2 && 
               objY - objH/2 >= c.y - c.h/2);
           return a;
-
 }
+
+boolean hitRP(float objX, float objY, float objW, float objH, RestartPoint w){
+  
+  boolean a =(objX + objW/2 <= w.x + w.w/2 && 
+              objX - objW/2 >= w.x - w.w/2 && 
+              objY + objH/2 <= w.y + w.h/2 && 
+              objY - objH/2 >= w.y - w.h/2);
+          return a;
+}
+
+void dotHitRP(Dot d, RestartPoint p){
+  boolean b = hitRP(d.pos.x, d.pos.y, 1, 1, p);
+  if(b){
+    d.atRP = p.val;
+  }
+}
+
+PlayerCar carHitRP(PlayerCar c, RestartPoint w){
+  boolean b = hitRP(c.x, c.y, c.w, c.h, w);
+  if(b){
+    c.atRP = w.val;
+  }
+  return c;
+}
+
 
 void keyPressed() {
   int k = keyCode;
@@ -260,6 +292,17 @@ void makeCheckpoints(){
       break;
     }
   }
+}
+
+void makeRPs(){
+  RP[0] = new RestartPoint(90, 20, 1);
+  RP[1] = new RestartPoint(120, 680, 2);
   
+  for(int i = 0; i < RP.length; i++){
+    if(RP[i] == null){
+      numberOfRPs = i;
+      break;
+    }
+  }
 }
   

@@ -9,17 +9,30 @@ class Dot {
   boolean isBest = false;//true if this dot is the best dot from the previous generation
   int steps = 0;
   
+  int atRP = 0;
+  
   int atCheckpoint = 0;
   float fitness = 0;
 
-  Dot() {
+  Dot(int RP) {
     brain = new Brain(1000);//new brain with 1000 instructions
-    
+    this.atRP = RP;
     atCheckpoint = 1;
     //start the dots at the bottom of the window with a no velocity or acceleration
-    pos = new PVector(20, height- 20);
-    vel = new PVector(0, 0);
-    acc = new PVector(0, 0);
+    if(atRP == 0){
+      pos = new PVector(20, height- 20);
+      vel = new PVector(0, 0);
+      acc = new PVector(0, 0);
+    }else if(atRP == 1){
+      pos = new PVector(100, 20);
+      vel = new PVector(0, 0);
+      acc = new PVector(0, 0);
+    }else if(atRP == 2){
+      pos = new PVector(150, height- 20);
+      vel = new PVector(0, 0);
+      acc = new PVector(0, 0);
+    }
+    
   }
 
 
@@ -94,7 +107,7 @@ class Dot {
   //---------------------------------------------------------------------------------------------------------------------------------------
   //clone it 
   Dot newBaby() {
-    Dot baby = new Dot();
+    Dot baby = new Dot(this.atRP);
     baby.brain = brain.clone();//babies have the same brain as their parents
     return baby;
   }
