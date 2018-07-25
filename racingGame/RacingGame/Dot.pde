@@ -28,7 +28,7 @@ class Dot {
       vel = new PVector(0, 0);
       acc = new PVector(0, 0);
     }else if(atRP == 2){
-      pos = new PVector(150, height- 20);
+      pos = new PVector(120, 650);
       vel = new PVector(0, 0);
       acc = new PVector(0, 0);
     }

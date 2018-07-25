@@ -60,8 +60,8 @@ class PlayerCar{
       x = 100; 
       y = 20;
     }else if(atRP == 2){
-      x = 150; 
-      y = height-20;
+      x = 120; 
+      y = 650;
     }
     
     setBordersC();
