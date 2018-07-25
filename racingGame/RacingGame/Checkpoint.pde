@@ -8,8 +8,15 @@ class Checkpoint{
    this.x = x;
    this.y = y;
    this.val = v;
-  }
+   }
   
+  public Checkpoint(float x, float y, float w, int v){
+   this.x = x;
+   this.y = y;
+   this.w = w;
+   this.val = v;
+   }
+   
   void show(){
     fill(50, 50, 50);
     rect(x, y, w, h);

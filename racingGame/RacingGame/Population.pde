@@ -135,6 +135,7 @@ class Population {
   void setBestDot() {
     float max = 0;
     int maxIndex = 0;
+    boolean atEnd = false;;
     //int maxSteps = 0;
     float secondMax = 0;
     int secondMaxIndex = 0;
@@ -142,6 +143,10 @@ class Population {
       if (dots[i].fitness > max) {
         max = dots[i].fitness;
         maxIndex = i;
+        if(max == 126*126){
+          atEnd = true;
+          println("YOU WIN!!");
+        }
         //maxSteps = dots[i].steps;
       //}else if(dots[i].fitness == max && dots[i].steps < maxSteps){
       //  max = dots[i].fitness;
@@ -156,11 +161,12 @@ class Population {
     }
 
     bestDot = maxIndex;
-    println("Setting best dot");
+    //println("Setting best dot");
     println("checkpoint: ", dots[bestDot].atCheckpoint);
     println("fitness: ", dots[bestDot].fitness);
-    println("second checkpoint: ", dots[secondMaxIndex].atCheckpoint);
-    println("second fitness", dots[secondMaxIndex].fitness);
+    println("finished? ", atEnd);
+    //println("second checkpoint: ", dots[secondMaxIndex].atCheckpoint);
+    //println("second fitness", dots[secondMaxIndex].fitness);
     println("");
     //if this dot reached the goal then reset the minimum number of steps it takes to get to the goal
     if (dots[bestDot].reachedGoal) {

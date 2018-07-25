@@ -3,7 +3,7 @@ class Wall {
   public float x, y, h, w;
   public String num;
   int totalDotsKilled = 0;
-  int min, max;
+  int min, max, speed;
   boolean moveX;
   boolean increase;
   Wall(int n, float x, float y, float w, float h) {
@@ -14,7 +14,7 @@ class Wall {
     this.num = ""+n;
   }
   
-  Wall(int n, float x, float y, float w, float h, int min, int max, boolean moveX, boolean increase){
+  Wall(int n, float x, float y, float w, float h, int min, int max, boolean moveX, boolean increase, int speed){
     this.x = x;
     this.y = y;
     this.h = h;
@@ -24,6 +24,7 @@ class Wall {
     this.min = min;
     this.moveX = moveX;
     this.increase = increase;
+    this.speed = speed;
   }
   
   void show(){

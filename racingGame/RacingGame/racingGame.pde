@@ -6,7 +6,11 @@ Checkpoint[] cp;
 Population bots;
 int numberOfWalls = 0;
 int numberOfCheckpoints = 0;
-Wall moveWall;
+Wall movingWalls[];
+int numberOfMovingWalls = 0;
+
+RestartPoint RP[];
+int numberOfRPs = 0;
 
 int generation = 1;
 void settings(){
@@ -20,9 +24,11 @@ void setup() {
   bots = new Population(2000);
   walls = new Wall[30];
   makeWalls();
-  cp = new Checkpoint[100];
+  cp = new Checkpoint[200];
   makeCheckpoints();
-  moveWall = new Wall(10, 500, 500, 20, 50, 400, 600, true, true);
+  movingWalls = new Wall[30];
+  makeMovingWalls();
+  
 }
 int step = 0;
 void draw() { 
@@ -34,8 +40,16 @@ void draw() {
   ellipse(goal2.x, goal2.y, 10, 10);
   text(generation, 650, 20);
   
-  updateWall(moveWall);
-  rect(moveWall.x, moveWall.y, moveWall.w, moveWall.h);
+  
+  
+  for(int i = 0; i < numberOfMovingWalls; i++){
+    updateWall(movingWalls[i]);
+    movingWalls[i].show();
+    car = carHitWall(car, movingWalls[i]);
+    for(int j = 0; j < bots.dots.length; j++){
+        dotHitWall(bots.dots[j], movingWalls[i]);
+    }
+  }
   
   
   for(int i = 0; i < numberOfWalls; i++){
@@ -60,6 +74,7 @@ void draw() {
     //genetic algorithm
     bots.calculateFitness();
     bots.naturalSelection();
+    makeMovingWalls();
     bots.mutateDots();
     generation++;
     if(car.dead){
@@ -76,33 +91,33 @@ void updateWall(Wall w){
   if(w.increase){                //increase is true;
     if(w.moveX){                    //moving x
       if(w.x < w.max){                //x is less than max
-        w.x++;
+        w.x += w.speed;
       }else{                          //x is more than max
         w.increase = false;
-        w.x-=2;
+        w.x -= w.speed;
       }
     }else{                          // moving y
       if(w.y < w.max){                //y is less than max
-        w.y++;
+        w.y+= w.speed;
       }else{                          //y is more than max
         w.increase = false;
-        w.y--;
+        w.y-= w.speed;
       }
     }
   }else{                      //increase is false
     if(w.moveX){                    //moving x
       if(w.x >= w.min){                //x is less than max
-        w.x--;
+        w.x-= w.speed;
       }else{                          //x is more than max
         w.increase = true;
-        w.x++;
+        w.x+= w.speed;
       }
     }else{                          // moving y
       if(w.y >= w.min){                //y is less than max
-        w.y--;
+        w.y-= w.speed;
       }else{                          //y is more than max
         w.increase = true;
-        w.y++;
+        w.y+= w.speed;
       }
     }
   }
@@ -135,9 +150,7 @@ boolean hitWall(float objX, float objY, float objW, float objH, Wall w){
 void dotHitCP(Dot d, Checkpoint c){
   boolean b = hitCP(d.pos.x, d.pos.y, 1, 1, c);
   if(b){
-    if(c.val > d.atCheckpoint){
       d.atCheckpoint = c.val;
-    }
     d.steps = step;
   }
 }
@@ -175,35 +188,78 @@ void makeWalls(){
   //walls[x] = new Wall(500, 500, 50, 100);
   walls[0] = new Wall(0,50, 390, 15, 660);
   walls[1] = new Wall(1, 10, 60, 30, 15);
-  walls[2] = new Wall(2,100, 35, 15, 70);
+  walls[2] = new Wall(2, 90, 70, 15, 60);
   walls[3] = new Wall(3,100, 100, 100, 15);
   walls[4] = new Wall(4,200, 75, 15, 150);
   walls[5] = new Wall(5,150, 150, 100, 15);
   walls[6] = new Wall(6,100, 400, 15, 500);
+  walls[7] = new Wall(7, 200, 470, 15, 500);
+  numberOfWalls = 8;
+}
+
+void makeMovingWalls(){
+  movingWalls[0] = new Wall(10, 50, 400, 15, 60, 50, 100, true, true, 1);
+  movingWalls[1] = new Wall(11, 100, 400, 15, 60, 100, 200, true, true, 1);
+  movingWalls[2] = new Wall(12, 100, 550, 15, 60, 100, 200, true, true, 1);
+  movingWalls[3] = new Wall(13, 100, 450, 15, 60, 100, 200, true, true, 1);
+  movingWalls[4] = new Wall(14, 100, 600, 15, 60, 100, 200, true, true, 2);
+  movingWalls[5] = new Wall(15, 100, 250, 15, 60, 100, 200, true, true, 2);
+  movingWalls[6] = new Wall(16, 100, 300, 15, 60, 100, 200, true, true, 3);
+  movingWalls[7] = new Wall(17, 100, 275, 15, 60, 100, 200, true, true, 3);
   
-  numberOfWalls = 7;
+  
+  numberOfMovingWalls = 8;
 }
 
 void makeCheckpoints(){
-  for(int i = 0; i < 20; i++){
-     cp[i] = new Checkpoint(20, (i+1)*30, 19-i);
+  for(int i = 0; i < 40; i++){
+     cp[i] = new Checkpoint(20, (i+1)*15 + 50, 39-i);
   }
-  cp[20] = new Checkpoint(75, 50, 21);
-  cp[21] = new Checkpoint(75, 80, 22);
-  cp[22] = new Checkpoint(115, 80, 23);
-  cp[23] = new Checkpoint(155, 80, 24);
-  cp[24] = new Checkpoint(175, 100, 25);
-  cp[25] = new Checkpoint(155, 120, 26);
-  cp[26] = new Checkpoint(115, 120, 27);
-  for(int i = 27; i< 48; i++){
-    int k = i-26;
-    if(i == 27){
-      cp[i] = new Checkpoint(60, k*30, 20);
-    } else{
-      cp[i] = new Checkpoint(75, 70+(k*30), i);
+  cp[40] = new Checkpoint(40, 50, 40);
+  cp[41] = new Checkpoint(55, 35, 41);
+  cp[42] = new Checkpoint(75, 25, 42);
+  cp[43] = new Checkpoint(90, 20, 43);
+  cp[44] = new Checkpoint(105, 25, 44);
+  cp[45] = new Checkpoint(125, 35, 45);
+  cp[46] = new Checkpoint(135, 45, 46);
+  
+  cp[47] = new Checkpoint(145, 55, 47);
+  cp[48] = new Checkpoint(155, 65, 48);
+  cp[49] = new Checkpoint(160, 75, 49);
+  cp[50] = new Checkpoint(165, 85, 50);
+  cp[51] = new Checkpoint(170, 100, 51);
+  cp[52] = new Checkpoint(165, 110, 52);
+  
+  cp[53] = new Checkpoint(155, 115, 53);
+  cp[54] = new Checkpoint(135, 120, 54);
+  cp[55] = new Checkpoint(120, 125, 55);
+  cp[56] = new Checkpoint(105, 130, 56);
+  cp[57] = new Checkpoint(90, 135, 57);
+  cp[58] = new Checkpoint(80, 140, 58);
+ 
+  for(int i = 59; i< 93; i++){
+    int k = i-58;
+    cp[i] = new Checkpoint(75, 130+(k*15), i);
+  }
+  cp[93] = new Checkpoint(80, 655, 94);
+  cp[94] = new Checkpoint(90, 660, 95);
+  cp[95] = new Checkpoint(100, 665, 96);
+  cp[96] = new Checkpoint(110, 665, 97);
+  cp[97] = new Checkpoint(120, 660, 98);
+  cp[98] = new Checkpoint(130, 655, 99);
+  
+  for(int i = 99; i< 129; i++){
+    int k = i-98;
+    cp[i] = new Checkpoint(150, 190+(k*15), 70, 130-k);
+  }
+  
+  for(int i = 0; i < cp.length; i++){
+    if(cp[i] == null){
+      print(i);
+      numberOfCheckpoints = i;
+      break;
     }
   }
   
-  numberOfCheckpoints = 48;
 }
   
