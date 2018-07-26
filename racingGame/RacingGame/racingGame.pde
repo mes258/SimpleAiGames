@@ -21,7 +21,7 @@ void setup() {
 
   frameRate(200);
   car = new PlayerCar(0);
-  bots = new Population(2000);
+  bots = new Population(1000);
   walls = new Wall[30];
   makeWalls();
   cp = new Checkpoint[200];
@@ -70,7 +70,7 @@ void draw() {
   }
   
   for(int i = 0; i < numberOfCheckpoints; i++){
-    cp[i].show();
+    //cp[i].show();
     for(int j = 0; j < bots.dots.length; j++){
       dotHitCP(bots.dots[j], cp[i]);
     }
@@ -81,11 +81,13 @@ void draw() {
   
   if (bots.allDotsDead()) {
     //genetic algorithm
+    println("Generation: " + generation);
     bots.calculateFitness();
     bots.naturalSelection();
     makeMovingWalls();
     bots.mutateDots();
     generation++;
+   
     if(car.dead){
       car.reset();
     }
@@ -231,16 +233,22 @@ void makeWalls(){
 
 void makeMovingWalls(){
   movingWalls[0] = new Wall(10, 50, 400, 15, 60, 50, 100, true, true, 1);
-  movingWalls[1] = new Wall(11, 100, 400, 15, 60, 100, 200, true, true, 1);
-  movingWalls[2] = new Wall(12, 100, 550, 15, 60, 100, 200, true, true, 1);
+  
+  movingWalls[1] = new Wall(11, 100, 600, 15, 60, 100, 200, true, true, 1);
+  movingWalls[2] = new Wall(12, 198, 550, 15, 60, 100, 200, true, true, 1);
+  
+  
   movingWalls[3] = new Wall(13, 100, 450, 15, 60, 100, 200, true, true, 1);
-  movingWalls[4] = new Wall(14, 100, 600, 15, 60, 100, 200, true, true, 2);
-  movingWalls[5] = new Wall(15, 100, 250, 15, 60, 100, 200, true, true, 2);
-  movingWalls[6] = new Wall(16, 100, 300, 15, 60, 100, 200, true, true, 3);
+  movingWalls[4] = new Wall(14, 100, 400, 15, 60, 100, 200, true, true, 2);
+  
+  movingWalls[5] = new Wall(15, 100, 350, 15, 60, 100, 200, true, true, 1);
+  movingWalls[6] = new Wall(16, 198, 300, 15, 60, 100, 200, true, true, 2);
   movingWalls[7] = new Wall(17, 100, 275, 15, 60, 100, 200, true, true, 3);
+  movingWalls[8] = new Wall(18, 100, 250, 15, 60, 100, 200, true, true, 3);
+ 
   
   
-  numberOfMovingWalls = 8;
+  numberOfMovingWalls = 9;
 }
 
 void makeCheckpoints(){

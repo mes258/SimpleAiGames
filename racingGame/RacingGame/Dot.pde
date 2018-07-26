@@ -43,15 +43,17 @@ class Dot {
     if (isBest) {
       fill(0, 255, 0);
       ellipse(pos.x, pos.y, 8, 8);
-    } else if(atCheckpoint % 3 == 0) {//all other dots are just smaller black dots
-      fill(0, 0, 0);
-      ellipse(pos.x, pos.y, 2, 2);
-    } else if(atCheckpoint % 3 == 1) {
-      fill(255, 0, 0);
-      ellipse(pos.x, pos.y, 4, 4);
-    } else {
-      fill(0, 0, 255);
-      ellipse(pos.x, pos.y, 4, 4);
+    }
+    //} else if(atCheckpoint % 3 == 0) {//all other dots are just smaller black dots
+    //  fill(0, 0, 0);
+    //  ellipse(pos.x, pos.y, 2, 2);
+    //} else if(atCheckpoint % 3 == 1) {
+    //  fill(255, 0, 0);
+    //  ellipse(pos.x, pos.y, 4, 4);
+    //} 
+    else {
+      //fill(255);
+      //ellipse(pos.x, pos.y, 4, 4);
     }
   }
 

@@ -143,7 +143,7 @@ class Population {
       if (dots[i].fitness > max) {
         max = dots[i].fitness;
         maxIndex = i;
-        if(max == 126*126){
+        if(max == 129*129){
           atEnd = true;
           println("YOU WIN!!");
         }
