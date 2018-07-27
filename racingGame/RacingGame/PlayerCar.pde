@@ -13,6 +13,7 @@ class PlayerCar{
   float leftBorderC;
   boolean dead;
   int atRP = 0;
+  
   PlayerCar(int RP) {
     c = color(175);
     this.x = 20;

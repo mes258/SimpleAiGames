@@ -156,8 +156,8 @@ class Population {
         secondMax = dots[i].fitness;
         secondMaxIndex = i;
       }
-      dots[maxIndex].fitness = max*max;
-      dots[secondMaxIndex].fitness = secondMax*secondMax;
+      dots[maxIndex].fitness = max+(10*dots[maxIndex].atRP);
+      //dots[secondMaxIndex].fitness = secondMax*secondMax;
     }
 
     bestDot = maxIndex;

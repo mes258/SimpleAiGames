@@ -17,7 +17,7 @@ class Dot {
   Dot(int RP) {
     brain = new Brain(1000);//new brain with 1000 instructions
     this.atRP = RP;
-    atCheckpoint = 1;
+    //atCheckpoint = 1;
     //start the dots at the bottom of the window with a no velocity or acceleration
     if(atRP == 0){
       pos = new PVector(20, height- 20);
@@ -29,6 +29,10 @@ class Dot {
       acc = new PVector(0, 0);
     }else if(atRP == 2){
       pos = new PVector(120, 650);
+      vel = new PVector(0, 0);
+      acc = new PVector(0, 0);
+    }else if(atRP == 3){
+      pos = new PVector(200, 230);
       vel = new PVector(0, 0);
       acc = new PVector(0, 0);
     }
@@ -43,17 +47,17 @@ class Dot {
     if (isBest) {
       fill(0, 255, 0);
       ellipse(pos.x, pos.y, 8, 8);
-    }
-    //} else if(atCheckpoint % 3 == 0) {//all other dots are just smaller black dots
-    //  fill(0, 0, 0);
-    //  ellipse(pos.x, pos.y, 2, 2);
-    //} else if(atCheckpoint % 3 == 1) {
-    //  fill(255, 0, 0);
-    //  ellipse(pos.x, pos.y, 4, 4);
-    //} 
+    
+    } else if(atRP == 0) {//all other dots are just smaller black dots
+      fill(0, 0, 0);
+      ellipse(pos.x, pos.y, 2, 2);
+    } else if(atRP == 1) {
+      fill(255, 0, 0);
+      ellipse(pos.x, pos.y, 4, 4);
+    } 
     else {
-      //fill(255);
-      //ellipse(pos.x, pos.y, 4, 4);
+      fill(255,0,0);
+      ellipse(pos.x, pos.y, 4, 4);
     }
   }
 
@@ -81,10 +85,10 @@ class Dot {
       move();
       if (pos.x< 2|| pos.y<2 || pos.x>width-2 || pos.y>height -2) {//if near the edges of the window then kill it 
         dead = true;
-      } else if (dist(pos.x, pos.y, goal.x, goal.y) < 5) {//if reached goal
-        reachedGoal = true;
-      } else if (dist(pos.x, pos.y, goal2.x, goal2.y) < 5) {//if reached goal2
-        reachedGoal = true;
+      } else if (dist(pos.x, pos.y, 100, 20) < 5) {//if reached goal
+        atRP = 1;
+      } else if (dist(pos.x, pos.y, 170, 730) < 5) {//if reached goal2
+        atRP = 2;
       }
     }
   }
@@ -92,9 +96,25 @@ class Dot {
 
   //--------------------------------------------------------------------------------------------------------------------------------------
   //calculates the fitness
+  
+  //RPs: 
+  //RP[0] = new RestartPoint(90, 20, 1);
+  //RP[1] = new RestartPoint(120, 680, 2);
+  //RP[2] = new RestartPoint(150, 180, 3);
   void calculateFitness() {
-    fitness = atCheckpoint * atCheckpoint;
-    //fitness = fitness * fitness;
+    //fitness = atCheckpoint * atCheckpoint;
+    if(atRP == 0){
+      float distanceToGoal = dist(pos.x, pos.y, 100, 20);
+      fitness = 1.0/(distanceToGoal * distanceToGoal);
+    }else if(atRP == 1){
+      float distanceToGoal = dist(pos.x, pos.y, 170, 730);
+      fitness = (1.0/(distanceToGoal * distanceToGoal))*10 + 10;
+    }else if(atRP == 2){
+      float distanceToGoal = dist(pos.x, pos.y, 200, 230);
+      fitness = (1.0/(distanceToGoal * distanceToGoal))*100 + 100;
+    }
+    
+    //itness = fitness * fitness;
     //if(atCheckpoint == 0){
     //  float distanceToGoal = dist(pos.x, pos.y, goal.x, goal.y);
     //  fitness = 1.0/(distanceToGoal * distanceToGoal);

@@ -13,6 +13,8 @@ RestartPoint RP[];
 int numberOfRPs = 0;
 
 int generation = 1;
+
+boolean stageOneComplete = true;
 void settings(){
     size(720, 720);
 }
@@ -21,7 +23,7 @@ void setup() {
 
   frameRate(200);
   car = new PlayerCar(0);
-  bots = new Population(1000);
+  bots = new Population(2000);
   walls = new Wall[30];
   makeWalls();
   cp = new Checkpoint[200];
@@ -32,9 +34,19 @@ void setup() {
   RP = new RestartPoint[10];
   makeRPs();
   
+  stageOneComplete = true;
+  
+  
 }
 int step = 0;
 void draw() { 
+  //Now based on distance to next RP
+  //add more slopes (above RP 3)
+  //slower, pre programmed dot that never dies
+  
+  
+  
+  
   step++;
   background(255);
   //draw goal
@@ -42,6 +54,20 @@ void draw() {
   ellipse(goal.x, goal.y, 10, 10);
   ellipse(goal2.x, goal2.y, 10, 10);
   text(generation, 650, 20);
+  
+  stageOneComplete = true;
+  for(int i = 0; i < bots.dots.length; i++){
+    if(bots.dots[i].atRP == 0){
+      stageOneComplete = false;
+    }
+  }
+  if(car.atRP == 0){
+    stageOneComplete = false;
+  }
+  if(stageOneComplete == true){
+    walls[1].w = 100;
+  }
+  
   
   for(int i = 0; i < numberOfRPs; i++){
     RP[i].show();
@@ -69,12 +95,12 @@ void draw() {
     }
   }
   
-  for(int i = 0; i < numberOfCheckpoints; i++){
-    //cp[i].show();
-    for(int j = 0; j < bots.dots.length; j++){
-      dotHitCP(bots.dots[j], cp[i]);
-    }
-  }
+  //for(int i = 0; i < numberOfCheckpoints; i++){
+  //  //cp[i].show();
+  //  for(int j = 0; j < bots.dots.length; j++){
+  //    dotHitCP(bots.dots[j], cp[i]);
+  //  }
+  //}
     car.update();
     car.display();
   
@@ -84,13 +110,15 @@ void draw() {
     println("Generation: " + generation);
     bots.calculateFitness();
     bots.naturalSelection();
-    makeMovingWalls();
+    //makeMovingWalls();
     bots.mutateDots();
     generation++;
    
     if(car.dead){
       car.reset();
     }
+    println("car rp: " + car.atRP);
+    println("stageonecomplete: " + stageOneComplete);
   } else {
     //if any of the dots are still alive then update and then show them
     bots.update();
@@ -157,13 +185,13 @@ boolean hitWall(float objX, float objY, float objW, float objH, Wall w){
               objY - objH/2 >= w.y - w.h/2);
           return a;
 }
-void dotHitCP(Dot d, Checkpoint c){
-  boolean b = hitCP(d.pos.x, d.pos.y, 1, 1, c);
-  if(b){
-      d.atCheckpoint = c.val;
-    d.steps = step;
-  }
-}
+//void dotHitCP(Dot d, Checkpoint c){
+//  boolean b = hitCP(d.pos.x, d.pos.y, 1, 1, c);
+//  if(b){
+//      d.atCheckpoint = c.val;
+//    d.steps = step;
+//  }
+//}
 
 boolean hitCP(float objX, float objY, float objW, float objH, Checkpoint c){
   
@@ -271,7 +299,7 @@ void makeCheckpoints(){
   cp[52] = new Checkpoint(165, 110, 52);
   
   cp[53] = new Checkpoint(155, 115, 53);
-  cp[54] = new Checkpoint(135, 120, 54);
+  cp[54] = new Checkpoint(140, 120, 54);
   cp[55] = new Checkpoint(120, 125, 55);
   cp[56] = new Checkpoint(105, 130, 56);
   cp[57] = new Checkpoint(90, 135, 57);
@@ -305,6 +333,7 @@ void makeCheckpoints(){
 void makeRPs(){
   RP[0] = new RestartPoint(90, 20, 1);
   RP[1] = new RestartPoint(120, 680, 2);
+  RP[2] = new RestartPoint(150, 180, 3);
   
   for(int i = 0; i < RP.length; i++){
     if(RP[i] == null){
