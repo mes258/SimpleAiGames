@@ -2,7 +2,6 @@ PVector goal  = new PVector(600, 100);
 PVector goal2 = new PVector(605, 650);
 PlayerCar car;
 Wall[] walls;
-Checkpoint[] cp;
 Population bots;
 int numberOfWalls = 0;
 int numberOfCheckpoints = 0;
@@ -27,8 +26,6 @@ void setup() {
   bots = new Population(2000);
   walls = new Wall[30];
   makeWalls();
-  cp = new Checkpoint[200];
-  makeCheckpoints();
   movingWalls = new Wall[30];
   makeMovingWalls();
   
@@ -39,13 +36,11 @@ void setup() {
   stageTwoComplete = true;
 }
 int step = 0;
+/* UPDATE EACH STEP */
 void draw() { 
   //Now based on distance to next RP
   //add more slopes (above RP 3)
   //slower, pre programmed dot that never dies
-  
-  
-  
   
   step++;
   background(255);
@@ -109,13 +104,6 @@ void draw() {
       dotHitWall(bots.dots[j], walls[i]);
     }
   }
-  
-  //for(int i = 0; i < numberOfCheckpoints; i++){
-  //  //cp[i].show();
-  //  for(int j = 0; j < bots.dots.length; j++){
-  //    dotHitCP(bots.dots[j], cp[i]);
-  //  }
-  //}
     car.update();
     car.display();
   
@@ -140,7 +128,9 @@ void draw() {
     bots.show();
   }
 }
+/* END OF STEP */
 
+/* MOVE WALLS */
 void updateWall(Wall w){
   if(w.increase){                //increase is true;
     if(w.moveX){                    //moving x
@@ -176,7 +166,9 @@ void updateWall(Wall w){
     }
   }
 }
+/* END OF MOVE WALLS */
 
+/* CHECK COLLISIONS */
 void dotHitWall(Dot d, Wall w){
   boolean b = hitWall(d.pos.x, d.pos.y, 1, 1, w);
   if(b){
@@ -198,22 +190,6 @@ boolean hitWall(float objX, float objY, float objW, float objH, Wall w){
               objX - objW/2 >= w.x - w.w/2 && 
               objY + objH/2 <= w.y + w.h/2 && 
               objY - objH/2 >= w.y - w.h/2);
-          return a;
-}
-//void dotHitCP(Dot d, Checkpoint c){
-//  boolean b = hitCP(d.pos.x, d.pos.y, 1, 1, c);
-//  if(b){
-//      d.atCheckpoint = c.val;
-//    d.steps = step;
-//  }
-//}
-
-boolean hitCP(float objX, float objY, float objW, float objH, Checkpoint c){
-  
-  boolean a =(objX + objW/2 <= c.x + c.w/2 && 
-              objX - objW/2 >= c.x - c.w/2 && 
-              objY + objH/2 <= c.y + c.h/2 && 
-              objY - objH/2 >= c.y - c.h/2);
           return a;
 }
 
@@ -240,8 +216,9 @@ PlayerCar carHitRP(PlayerCar c, RestartPoint w){
   }
   return c;
 }
+/* END OF CHECK COLLISIONS */
 
-
+/* LISTEN FOR USER INPUT */
 void keyPressed() {
   int k = keyCode;
   if (k == ENTER | k == RETURN)
@@ -260,6 +237,9 @@ void keyReleased() {
   else if (k == LEFT)   car.left  = false;
   else if (k == RIGHT)  car.right = false;
 }
+/* END LISTEN FOR USER INPUT */
+
+/* MAKE OBSTACLES */
 void makeWalls(){
   //         dist from: Left,Top,  w,  h
   //walls[x] = new Wall(500, 500, 50, 100);
@@ -273,82 +253,30 @@ void makeWalls(){
   walls[6] = new Wall(6, 150, 175, 15, 50,0);
   walls[7] = new Wall(7, 125, 200, 50, 15,0);
   walls[8] = new Wall(8, 100, 425, 15, 450, 0);
-  
   walls[9] = new Wall(9, -75, 640, 50, 15, 0);
-  
   walls[10] = new Wall(10, 200, 470, 15, 500,0);
-  
-  
-  
-  numberOfWalls = 11;
+  for(int i = 0; i < walls.length; i++){
+    if(walls[i] == null){
+      numberOfWalls = i;
+      break;
+    }
+  }
 }
 
 void makeMovingWalls(){
   movingWalls[0] = new Wall(10, 50, 400, 15, 60, 50, 100, true, true, 1,0);
-  
   movingWalls[1] = new Wall(11, 100, 600, 15, 60, 100, 200, true, true, 1,0);
   movingWalls[2] = new Wall(12, 198, 550, 15, 60, 100, 200, true, true, 1,0);
-  
-  
   movingWalls[3] = new Wall(13, 100, 450, 15, 60, 100, 200, true, true, 1,0);
   movingWalls[4] = new Wall(14, 100, 400, 15, 60, 100, 200, true, true, 2,0);
-  
   movingWalls[5] = new Wall(15, 100, 350, 15, 60, 100, 200, true, true, 1,0);
   movingWalls[6] = new Wall(16, 198, 300, 15, 60, 100, 200, true, true, 2,0);
   movingWalls[7] = new Wall(17, 100, 275, 15, 60, 100, 200, true, true, 3,0);
   movingWalls[8] = new Wall(18, 100, 250, 15, 60, 100, 200, true, true, 3,0);
  
-  
-  
-  numberOfMovingWalls = 9;
-}
-
-void makeCheckpoints(){
-  for(int i = 0; i < 40; i++){
-     cp[i] = new Checkpoint(20, (i+1)*15 + 50, 39-i);
-  }
-  cp[40] = new Checkpoint(40, 50, 40);
-  cp[41] = new Checkpoint(55, 35, 41);
-  cp[42] = new Checkpoint(75, 25, 42);
-  cp[43] = new Checkpoint(90, 20, 43);
-  cp[44] = new Checkpoint(105, 25, 44);
-  cp[45] = new Checkpoint(125, 35, 45);
-  cp[46] = new Checkpoint(135, 45, 46);
-  
-  cp[47] = new Checkpoint(145, 55, 47);
-  cp[48] = new Checkpoint(155, 65, 48);
-  cp[49] = new Checkpoint(160, 75, 49);
-  cp[50] = new Checkpoint(165, 85, 50);
-  cp[51] = new Checkpoint(170, 100, 51);
-  cp[52] = new Checkpoint(165, 110, 52);
-  
-  cp[53] = new Checkpoint(155, 115, 53);
-  cp[54] = new Checkpoint(140, 120, 54);
-  cp[55] = new Checkpoint(120, 125, 55);
-  cp[56] = new Checkpoint(105, 130, 56);
-  cp[57] = new Checkpoint(90, 135, 57);
-  cp[58] = new Checkpoint(80, 140, 58);
- 
-  for(int i = 59; i< 93; i++){
-    int k = i-58;
-    cp[i] = new Checkpoint(75, 130+(k*15), i);
-  }
-  cp[93] = new Checkpoint(80, 655, 94);
-  cp[94] = new Checkpoint(90, 660, 95);
-  cp[95] = new Checkpoint(100, 665, 96);
-  cp[96] = new Checkpoint(110, 665, 97);
-  cp[97] = new Checkpoint(120, 660, 98);
-  cp[98] = new Checkpoint(130, 655, 99);
-  
-  for(int i = 99; i< 129; i++){
-    int k = i-98;
-    cp[i] = new Checkpoint(150, 190+(k*15), 70, 130-k);
-  }
-  
-  for(int i = 0; i < cp.length; i++){
-    if(cp[i] == null){
-      print(i);
-      numberOfCheckpoints = i;
+  for(int i = 0; i < movingWalls.length; i++){
+    if(movingWalls[i] == null){
+      numberOfMovingWalls = i;
       break;
     }
   }
@@ -366,4 +294,5 @@ void makeRPs(){
     }
   }
 }
+/*END OF MAKE OBSTACLES*/
   
