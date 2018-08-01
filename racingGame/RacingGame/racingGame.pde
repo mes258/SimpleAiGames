@@ -15,6 +15,7 @@ int numberOfRPs = 0;
 int generation = 1;
 
 boolean stageOneComplete = true;
+boolean stageTwoComplete = true;
 void settings(){
     size(720, 720);
 }
@@ -35,8 +36,7 @@ void setup() {
   makeRPs();
   
   stageOneComplete = true;
-  
-  
+  stageTwoComplete = true;
 }
 int step = 0;
 void draw() { 
@@ -66,6 +66,19 @@ void draw() {
   }
   if(stageOneComplete == true){
     walls[1].w = 100;
+  }
+  
+  stageTwoComplete = true;
+  for(int i = 0; i < bots.dots.length; i++){
+    if(bots.dots[i].atRP == 1 || bots.dots[i].atRP == 0){
+      stageTwoComplete = false;
+    }
+  }
+  if(car.atRP == 1 || car.atRP == 0){
+    stageTwoComplete = false;
+  }
+  if(stageTwoComplete == true){
+    walls[9].x = 75;
   }
   
   arc(500, 500, 50, 50, PI, 1.5* PI);
@@ -260,11 +273,14 @@ void makeWalls(){
   walls[6] = new Wall(6, 150, 175, 15, 50,0);
   walls[7] = new Wall(7, 125, 200, 50, 15,0);
   walls[8] = new Wall(8, 100, 425, 15, 450, 0);
-  walls[9] = new Wall(9, 200, 470, 15, 500,0);
+  
+  walls[9] = new Wall(9, -75, 640, 50, 15, 0);
+  
+  walls[10] = new Wall(10, 200, 470, 15, 500,0);
   
   
   
-  numberOfWalls = 10;
+  numberOfWalls = 11;
 }
 
 void makeMovingWalls(){
