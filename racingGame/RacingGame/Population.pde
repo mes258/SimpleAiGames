@@ -105,7 +105,11 @@ class Population {
 
 
     float runningSum = 0;
-
+    
+    for(int i = 0; i < dots.length * 0.75; i++){
+      runningSum += dots[0].fitness;
+    }
+    
     for (int i = 0; i< dots.length; i++) {
       runningSum+= dots[i].fitness;
       if (runningSum > rand) {

@@ -48,7 +48,8 @@ class Dot {
       fill(0, 255, 0);
       ellipse(pos.x, pos.y, 8, 8);
     
-    } else if(atRP == 0) {//all other dots are just smaller black dots
+    } 
+    else if(atRP == 0) {//all other dots are just smaller black dots
       fill(0, 0, 0);
       ellipse(pos.x, pos.y, 2, 2);
     } else if(atRP == 1) {
