@@ -133,7 +133,7 @@ void checkCompletedStage(){
       walls[1].w = 60;
     }
     if(stageComplete[1] == true){
-      walls[11].x = 75;
+      walls[11].x = 50;
     }else{
       walls[11].x = -75;
     }

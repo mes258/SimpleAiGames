@@ -23,21 +23,11 @@ class Dot {
       pos = new PVector(20, height- 20);
       vel = new PVector(0, 0);
       acc = new PVector(0, 0);
-    }else if(atRP == 1){
-      pos = new PVector(RP[0].x + RP[0].w/2, RP[0].y + RP[0].h/2);
-      /*DO THIS FOR ALL WITHOUT IF */
-      vel = new PVector(0, 0);
-      acc = new PVector(0, 0);
-    }else if(atRP == 2){
-      pos = new PVector(120, 650);
-      vel = new PVector(0, 0);
-      acc = new PVector(0, 0);
-    }else if(atRP == 3){
-      pos = new PVector(200, 230);
+    }else {
+      pos = new PVector(RP[atRP-1].x + RP[atRP-1].w/2, RP[atRP-1].y + RP[atRP-1].h/2);
       vel = new PVector(0, 0);
       acc = new PVector(0, 0);
     }
-    
   }
 
 
@@ -48,19 +38,10 @@ class Dot {
     if (isBest) {
       fill(0, 255, 0);
       ellipse(pos.x, pos.y, 8, 8);
-    
-    } 
-    else if(atRP == 0) {//all other dots are just smaller black dots
-      fill(0, 0, 0);
-      ellipse(pos.x, pos.y, 2, 2);
-    } else if(atRP == 1) {
+    } else{
       fill(255, 0, 0);
       ellipse(pos.x, pos.y, 4, 4);
     } 
-    else {
-      fill(255,0,0);
-      ellipse(pos.x, pos.y, 4, 4);
-    }
   }
 
   //-----------------------------------------------------------------------------------------------------------------------
@@ -87,11 +68,21 @@ class Dot {
       move();
       if (pos.x< 2|| pos.y<2 || pos.x>width-2 || pos.y>height -2) {//if near the edges of the window then kill it 
         dead = true;
-      } else if (dist(pos.x, pos.y, 100, 20) < 5) {//if reached goal
-        atRP = 1;
-      } else if (dist(pos.x, pos.y, 170, 730) < 5) {//if reached goal2
-        atRP = 2;
+        
       }
+      //else{
+      //  RestartPoint t = RP[atRP];
+      //  if(dist(pos.x, pos.y, t.x + t.w/2, t.y + t.h/2) < 51){
+          
+      //  }
+          
+ 
+      //}
+      //} else if (dist(pos.x, pos.y, 100, 20) < 5) {//if reached goal
+      //  atRP = 1;
+      //} else if (dist(pos.x, pos.y, 170, 730) < 5) {//if reached goal2
+      //  atRP = 2;
+      //}
     }
   }
 
@@ -105,22 +96,9 @@ class Dot {
   //RP[2] = new RestartPoint(150, 180, 3);
   void calculateFitness() {
     //fitness = atCheckpoint * atCheckpoint;
-   
-   float distanceToGoal = dist(pos.x, pos.y, RP[atRP].x + RP[atRP].w/2, RP[atRP].y + RP[atRP].h/2);
-      fitness = 1.0/(distanceToGoal * distanceToGoal) + atRP;
-   
-    //if(atRP == 0){
-    //  float distanceToGoal = dist(pos.x, pos.y, 100, 20);
-    //  fitness = 1.0/(distanceToGoal * distanceToGoal);
-    //}else if(atRP == 1){
-    //  float distanceToGoal = dist(pos.x, pos.y, 100, 630);
-    //  fitness = (1.0/(distanceToGoal * distanceToGoal)) + 1;
-    //}else if(atRP == 2){
-    //  float distanceToGoal = dist(pos.x, pos.y, 200, 230);
-    //  fitness = (1.0/(distanceToGoal * distanceToGoal)) + 2;
-    //}
-    
-    
+   RestartPoint t = RP[atRP];
+   float distanceToGoal = dist(pos.x, pos.y, t.x + t.w/2, t.y + t.h/2);
+   fitness = 1.0/(distanceToGoal * distanceToGoal) + atRP;
     
     //itness = fitness * fitness;
     //if(atCheckpoint == 0){
