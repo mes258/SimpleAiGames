@@ -68,6 +68,8 @@ void draw() {
     walls[1].w = 100;
   }
   
+  arc(500, 500, 50, 50, PI, 1.5* PI);
+  
   
   for(int i = 0; i < numberOfRPs; i++){
     RP[i].show();
@@ -79,7 +81,7 @@ void draw() {
   
   for(int i = 0; i < numberOfMovingWalls; i++){
     updateWall(movingWalls[i]);
-    movingWalls[i].show();
+    movingWalls[i].show(movingWalls[i].type);
     car = carHitWall(car, movingWalls[i]);
     for(int j = 0; j < bots.dots.length; j++){
         dotHitWall(bots.dots[j], movingWalls[i]);
@@ -88,7 +90,7 @@ void draw() {
   
   
   for(int i = 0; i < numberOfWalls; i++){
-    walls[i].show();
+    walls[i].show(walls[i].type);
     car = carHitWall(car, walls[i]);
     for(int j = 0; j < bots.dots.length; j++){
       dotHitWall(bots.dots[j], walls[i]);
@@ -248,31 +250,37 @@ void keyReleased() {
 void makeWalls(){
   //         dist from: Left,Top,  w,  h
   //walls[x] = new Wall(500, 500, 50, 100);
-  walls[0] = new Wall(0,50, 390, 15, 660);
-  walls[1] = new Wall(1, 10, 60, 30, 15);
-  walls[2] = new Wall(2, 90, 70, 15, 60);
-  walls[3] = new Wall(3,100, 100, 100, 15);
-  walls[4] = new Wall(4,200, 75, 15, 150);
-  walls[5] = new Wall(5,150, 150, 100, 15);
-  walls[6] = new Wall(6,100, 400, 15, 500);
-  walls[7] = new Wall(7, 200, 470, 15, 500);
-  numberOfWalls = 8;
+  //walls[8] = new Wall(8, 400, 400, 50, 50, PI, 1.5*PI,1);
+  walls[0] = new Wall(0,50, 390, 15, 660,0);
+  walls[1] = new Wall(1, 10, 60, 30, 15,0);
+  walls[2] = new Wall(2, 90, 70, 15, 60,0);
+  walls[3] = new Wall(3,100, 100, 100, 15,0);
+  walls[4] = new Wall(4,200, 75, 15, 150,0);
+  walls[5] = new Wall(5, 175, 150, 50, 15,0);
+  walls[6] = new Wall(6, 150, 175, 15, 50,0);
+  walls[7] = new Wall(7, 125, 200, 50, 15,0);
+  walls[8] = new Wall(8, 100, 425, 15, 450, 0);
+  walls[9] = new Wall(9, 200, 470, 15, 500,0);
+  
+  
+  
+  numberOfWalls = 10;
 }
 
 void makeMovingWalls(){
-  movingWalls[0] = new Wall(10, 50, 400, 15, 60, 50, 100, true, true, 1);
+  movingWalls[0] = new Wall(10, 50, 400, 15, 60, 50, 100, true, true, 1,0);
   
-  movingWalls[1] = new Wall(11, 100, 600, 15, 60, 100, 200, true, true, 1);
-  movingWalls[2] = new Wall(12, 198, 550, 15, 60, 100, 200, true, true, 1);
+  movingWalls[1] = new Wall(11, 100, 600, 15, 60, 100, 200, true, true, 1,0);
+  movingWalls[2] = new Wall(12, 198, 550, 15, 60, 100, 200, true, true, 1,0);
   
   
-  movingWalls[3] = new Wall(13, 100, 450, 15, 60, 100, 200, true, true, 1);
-  movingWalls[4] = new Wall(14, 100, 400, 15, 60, 100, 200, true, true, 2);
+  movingWalls[3] = new Wall(13, 100, 450, 15, 60, 100, 200, true, true, 1,0);
+  movingWalls[4] = new Wall(14, 100, 400, 15, 60, 100, 200, true, true, 2,0);
   
-  movingWalls[5] = new Wall(15, 100, 350, 15, 60, 100, 200, true, true, 1);
-  movingWalls[6] = new Wall(16, 198, 300, 15, 60, 100, 200, true, true, 2);
-  movingWalls[7] = new Wall(17, 100, 275, 15, 60, 100, 200, true, true, 3);
-  movingWalls[8] = new Wall(18, 100, 250, 15, 60, 100, 200, true, true, 3);
+  movingWalls[5] = new Wall(15, 100, 350, 15, 60, 100, 200, true, true, 1,0);
+  movingWalls[6] = new Wall(16, 198, 300, 15, 60, 100, 200, true, true, 2,0);
+  movingWalls[7] = new Wall(17, 100, 275, 15, 60, 100, 200, true, true, 3,0);
+  movingWalls[8] = new Wall(18, 100, 250, 15, 60, 100, 200, true, true, 3,0);
  
   
   
@@ -332,8 +340,8 @@ void makeCheckpoints(){
 
 void makeRPs(){
   RP[0] = new RestartPoint(90, 20, 1);
-  RP[1] = new RestartPoint(120, 680, 2);
-  RP[2] = new RestartPoint(150, 180, 3);
+  RP[1] = new RestartPoint(100, 680, 2);
+  RP[2] = new RestartPoint(180, 195, 3);
   
   for(int i = 0; i < RP.length; i++){
     if(RP[i] == null){

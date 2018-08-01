@@ -103,16 +103,19 @@ class Dot {
   //RP[2] = new RestartPoint(150, 180, 3);
   void calculateFitness() {
     //fitness = atCheckpoint * atCheckpoint;
+   
     if(atRP == 0){
       float distanceToGoal = dist(pos.x, pos.y, 100, 20);
       fitness = 1.0/(distanceToGoal * distanceToGoal);
     }else if(atRP == 1){
-      float distanceToGoal = dist(pos.x, pos.y, 170, 730);
-      fitness = (1.0/(distanceToGoal * distanceToGoal))*10 + 10;
+      float distanceToGoal = dist(pos.x, pos.y, 100, 630);
+      fitness = (1.0/(distanceToGoal * distanceToGoal)) + 1;
     }else if(atRP == 2){
       float distanceToGoal = dist(pos.x, pos.y, 200, 230);
-      fitness = (1.0/(distanceToGoal * distanceToGoal))*100 + 100;
+      fitness = (1.0/(distanceToGoal * distanceToGoal)) + 2;
     }
+    
+    
     
     //itness = fitness * fitness;
     //if(atCheckpoint == 0){
