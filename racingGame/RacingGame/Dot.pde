@@ -90,10 +90,6 @@ class Dot {
   //--------------------------------------------------------------------------------------------------------------------------------------
   //calculates the fitness
   
-  //RPs: 
-  //RP[0] = new RestartPoint(90, 20, 1);
-  //RP[1] = new RestartPoint(120, 680, 2);
-  //RP[2] = new RestartPoint(150, 180, 3);
   void calculateFitness() {
     //fitness = atCheckpoint * atCheckpoint;
    RestartPoint t = RP[atRP];

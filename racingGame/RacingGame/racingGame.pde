@@ -272,14 +272,14 @@ void makeWalls(){
 
 void makeMovingWalls(){
   movingWalls[0] = new Wall(10, 50, 400, 10, 60, 50, 100, true, true, 1,0);
-  movingWalls[1] = new Wall(11, 100, 600, 10, 60, 100, 200, true, true, 1,0);
+  movingWalls[1] = new Wall(11, 98, 580, 10, 60, 100, 200, true, true, 1,0);
   movingWalls[2] = new Wall(12, 198, 550, 10, 60, 100, 200, true, true, 1,0);
-  movingWalls[3] = new Wall(13, 100, 450, 10, 60, 100, 200, true, true, 1,0);
-  movingWalls[4] = new Wall(14, 100, 400, 10, 60, 100, 200, true, true, 2,0);
-  movingWalls[5] = new Wall(15, 100, 350, 10, 60, 100, 200, true, true, 1,0);
-  movingWalls[6] = new Wall(16, 198, 300, 10, 60, 100, 200, true, true, 2,0);
-  movingWalls[7] = new Wall(17, 100, 275, 10, 60, 100, 200, true, true, 3,0);
-  movingWalls[8] = new Wall(18, 100, 250, 10, 60, 100, 200, true, true, 3,0);
+  movingWalls[3] = new Wall(13, 120, 450, 10, 60, 100, 200, true, true, 1,0);
+  movingWalls[4] = new Wall(14, 150, 400, 10, 60, 100, 200, true, true, 2,0);
+  movingWalls[5] = new Wall(15, 180, 350, 10, 60, 100, 200, true, true, 1,0);
+  movingWalls[6] = new Wall(16, 198, 250, 10, 60, 100, 200, true, true, 2,0);
+  movingWalls[7] = new Wall(17, 140, 300, 10, 60, 100, 165, true, true, 3,0);
+  movingWalls[8] = new Wall(18, 100, 200, 10, 60, 100, 200, true, true, 3,0);
  
   for(int i = 0; i < movingWalls.length; i++){
     if(movingWalls[i] == null){
@@ -294,12 +294,15 @@ void makeRPs(){
   RP[1] = new RestartPoint(80, 650, 2);
   RP[2] = new RestartPoint(160, 150, 3);
   
+  RP[3] = new RestartPoint(500, 500, 4);
+  
   for(int i = 0; i < RP.length; i++){
     if(RP[i] == null){
       numberOfRPs = i;
       break;
     }
   }
+  
 }
 /*END OF MAKE OBSTACLES*/
   

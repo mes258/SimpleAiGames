@@ -45,7 +45,7 @@ class PlayerCar{
   void update() {
     if (!dead) {
       move();
-      if (x< 5|| y<5 || x>width-5 || y>height-5) {
+      if (x< 0|| y<0 || x>width-0 || y>height-0) {
         dead = true;
       } 
     }
@@ -54,16 +54,12 @@ class PlayerCar{
   void reset(){
     dead = false;
     if(atRP == 0){
-      x = 20; 
+      x = 20;
       y = height-20;
-    }else if(atRP == 1){
-      x = 100; 
-      y = 20;
-    }else if(atRP == 2){
-      x = 120; 
-      y = 650;
+    }else{
+      x = RP[atRP-1].x + RP[atRP-1].w/2 - w/2;
+      y =  RP[atRP-1].y + RP[atRP-1].h/2 -h/2;
     }
-    
     setBordersC();
   }
 }
