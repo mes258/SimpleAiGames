@@ -30,7 +30,6 @@ class PlayerCar{
   }
   
   void display() {
-    rectMode(CENTER);
     stroke(0);
     fill(c);
     rect(x, y, w, h);

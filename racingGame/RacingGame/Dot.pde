@@ -14,9 +14,9 @@ class Dot {
   int atCheckpoint = 0;
   float fitness = 0;
 
-  Dot(int RP) {
+  Dot(int thisRP) {
     brain = new Brain(1000);//new brain with 1000 instructions
-    this.atRP = RP;
+    this.atRP = thisRP;
     //atCheckpoint = 1;
     //start the dots at the bottom of the window with a no velocity or acceleration
     if(atRP == 0){
@@ -24,7 +24,8 @@ class Dot {
       vel = new PVector(0, 0);
       acc = new PVector(0, 0);
     }else if(atRP == 1){
-      pos = new PVector(100, 20);
+      pos = new PVector(RP[0].x + RP[0].w/2, RP[0].y + RP[0].h/2);
+      /*DO THIS FOR ALL WITHOUT IF */
       vel = new PVector(0, 0);
       acc = new PVector(0, 0);
     }else if(atRP == 2){
@@ -105,16 +106,19 @@ class Dot {
   void calculateFitness() {
     //fitness = atCheckpoint * atCheckpoint;
    
-    if(atRP == 0){
-      float distanceToGoal = dist(pos.x, pos.y, 100, 20);
-      fitness = 1.0/(distanceToGoal * distanceToGoal);
-    }else if(atRP == 1){
-      float distanceToGoal = dist(pos.x, pos.y, 100, 630);
-      fitness = (1.0/(distanceToGoal * distanceToGoal)) + 1;
-    }else if(atRP == 2){
-      float distanceToGoal = dist(pos.x, pos.y, 200, 230);
-      fitness = (1.0/(distanceToGoal * distanceToGoal)) + 2;
-    }
+   float distanceToGoal = dist(pos.x, pos.y, RP[atRP].x + RP[atRP].w/2, RP[atRP].y + RP[atRP].h/2);
+      fitness = 1.0/(distanceToGoal * distanceToGoal) + atRP;
+   
+    //if(atRP == 0){
+    //  float distanceToGoal = dist(pos.x, pos.y, 100, 20);
+    //  fitness = 1.0/(distanceToGoal * distanceToGoal);
+    //}else if(atRP == 1){
+    //  float distanceToGoal = dist(pos.x, pos.y, 100, 630);
+    //  fitness = (1.0/(distanceToGoal * distanceToGoal)) + 1;
+    //}else if(atRP == 2){
+    //  float distanceToGoal = dist(pos.x, pos.y, 200, 230);
+    //  fitness = (1.0/(distanceToGoal * distanceToGoal)) + 2;
+    //}
     
     
     

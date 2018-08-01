@@ -15,6 +15,6 @@ class RestartPoint{
     fill(0, 50, 0);
     rect(x, y, w, h);
     fill(255);
-    text(val, this.x - 5 , this.y + 5 );
+    text(val, this.x + 20 , this.y + 20 );
   }
 }
