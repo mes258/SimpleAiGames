@@ -92,25 +92,13 @@ class Dot {
   
   void calculateFitness() {
    if(atRP >= numberOfRPs){
-     println("YOU WIN!!");
-     println("YOU WIN!!");
-     println("YOU WIN!!");
-     fitness = 0;
+     atRP = 0;
+     fitness = 1;
    }else{
      RestartPoint t = RP[atRP];
      float distanceToGoal = dist(pos.x, pos.y, t.x + t.w/2, t.y + t.h/2);
      fitness = 1.0/(distanceToGoal * distanceToGoal) + atRP;
    }
-    //itness = fitness * fitness;
-    //if(atCheckpoint == 0){
-    //  float distanceToGoal = dist(pos.x, pos.y, goal.x, goal.y);
-    //  fitness = 1.0/(distanceToGoal * distanceToGoal);
-    //}else if(atCheckpoint == 5){
-    //  float distanceToGoal = dist(pos.x, pos.y, goal2.x, goal2.y);
-    //  fitness = 1.0/(distanceToGoal * distanceToGoal);
-    //}else if (reachedGoal) {//if the dot reached the goal then the fitness is based on the amount of steps it took to get there
-    //  fitness = 1.0/16.0 + 10000.0/(float)(brain.step * brain.step);
-    //}
   }
 
   //---------------------------------------------------------------------------------------------------------------------------------------

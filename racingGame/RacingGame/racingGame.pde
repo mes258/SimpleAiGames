@@ -14,6 +14,9 @@ int generation = 1; //Current generation, updated everytime all dots die
 
 int numberOfStages = 3; //Number of stages in this level
 boolean stageComplete[]; //stageComplete[i] is true if all dots and player are past stage i, otherwise false
+
+boolean showTriggerWalls[];
+
 /* END DATA TYPE SET UP */
 
 
@@ -39,6 +42,12 @@ void setup() {
   for(int i = 0; i < numberOfStages; i++){
     stageComplete[i] = true;
   }
+  
+  showTriggerWalls = new boolean[3];
+  for(int i = 0; i< 3; i++){
+    showTriggerWalls[i] = true;
+  }
+  
 }
 int step = 0;
 /* UPDATE EACH STEP */
@@ -62,17 +71,17 @@ void draw() {
   for(int i = 0; i < numberOfMovingWalls; i++){
     updateWall(movingWalls[i]);
     movingWalls[i].show(movingWalls[i].type);
-    car = carHitWall(car, movingWalls[i]);
+    car = carHitWall(car, movingWalls[i], i);
     for(int j = 0; j < bots.dots.length; j++){
-        dotHitWall(bots.dots[j], movingWalls[i]);
+        dotHitWall(bots.dots[j], movingWalls[i], i);
     }
   }
   
   for(int i = 0; i < numberOfWalls; i++){
     walls[i].show(walls[i].type);
-    car = carHitWall(car, walls[i]);
+    car = carHitWall(car, walls[i], i);
     for(int j = 0; j < bots.dots.length; j++){
-      dotHitWall(bots.dots[j], walls[i]);
+      dotHitWall(bots.dots[j], walls[i], i);
     }
   }
   /* END SHOWING OBJECTS AND CHECKING FOR COLLISIONS */
@@ -114,7 +123,7 @@ void checkCompletedStage(){
     }
   
     if(stageComplete[0] == true){
-      walls[1].w = 60;
+      walls[1].w = 95;
     }
     if(stageComplete[1] == true){
       walls[11].x = 50;
@@ -123,7 +132,6 @@ void checkCompletedStage(){
     }
   }
 }
-
 /* END STAGE COMPLETION CHECK */
 
 /* MOVE WALLS */
@@ -165,19 +173,31 @@ void updateWall(Wall w){
 /* END OF MOVE WALLS */
 
 /* CHECK COLLISIONS */
-
-
-void dotHitWall(Dot d, Wall w){
+void dotHitWall(Dot d, Wall w, int index){
   boolean b = overLap(d.pos.x, d.pos.y, 1, 1, w.x, w.y, w.w, w.h);
-  if(b){
-    d.dead = true;
+  if(w.type == 0){
+    if(b){
+      d.dead = true;
+    }
+  }else if(w.type == 1){
+    if(b){
+      walls[index+1].x = -500;
+      walls[index].x = -500;
+    }
   }
 }
 
-PlayerCar carHitWall(PlayerCar c, Wall w){
+PlayerCar carHitWall(PlayerCar c, Wall w, int index){
   boolean b = overLap(c.x, c.y, c.w, c.h, w.x, w.y, w.w, w.h);
-  if(b){
-    c.dead = true;
+  if(w.type == 0){
+    if(b){
+      c.dead = true;
+    }
+  }else if(w.type == 1){
+    if(b){
+      walls[index+1].x = -500;
+      walls[index].x = -500;
+    }
   }
   return c;
 }
@@ -229,11 +249,12 @@ void keyReleased() {
 /* MAKE OBSTACLES */
 void makeWalls(){
   //         dist from: Left,Top,  w,  h
-  //walls[x] = new Wall(500, 500, 50, 100);
-  //walls[8] = new Wall(8, 400, 400, 50, 50, PI, 1.5*PI,1);
+ 
+  //STAGE 1
   walls[0] = new Wall(0, 50, 70, 10, 630, 0);
   walls[1] = new Wall(1, 0, 60, 30, 10,0);
   walls[2] = new Wall(2, 95, 50, 10, 60,0);
+  //STAGE 2
   walls[3] = new Wall(3, 60, 100, 80, 10,0);
   walls[4] = new Wall(4, 200, 0, 10, 150,0);
   walls[5] = new Wall(5, 150, 140, 60, 10,0);
@@ -241,11 +262,21 @@ void makeWalls(){
   walls[7] = new Wall(7, 125, 165, 35, 10,0);
   walls[8] = new Wall(8, 125, 165, 10, 35,0);
   walls[9] = new Wall(9, 100, 190, 35, 10,0);
-  
   walls[10] = new Wall(10, 100, 190, 10, 460, 0);
   walls[11] = new Wall(11, -75, 630, 50, 10, 0);
+  //STAGE 3
   walls[12] = new Wall(12, 200, 200, 10, 500,0);
+  //STAGE 4
+  walls[13] = new Wall(13, 260, 0, 10, 330, 0);
+  //Triggers and trigger walls - the trigger must be the wall directly before the wall it hides.
+  walls[14] = new Wall(15, 210, 100, 50, 10, 1);
+  walls[15] = new Wall(16, 210, 220, 50, 10, 0);
+  walls[16] = new Wall(17, 210, 240, 50, 10, 1);
+  walls[17] = new Wall(18, 210, 75, 50, 10, 0);
+  walls[18] = new Wall(14, 210, 0, 50, 10, 1);
+  walls[19] = new Wall (19, 210, 260, 50, 10, 0);
   
+
   for(int i = 0; i < walls.length; i++){
     if(walls[i] == null){
       numberOfWalls = i;
@@ -277,9 +308,10 @@ void makeRPs(){
   RP[0] = new RestartPoint(75, 0, 1);
   RP[1] = new RestartPoint(80, 650, 2);
   RP[2] = new RestartPoint(160, 150, 3);
+  RP[3] = new RestartPoint(210, 10, 4);
+  RP[4] = new RestartPoint(210, 280, 5);
   
-  
-  RP[3] = new RestartPoint(500, 500, 4);
+  RP[5] = new RestartPoint(500, 500, 6);
   
   for(int i = 0; i < RP.length; i++){
     if(RP[i] == null){

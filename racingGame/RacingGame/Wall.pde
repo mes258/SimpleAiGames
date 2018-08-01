@@ -31,24 +31,14 @@ class Wall {
     this.type = type;
   }
   
-  Wall(int n, float x, float y, float w, float h, float start, float stop, int type){
-      this.x = x;
-    this.y = y;
-    this.h = h;
-    this.w = w;
-    this.num = ""+n;
-    this.start = start;
-    this.stop = stop;
-    this.type = type;
-  }
-  
   void show(int type){
     fill(0, 0, 255);
     if(type == 0){
       rect(x, y, w, h);
     } else if (type == 1){
-      arc(x, y, w, h, start, stop);
-    }
+      fill(173, 216, 230);
+      rect(x, y, w, h);
+    } 
     
     fill(255, 0, 0);
     text(num, x, y + 10);
