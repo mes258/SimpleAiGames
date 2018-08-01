@@ -1,8 +1,4 @@
-//PVector goal  = new PVector(600, 100);
-//PVector goal2 = new PVector(605, 650);
-
 /* DECLARE DATA TYPES FOR GAME */
-
 PlayerCar car; //Players object
 Wall[] walls; //Still Walls
 Population bots; //Dots
@@ -18,14 +14,15 @@ int generation = 1; //Current generation, updated everytime all dots die
 
 int numberOfStages = 3; //Number of stages in this level
 boolean stageComplete[]; //stageComplete[i] is true if all dots and player are past stage i, otherwise false
-
 /* END DATA TYPE SET UP */
+
 
 /* ENVIRONMENT SETTINGS */
 void settings(){
     size(700, 700);
 }
 /* END ENVIRONMENT SETTINGS */
+
 
 /* SET UP GLOBAL VARIABLES AND GAME DATA */
 void setup() {
@@ -36,10 +33,8 @@ void setup() {
   makeWalls();
   movingWalls = new Wall[30];
   makeMovingWalls();
-  
   RP = new RestartPoint[10];
   makeRPs();
-  
   stageComplete = new boolean[numberOfStages];
   for(int i = 0; i < numberOfStages; i++){
     stageComplete[i] = true;
@@ -48,23 +43,14 @@ void setup() {
 int step = 0;
 /* UPDATE EACH STEP */
 void draw() { 
-  //Now based on distance to next RP
-  //add more slopes (above RP 3)
-  //slower, pre programmed dot that never dies
-  
   step++;
   background(255);
-  //draw goal
   fill(255, 0, 0);
-  //ellipse(goal.x, goal.y, 10, 10);
-  //ellipse(goal2.x, goal2.y, 10, 10);
   text(generation, 650, 20);
   
   checkCompletedStage();
   
-  arc(500, 500, 50, 50, PI, 1.5* PI);
-  
-  
+  /* SHOW OBJECTS AND CHECK FOR COLLISIONS */
   for(int i = 0; i < numberOfRPs; i++){
     RP[i].show();
     car = carHitRP(car, RP[i]);
@@ -82,7 +68,6 @@ void draw() {
     }
   }
   
-  
   for(int i = 0; i < numberOfWalls; i++){
     walls[i].show(walls[i].type);
     car = carHitWall(car, walls[i]);
@@ -90,10 +75,9 @@ void draw() {
       dotHitWall(bots.dots[j], walls[i]);
     }
   }
-    car.update();
-    car.display();
+  /* END SHOWING OBJECTS AND CHECKING FOR COLLISIONS */
   
-  
+  /* CHECK IF GENERATION IS OVER, ELSE UPDATE */
   if (bots.allDotsDead()) {
     //genetic algorithm
     println("Generation: " + generation);
@@ -102,17 +86,17 @@ void draw() {
     //makeMovingWalls();
     bots.mutateDots();
     generation++;
-   
     if(car.dead){
       car.reset();
     }
-    println("car rp: " + car.atRP);
-
   } else {
     //if any of the dots are still alive then update and then show them
     bots.update();
     bots.show();
+    car.update();
+    car.display();
   }
+  /* END GENERATION CHECK */
 }
 /* END OF STEP */
 
@@ -259,7 +243,7 @@ void makeWalls(){
   walls[9] = new Wall(9, 100, 190, 35, 10,0);
   
   walls[10] = new Wall(10, 100, 190, 10, 460, 0);
-  walls[11] = new Wall(11, -75, 640, 50, 10, 0);
+  walls[11] = new Wall(11, -75, 630, 50, 10, 0);
   walls[12] = new Wall(12, 200, 200, 10, 500,0);
   
   for(int i = 0; i < walls.length; i++){
@@ -293,6 +277,7 @@ void makeRPs(){
   RP[0] = new RestartPoint(75, 0, 1);
   RP[1] = new RestartPoint(80, 650, 2);
   RP[2] = new RestartPoint(160, 150, 3);
+  
   
   RP[3] = new RestartPoint(500, 500, 4);
   

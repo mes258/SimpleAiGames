@@ -45,7 +45,7 @@ class PlayerCar{
   void update() {
     if (!dead) {
       move();
-      if (x< 0|| y<0 || x>width-0 || y>height-0) {
+      if (x< 0|| y<0 || x>width-10 || y>height-10) {
         dead = true;
       } 
     }
