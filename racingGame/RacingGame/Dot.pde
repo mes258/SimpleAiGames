@@ -92,10 +92,15 @@ class Dot {
   
   void calculateFitness() {
     //fitness = atCheckpoint * atCheckpoint;
+   if(atRP == RP.length){
+     println("YOU WIN!!");
+     println("YOU WIN!!");
+     println("YOU WIN!!");
+   }else{
    RestartPoint t = RP[atRP];
    float distanceToGoal = dist(pos.x, pos.y, t.x + t.w/2, t.y + t.h/2);
    fitness = 1.0/(distanceToGoal * distanceToGoal) + atRP;
-    
+   }
     //itness = fitness * fitness;
     //if(atCheckpoint == 0){
     //  float distanceToGoal = dist(pos.x, pos.y, goal.x, goal.y);
