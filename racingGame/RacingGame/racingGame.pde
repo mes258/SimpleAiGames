@@ -138,7 +138,6 @@ void draw() {
 
 //stage methods
   void getCurrentStages(int carRP, int dotRP){
-    
     if(carRP == dotRP){
       if(carRP != 0){
         currentStages[0] = allStages[carRP-1];
@@ -203,6 +202,18 @@ void draw() {
       if(currentStages[i] == null){
         numCurrentStages = i;
         break;
+      }
+    }
+    checkStageCompletion(carRP, dotRP);
+  }
+  
+  void checkStageCompletion(int carRP, int dotRP){
+    for(int i = 0; i < numCurrentStages; i++){
+      if(carRP > i){
+        currentStages[i].carCompleted = true;
+      }
+      if(dotRP > i){
+        currentStages[i].dotsCompleted = true;
       }
     }
   }

@@ -53,13 +53,13 @@ class PlayerCar{
   
   void reset(){
     dead = false;
-    if(atRP == 0){
+    //if(atRP == 0){
       x = 20;
       y = height-20;
-    }else{
-      x = RP[atRP-1].x + RP[atRP-1].w/2 - w/2;
-      y =  RP[atRP-1].y + RP[atRP-1].h/2 -h/2;
-    }
+    //}else{
+     // x = RP[atRP-1].x + RP[atRP-1].w/2 - w/2;
+     // y =  RP[atRP-1].y + RP[atRP-1].h/2 -h/2;
+   // }
     setBordersC();
   }
 }

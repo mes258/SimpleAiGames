@@ -7,7 +7,8 @@ class Stage {
 
   RestartPoint RP; //Restart Point
   
-  boolean completed = false;
+  boolean dotsCompleted = false;
+  boolean carCompleted = false;
   
   boolean hasMovingWalls = false;
 
@@ -19,6 +20,10 @@ class Stage {
   
   void show(){
     RP.show();
+    if(dotsCompleted && carCompleted){
+      walls[0].type = 0;
+      walls[1].type = 0;
+    }
     for(int i = 0; i < numWalls; i++){
       walls[i].show(walls[i].type);
     }
@@ -29,20 +34,26 @@ class Stage {
   void makeStage(int n){
     if(n == 1){               //STAGE 1
       RP  = new RestartPoint(75, 0, 1);
-      walls[0] = new Wall(0, 50, 70, 10, 630, 0);
-      walls[1] = new Wall(1, 0, 60, 30, 10,0);
-      walls[2] = new Wall(2, 95, 50, 10, 60,0);
-      walls[3] = new Wall(3, 60, 100, 80, 10,0);
+      walls[0] = new Wall(-1, 65, 50, 30, 10, 3);
+      walls[1] = new Wall(-2, 65, 0, 10, 50, 3);
+      
+      walls[2] = new Wall(0, 50, 70, 10, 630, 0);
+      walls[3] = new Wall(1, 0, 60, 30, 10, 0);
+      walls[4] = new Wall(2, 95, 50, 10, 60,0);
+      walls[5] = new Wall(3, 60, 100, 80, 10,0);
     }else if(n == 2){         //STAGE 2
       RP = new RestartPoint(80, 650, 2);
-      walls[0] = new Wall(4, 200, 0, 10, 150,0);
-      walls[1] = new Wall(5, 150, 140, 60, 10,0);
-      walls[2] = new Wall(6, 150, 140, 10, 35,0);
-      walls[3] = new Wall(7, 125, 165, 35, 10,0);
-      walls[4] = new Wall(8, 125, 165, 10, 35,0);
-      walls[5] = new Wall(9, 100, 190, 35, 10,0);
-      walls[6] = new Wall(10, 100, 190, 10, 460, 0);
-    }else if(n == 3){         //STAGE 3
+      walls[0] = new Wall(-3, 70, 640, 30, 10, 3);
+      walls[1] = new Wall(-4, 70, 640, 10, 60, 3);
+      
+      walls[2] = new Wall(4, 200, 0, 10, 150,0);
+      walls[3] = new Wall(5, 150, 140, 60, 10,0);
+      walls[4] = new Wall(6, 150, 140, 10, 35,0);
+      walls[5] = new Wall(7, 125, 165, 35, 10,0);
+      walls[6] = new Wall(8, 125, 165, 10, 35,0);
+      walls[7] = new Wall(9, 100, 190, 35, 10,0);
+      walls[8] = new Wall(10, 100, 190, 10, 460, 0);
+    }else if (n == 3){         //STAGE 3
       RP = new RestartPoint(160, 150, 3);
       walls[0] = new Wall(11, -75, 630, 50, 10, 0);
       walls[1] = new Wall(12, 200, 200, 10, 500,0);
@@ -66,6 +77,8 @@ class Stage {
     }else if(n == 5){
       RP = new RestartPoint(210, 280, 5);
       walls[0] = new Wall(12, 200, 200, 10, 500,0);
+      walls[1] = new Wall(100, 500, 500, 50, 20, 0);
+      walls[2] = new Wall(101, 400, 600, 34, 23, 0);
     }else if(n == 6){
       RP = new RestartPoint(210, 650, 6);
       walls[0] = new Wall(13, 260, 0, 10, 650, 0);
@@ -87,13 +100,7 @@ class Stage {
   
 
   
-  
-  
-  
-  
-  
 
-  
   void moveWalls(Wall w){
     if(w.type == 3){
       if(w.increase){                //increase is true;

@@ -5,6 +5,7 @@ class RestartPoint{
   float w = 50;
   float h = 50;
   int val = 0;
+  
   public RestartPoint(float x, float y, int v){
     this.x = x;
     this.y = y;
