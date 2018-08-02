@@ -43,6 +43,12 @@ class Wall {
       rect(x, y, w, h);
     } else if (type == 3){
       
+    } else if (type == 4){
+      fill(255, 255, 0);
+      rect(x, y, w, h);
+    }else if (type == 5){
+      fill(0, 255, 0);
+      rect(x, y, w, h);
     }
     
     fill(255, 0, 0);

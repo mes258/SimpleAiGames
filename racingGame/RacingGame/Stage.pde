@@ -12,15 +12,24 @@ class Stage {
   
   boolean hasMovingWalls = false;
   
+  Critter[] bugs;
+  boolean hasBugs = false;
+  
 
   Stage(int stageNum) {
    this.stageNum = stageNum;
    walls = new Wall[30];
+   bugs = new Critter[5];
    makeStage(stageNum);
   }
   
   void show(){
     RP.show();
+    if(hasBugs){
+      for(int i = 0; i < 5; i++){
+        bugs[i].show();
+      }
+    }
     if(hasMovingWalls){
       for(int i = 0; i < numWalls; i ++){
         if(walls[i].type == 2){
@@ -38,7 +47,7 @@ class Stage {
   }
   
   void makeStage(int n){
-    //Wall types: 0 = normal wall, 1 = trigger wall, 2 = moving wall, 3 = hidden wall
+    //Wall types: 0 = normal wall, 1 = trigger wall, 2 = moving wall, 3 = hidden wall, 4 = teleporter, 5 = bug bounce wall
     if(n == 1){               //STAGE 1
       RP  = new RestartPoint(75, 0, 1);
       walls[0] = new Wall(-1, 65, 50, 30, 10, 3);
@@ -120,6 +129,42 @@ class Stage {
       walls[9] = new Wall(26, 215, 580, 20, 30, 200, 250, true, true, 1, 2);
       walls[10] = new Wall(27, 230, 630, 30, 10, 200, 240, true, true, 1, 2);
       hasMovingWalls = true;
+    }else if(n == 7){
+      RP = new RestartPoint(630, 650, 7);
+      walls[0] = new Wall(-11, 210, 640, 50, 10, 3);
+      walls[1] = new Wall(-12, -210, 620, 50, 20, 3);
+      
+      walls[2] = new Wall(28, 260, 640, 440, 10, 0);
+      
+    }else if(n == 8){
+      RP = new RestartPoint(270, 200, 8);
+      walls[0] = new Wall(-11, 210, 640, 50, 10, 3);
+      walls[1] = new Wall(-12, -210, 620, 50, 20, 3);
+      
+      walls[2] = new Wall(29, 370, 250, 10, 390, 0);
+      walls[3] = new Wall(30, 320, 240, 60, 10, 0);
+      walls[4] = new Wall(80, 680, 650, 20, 50, 4);
+      walls[5] = new Wall(81, 270, 590, 100, 50, 4);
+      
+      walls[6] = new Wall(1, 270, 250, 100, 1, 5);
+      walls[7] = new Wall(2, 369, 251, 1, 340, 5);
+      walls[8] = new Wall(1, 270, 589, 100, 1, 5);
+      walls[9] = new Wall(2, 271, 251, 1, 340, 5);
+      
+      
+      bugs[0] = new Critter();
+      bugs[1] = new Critter();
+      bugs[2] = new Critter();
+      bugs[3] = new Critter();
+      bugs[4] = new Critter();
+      hasBugs = true;
+      
+    }
+    else if(n == 9){
+      RP = new RestartPoint(510, 450, 9);
+      walls[0] = new Wall(-11, 210, 640, 50, 10, 3);
+      walls[1] = new Wall(-12, -210, 620, 50, 20, 3);
+      walls[2] = new Wall(70, 710, 470, 30, 10, 0);
     }
     
     

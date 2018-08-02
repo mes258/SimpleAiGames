@@ -12,10 +12,11 @@ int numberOfRPs = 0;
 
 int generation = 1; //Current generation, updated everytime all dots die
 
-int numberOfStages = 3; //Number of stages in this level
+
 boolean stageComplete[]; //stageComplete[i] is true if all dots and player are past stage i, otherwise false
 
 Stage allStages[];
+int numberOfStages = 0;
 Stage currentStages[];
 int numCurrentStages = 0;
 
@@ -46,12 +47,14 @@ void setup() {
   }
   
   allStages = new Stage[10];
-  for(int i = 0; i < 6; i++){
+  for(int i = 0; i < 10; i++){
     allStages[i] = new Stage(i+1);
   }
+  numberOfStages = 7;
   currentStages = new Stage[6];
   
   bots = new Population(2000);
+  car.atRP = 6;
 }
 int step = 0;
 /* UPDATE EACH STEP */
@@ -61,7 +64,9 @@ void draw() {
   fill(255, 0, 0);
   text(generation, 650, 20);
   
+  
   getCurrentStages(car.atRP, bots.dots[0].atRP);
+  //getCurrentStages(5, 4);
   for(int i = 0; i < numCurrentStages; i++){
     currentStages[i].show();
   }
@@ -207,10 +212,29 @@ void draw() {
           dotHitWall(bots.dots[j], currentStages[i].walls[k], i, k);
         }
       }
+      if(currentStages[i].hasBugs){
+        for(int k = 0; k < currentStages[i].numWalls; k++){
+          for(int j = 0; j < currentStages[i].bugs.length; j++){
+            bugHitWall(currentStages[i].bugs[j], currentStages[i].walls[k]);
+          }
+        }
+      }
     }
   }
 
 /* CHECK COLLISIONS */
+void bugHitWall(Critter b, Wall w){
+  boolean a = overLap(b.pos.x, b.pos.y, 1, 1, w.x, w.y, w.w, w.h);
+  if(a){
+    if(w.num.equals("1")){
+      b.vel.y = b.vel.y * -1;
+    }else if(w.num.equals("2")){
+      b.vel.x = b.vel.x * -1;
+    }
+    
+  }
+}
+
 void dotHitWall(Dot d, Wall w, int stage, int index){
   boolean b = overLap(d.pos.x, d.pos.y, 1, 1, w.x, w.y, w.w, w.h);
   if(w.type == 0 || w.type == 2){
