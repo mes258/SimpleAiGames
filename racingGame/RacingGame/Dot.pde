@@ -24,7 +24,7 @@ class Dot {
       vel = new PVector(0, 0);
       acc = new PVector(0, 0);
     }else {
-      pos = new PVector(RP[atRP-1].x + RP[atRP-1].w/2, RP[atRP-1].y + RP[atRP-1].h/2);
+      pos = new PVector(allStages[atRP-1].RP.x + allStages[atRP-1].RP.w/2, allStages[atRP-1].RP.y + allStages[atRP-1].RP.h/2);
       vel = new PVector(0, 0);
       acc = new PVector(0, 0);
     }
@@ -91,14 +91,15 @@ class Dot {
   //calculates the fitness
   
   void calculateFitness() {
-   if(atRP >= numberOfRPs){
-     atRP = 0;
-     fitness = 1000000000;
-   }else{
-     RestartPoint t = RP[atRP];
+   //if(atRP >= numberOfRPs){
+   //  atRP = 0;
+   //  fitness = 1000000000;
+   //}else{
+     //RestartPoint t = allStages[atRP].RP;
+     RestartPoint t = allStages[atRP].RP;
      float distanceToGoal = dist(pos.x, pos.y, t.x + t.w/2, t.y + t.h/2);
      fitness = 1.0/(distanceToGoal * distanceToGoal) + atRP;
-   }
+   //}
   }
 
   //---------------------------------------------------------------------------------------------------------------------------------------

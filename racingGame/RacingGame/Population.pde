@@ -122,11 +122,6 @@ class Population {
   }
 
   //------------------------------------------------------------------------------------------------------------------------------------------
-  //void mutateDemBabies(){s  //  for (int i = 1; i< dots.length; i++) {
-  //    dots[i].brain.mutate();
-  //  }
-  //}
-  
   void mutateDots(){
     for(int i = 1; i < dots.length; i++){
       dots[i].brain.mutate();
@@ -157,7 +152,6 @@ class Population {
     bestDot = maxIndex;
     
     //dots[bestDot].fitness += 10;
-    println("checkpoint: ", dots[bestDot].atCheckpoint);
     println("fitness: ", dots[bestDot].fitness);
     println("RP: ", dots[bestDot].atRP);
     println("");
