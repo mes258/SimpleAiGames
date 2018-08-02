@@ -61,9 +61,6 @@ void draw() {
   fill(255, 0, 0);
   text(generation, 650, 20);
   
-  //checkCompletedStage();
-  
-  //STAGE TEST AREA
   getCurrentStages(car.atRP, bots.dots[0].atRP);
   for(int i = 0; i < numCurrentStages; i++){
     currentStages[i].show();
@@ -71,15 +68,12 @@ void draw() {
   
   checkCollisions();
   
-  
-  //END STAGE TEST AREA
-  
-
   if(step % 10 == 0){
     if(car.dead){
         car.reset();
     }
   }
+  
   /* CHECK IF GENERATION IS OVER, ELSE UPDATE */
   if (bots.allDotsDead()) {
     println("carRP: " + car.atRP);
@@ -102,9 +96,6 @@ void draw() {
   /* END GENERATION CHECK */
 }
 /* END OF STEP */
-
-
-//stage methods
   void getCurrentStages(int carRP, int dotRP){
     if(carRP != 0 && dotRP != 0){
       if(carRP == dotRP){
@@ -182,7 +173,6 @@ void draw() {
       }
     }
     
-      
     for(int i = 0; i < currentStages.length; i++){
       if(currentStages[i] == null){
         numCurrentStages = i;
@@ -219,48 +209,6 @@ void draw() {
       }
     }
   }
-
-
-//end of stage methods
-
-
-/* MOVE WALLS */
-void updateWall(Wall w){
-  if(w.increase){                //increase is true;
-    if(w.moveX){                    //moving x
-      if(w.x < w.max){                //x is less than max
-        w.x += w.speed;
-      }else{                          //x is more than max
-        w.increase = false;
-        w.x -= w.speed;
-      }
-    }else{                          // moving y
-      if(w.y < w.max){                //y is less than max
-        w.y+= w.speed;
-      }else{                          //y is more than max
-        w.increase = false;
-        w.y-= w.speed;
-      }
-    }
-  }else{                      //increase is false
-    if(w.moveX){                    //moving x
-      if(w.x >= w.min){                //x is less than max
-        w.x-= w.speed;
-      }else{                          //x is more than max
-        w.increase = true;
-        w.x+= w.speed;
-      }
-    }else{                          // moving y
-      if(w.y >= w.min){                //y is less than max
-        w.y-= w.speed;
-      }else{                          //y is more than max
-        w.increase = true;
-        w.y+= w.speed;
-      }
-    }
-  }
-}
-/* END OF MOVE WALLS */
 
 /* CHECK COLLISIONS */
 void dotHitWall(Dot d, Wall w, int stage, int index){
@@ -335,56 +283,3 @@ void keyReleased() {
   else if (k == RIGHT)  car.right = false;
 }
 /* END LISTEN FOR USER INPUT */
-
-/* MAKE OBSTACLES */
-void makeWalls(){
-  //         dist from: Left,Top,  w,  h
- 
-  //STAGE 1
-  walls[0] = new Wall(0, 50, 70, 10, 630, 0);
-  walls[1] = new Wall(1, 0, 60, 30, 10,0);
-  walls[2] = new Wall(2, 95, 50, 10, 60,0);
-  //STAGE 2
-  walls[3] = new Wall(3, 60, 100, 80, 10,0);
-  walls[4] = new Wall(4, 200, 0, 10, 150,0);
-  walls[5] = new Wall(5, 150, 140, 60, 10,0);
-  walls[6] = new Wall(6, 150, 140, 10, 35,0);
-  walls[7] = new Wall(7, 125, 165, 35, 10,0);
-  walls[8] = new Wall(8, 125, 165, 10, 35,0);
-  walls[9] = new Wall(9, 100, 190, 35, 10,0);
-  walls[10] = new Wall(10, 100, 190, 10, 460, 0);
-  walls[11] = new Wall(11, -75, 630, 50, 10, 0);
-  //STAGE 3
-  walls[12] = new Wall(12, 200, 200, 10, 500,0);
-  //STAGE 4 AND 5
-  walls[13] = new Wall(13, 260, 0, 10, 650, 0);
-  //Triggers and trigger walls - the trigger must be the wall directly before the wall it hides.
-  walls[14] = new Wall(15, 210, 100, 50, 10, 1);
-  walls[15] = new Wall(16, 210, 220, 50, 10, 0);
-  walls[16] = new Wall(17, 210, 240, 50, 10, 1);
-  walls[17] = new Wall(18, 210, 75, 50, 10, 0);
-  walls[18] = new Wall(14, 210, 0, 50, 10, 1);
-  walls[19] = new Wall(19, 210, 260, 50, 10, 0);
-  //STAGE 6
-  walls[20] = new Wall(20, 215, 340, 20, 30, 0);
-  walls[21] = new Wall(21, 230, 390, 30, 10, 0);
-  walls[22] = new Wall(22, 215, 420, 20, 30, 0);
-  walls[23] = new Wall(23, 230, 470, 30, 10, 0);
-  //walls[24] = new Wall(24, 215, 500, 20, 30, 0);
-  walls[24] = new Wall(25, 230, 550, 30, 10, 0);
-  //walls[26] = new Wall(26, 215, 580, 20, 30, 0);
-  //walls[27] = new Wall(27, 230, 630, 30, 10, 0);
-
-  for(int i = 0; i < walls.length; i++){
-    if(walls[i] == null){
-      numberOfWalls = i;
-      break;
-    }
-  }
-}
-
-
-
-
-/*END OF MAKE OBSTACLES*/
-  
