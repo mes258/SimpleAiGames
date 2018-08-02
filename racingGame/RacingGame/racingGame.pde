@@ -138,66 +138,83 @@ void draw() {
 
 //stage methods
   void getCurrentStages(int carRP, int dotRP){
-    if(carRP == dotRP){
-      if(carRP != 0){
-        currentStages[0] = allStages[carRP-1];
-        currentStages[1] = allStages[carRP];
-        currentStages[2] = allStages[carRP + 1];
-      }else{
-        currentStages[0] = allStages[carRP];
-        currentStages[1] = allStages[carRP + 1];
+    if(carRP != 0 && dotRP != 0){
+      if(carRP == dotRP){
+          currentStages[0] = allStages[carRP - 1];
+          currentStages[1] = allStages[carRP];
+          currentStages[2] = allStages[carRP + 1];
+      }else if(carRP > dotRP){
+        if(carRP - dotRP == 1){
+          currentStages[0] = allStages[dotRP - 1];
+          currentStages[1] = allStages[dotRP];
+          currentStages[2] = allStages[carRP];
+          currentStages[3] = allStages[carRP + 1];
+        }else if(carRP - dotRP == 2){
+          currentStages[0] = allStages[dotRP - 1];
+          currentStages[1] = allStages[dotRP];
+          currentStages[2] = allStages[dotRP + 1];
+          currentStages[3] = allStages[carRP];
+          currentStages[4] = allStages[carRP + 1];
+        }else{
+          currentStages[0] = allStages[dotRP - 1];
+          currentStages[1] = allStages[dotRP];
+          currentStages[2] = allStages[dotRP + 1];
+          currentStages[3] = allStages[carRP - 1];
+          currentStages[4] = allStages[carRP];
+          currentStages[5] = allStages[carRP + 1];
+        }
+      }else if(dotRP > carRP){
+        if(carRP - dotRP == 1){
+          currentStages[0] = allStages[carRP];
+          currentStages[1] = allStages[dotRP];
+          currentStages[2] = allStages[dotRP + 1];
+        }else if(carRP - dotRP == 2){
+          currentStages[0] = allStages[carRP - 1];
+          currentStages[1] = allStages[carRP];
+          currentStages[2] = allStages[carRP + 1];
+          currentStages[3] = allStages[dotRP];
+          currentStages[4] = allStages[dotRP + 1];
+        }else{
+          currentStages[0] = allStages[carRP - 1];
+          currentStages[1] = allStages[carRP];
+          currentStages[2] = allStages[carRP + 1];
+          currentStages[3] = allStages[dotRP - 1];
+          currentStages[4] = allStages[dotRP];
+          currentStages[5] = allStages[dotRP + 1];
+        }
       }
-      
-    }else if(carRP - dotRP == 1){
-      if(dotRP != 0){
-        currentStages[0] = allStages[dotRP-1];
-        currentStages[1] = allStages[dotRP];
-        currentStages[2] = allStages[carRP];
-        currentStages[3] = allStages[carRP + 1];
-      }else{
-        currentStages[0] = allStages[dotRP];
-        currentStages[1] = allStages[carRP];
-        currentStages[2] = allStages[carRP + 1];
-      }
-      
-    }else if(dotRP - carRP == 1){
-      if(carRP != 0){
-        currentStages[0] = allStages[carRP-1];
-        currentStages[1] = allStages[carRP];
+    }else if(carRP == 0 && dotRP == 0){
+      currentStages[0] = allStages[carRP];
+      currentStages[1] = allStages[carRP + 1];
+    }else if(carRP == 0){
+      currentStages[0] = allStages[carRP];
+      currentStages[1] = allStages[carRP + 1];
+      if(dotRP - carRP == 1){
+        currentStages[2] = allStages[dotRP + 1];
+      }else if(dotRP - carRP == 2){
         currentStages[2] = allStages[dotRP];
         currentStages[3] = allStages[dotRP + 1];
       }else{
-        currentStages[0] = allStages[carRP];
-        currentStages[1] = allStages[dotRP];
-        currentStages[2] = allStages[dotRP + 1]; 
+        currentStages[2] = allStages[dotRP - 1];
+        currentStages[3] = allStages[dotRP];
+        currentStages[4] = allStages[dotRP + 1];
       }
-      
-    }else{
-      if(carRP != 0){ //car is not zero
-        currentStages[0] = allStages[carRP - 1];
-        currentStages[1] = allStages[carRP];
+    }else if(dotRP == 0){
+      currentStages[0] = allStages[dotRP];
+      currentStages[1] = allStages[dotRP + 1];
+      if(carRP - dotRP == 1){
         currentStages[2] = allStages[carRP + 1];
-        
-        if(dotRP != 0){ //neither car or dots are zero
-        currentStages[3] = allStages[dotRP - 1];
-        currentStages[4] = allStages[dotRP];
-        currentStages[5] = allStages[dotRP + 1];
-        }else{ // car is not zero, dots are zero
-          currentStages[3] = allStages[dotRP];
-          currentStages[4] = allStages[dotRP + 1];
-        }
-      }else if(dotRP != 0){ // dots are not zero, car is zero
-        currentStages[0] = allStages[dotRP - 1];
-        currentStages[1] = allStages[dotRP];
-        currentStages[2] = allStages[dotRP + 1];
+      }else if(carRP - dotRP == 2){
+        currentStages[2] = allStages[carRP];
+        currentStages[3] = allStages[carRP + 1];
+      }else{
+        currentStages[2] = allStages[carRP - 1];
         currentStages[3] = allStages[carRP];
         currentStages[4] = allStages[carRP + 1];
-      }else{
-        println("You should not see this message");
       }
-      
     }
     
+      
     for(int i = 0; i < currentStages.length; i++){
       if(currentStages[i] == null){
         numCurrentStages = i;
@@ -208,12 +225,12 @@ void draw() {
   }
   
   void checkStageCompletion(int carRP, int dotRP){
-    for(int i = 0; i < numCurrentStages; i++){
+    for(int i = 0; i < allStages.length; i++){
       if(carRP > i){
-        currentStages[i].carCompleted = true;
+        allStages[i].carCompleted = true;
       }
       if(dotRP > i){
-        currentStages[i].dotsCompleted = true;
+        allStages[i].dotsCompleted = true;
       }
     }
   }

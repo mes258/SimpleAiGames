@@ -95,7 +95,6 @@ class Dot {
    //  atRP = 0;
    //  fitness = 1000000000;
    //}else{
-     //RestartPoint t = allStages[atRP].RP;
      RestartPoint t = allStages[atRP].RP;
      float distanceToGoal = dist(pos.x, pos.y, t.x + t.w/2, t.y + t.h/2);
      fitness = 1.0/(distanceToGoal * distanceToGoal) + atRP;

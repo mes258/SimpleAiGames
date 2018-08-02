@@ -11,6 +11,7 @@ class Stage {
   boolean carCompleted = false;
   
   boolean hasMovingWalls = false;
+  
 
   Stage(int stageNum) {
    this.stageNum = stageNum;
@@ -55,25 +56,30 @@ class Stage {
       walls[8] = new Wall(10, 100, 190, 10, 460, 0);
     }else if (n == 3){         //STAGE 3
       RP = new RestartPoint(160, 150, 3);
-      walls[0] = new Wall(11, -75, 630, 50, 10, 0);
-      walls[1] = new Wall(12, 200, 200, 10, 500,0);
+      walls[0] = new Wall(-5, 150, 170, 10, 40, 3);
+      walls[1] = new Wall(-6, 150, 200, 60, 10, 3);
+      
+      walls[2] = new Wall(12, 200, 200, 10, 500,0);
     }else if(n == 4){
       RP = new RestartPoint(210, 10, 4);
-      walls[0] = new Wall(4, 200, 0, 10, 150,0);
-      walls[1] = new Wall(5, 150, 140, 60, 10,0);
-      walls[2] = new Wall(6, 150, 140, 10, 35,0);
-      walls[3] = new Wall(7, 125, 165, 35, 10,0);
-      walls[4] = new Wall(8, 125, 165, 10, 35,0);
-      walls[5] = new Wall(9, 100, 190, 35, 10,0);
-      walls[6] = new Wall(10, 100, 190, 10, 460, 0);
-      walls[7] = new Wall(13, 260, 0, 10, 650, 0);
+      walls[0] = new Wall(-7, 210, 0, 50, 10, 3);
+      walls[1] = new Wall(-8, 200, 150, 10, 50, 3);
+      
+      walls[2] = new Wall(4, 200, 0, 10, 150,0);
+      walls[3] = new Wall(5, 150, 140, 60, 10,0);
+      walls[4] = new Wall(6, 150, 140, 10, 35,0);
+      walls[5] = new Wall(7, 125, 165, 35, 10,0);
+      walls[6] = new Wall(8, 125, 165, 10, 35,0);
+      walls[7] = new Wall(9, 100, 190, 35, 10,0);
+      walls[8] = new Wall(10, 100, 190, 10, 460, 0);
+      walls[9] = new Wall(13, 260, 0, 10, 650, 0);
       //Triggers and trigger walls
-      walls[8] = new Wall(15, 210, 100, 50, 10, 1);
-      walls[9] = new Wall(16, 210, 220, 50, 10, 0);
-      walls[10] = new Wall(17, 210, 240, 50, 10, 1);
-      walls[11] = new Wall(18, 210, 75, 50, 10, 0);
-      walls[12] = new Wall(14, 210, 0, 50, 10, 1);
-      walls[13] = new Wall(19, 210, 260, 50, 10, 0);
+      walls[10] = new Wall(15, 210, 100, 50, 10, 1);
+      walls[11] = new Wall(16, 210, 220, 50, 10, 0);
+      walls[12] = new Wall(17, 210, 240, 50, 10, 1);
+      walls[13] = new Wall(18, 210, 75, 50, 10, 0);
+      walls[14] = new Wall(14, 210, 0, 50, 10, 1);
+      walls[15] = new Wall(19, 210, 260, 50, 10, 0);
     }else if(n == 5){
       RP = new RestartPoint(210, 280, 5);
       walls[0] = new Wall(12, 200, 200, 10, 500,0);
