@@ -161,7 +161,20 @@ void draw() {
   }
   
   void checkCollisions(){
-    
+    for(int i = 0; i < numCurrentStages; i++){
+      //Check RPs
+      car = carHitRP(car, currentStages[i].RP);
+      for(int j = 0; j < bots.dots.length; j++){
+        dotHitRP(bots.dots[j], currentStages[i].RP);
+      }
+      //Check Walls
+      for(int k = 0; k < currentStages[i].numWalls; k++){
+        car = carHitWall(car, currentStages[i].walls[k], k);
+        for(int j = 0; j < bots.dots.length; j++){
+          dotHitWall(bots.dots[j], currentStages[i].walls[k], k);
+        }
+      }
+    }
   }
 
 
@@ -245,12 +258,13 @@ void dotHitWall(Dot d, Wall w, int index){
     if(b){
       d.dead = true;
     }
-  }else if(w.type == 1){
-    if(b){
-      walls[index+1].x = -500;
-      walls[index].x = -500;
-    }
   }
+  //else if(w.type == 1){
+  //  if(b){
+  //    walls[index+1].x = -500;
+  //    walls[index].x = -500;
+  //  }
+  //}
 }
 
 PlayerCar carHitWall(PlayerCar c, Wall w, int index){
@@ -259,12 +273,13 @@ PlayerCar carHitWall(PlayerCar c, Wall w, int index){
     if(b){
       c.dead = true;
     }
-  }else if(w.type == 1){
-    if(b){
-      walls[index+1].x = -500;
-      walls[index].x = -500;
-    }
   }
+  //else if(w.type == 1){
+  //  if(b){
+  //    walls[index+1].x = -500;
+  //    walls[index].x = -500;
+  //  }
+  //}
   return c;
 }
 

@@ -5,7 +5,7 @@ class Stage {
   Wall[] walls; //All walls
   int numWalls = 0; 
 
-  RestartPoint RP; //Restart Points
+  RestartPoint RP; //Restart Point
   
   boolean completed = false;
   
