@@ -17,6 +17,7 @@ boolean stageComplete[]; //stageComplete[i] is true if all dots and player are p
 
 boolean showTriggerWalls[];
 
+
 /* END DATA TYPE SET UP */
 
 
@@ -85,19 +86,25 @@ void draw() {
     }
   }
   /* END SHOWING OBJECTS AND CHECKING FOR COLLISIONS */
-  
+  if(step % 10 == 0){
+    if(car.dead){
+        car.reset();
+    }
+  }
   /* CHECK IF GENERATION IS OVER, ELSE UPDATE */
   if (bots.allDotsDead()) {
     //genetic algorithm
     println("Generation: " + generation);
-    bots.calculateFitness();
+    
+      bots.calculateFitness();
+
     bots.naturalSelection();
     //makeMovingWalls();
     bots.mutateDots();
     generation++;
-    if(car.dead){
-      car.reset();
-    }
+    //if(car.dead){
+    //  car.reset();
+    //}
   } else {
     //if any of the dots are still alive then update and then show them
     bots.update();
@@ -124,6 +131,8 @@ void checkCompletedStage(){
   
     if(stageComplete[0] == true){
       walls[1].w = 95;
+    }else{
+      walls[1].w = 30;
     }
     if(stageComplete[1] == true){
       walls[11].x = 50;
@@ -266,16 +275,24 @@ void makeWalls(){
   walls[11] = new Wall(11, -75, 630, 50, 10, 0);
   //STAGE 3
   walls[12] = new Wall(12, 200, 200, 10, 500,0);
-  //STAGE 4
-  walls[13] = new Wall(13, 260, 0, 10, 330, 0);
+  //STAGE 4 AND 5
+  walls[13] = new Wall(13, 260, 0, 10, 650, 0);
   //Triggers and trigger walls - the trigger must be the wall directly before the wall it hides.
   walls[14] = new Wall(15, 210, 100, 50, 10, 1);
   walls[15] = new Wall(16, 210, 220, 50, 10, 0);
   walls[16] = new Wall(17, 210, 240, 50, 10, 1);
   walls[17] = new Wall(18, 210, 75, 50, 10, 0);
   walls[18] = new Wall(14, 210, 0, 50, 10, 1);
-  walls[19] = new Wall (19, 210, 260, 50, 10, 0);
-  
+  walls[19] = new Wall(19, 210, 260, 50, 10, 0);
+  //STAGE 6
+  walls[20] = new Wall(20, 215, 340, 20, 30, 0);
+  walls[21] = new Wall(21, 230, 390, 30, 10, 0);
+  walls[22] = new Wall(22, 215, 420, 20, 30, 0);
+  walls[23] = new Wall(23, 230, 470, 30, 10, 0);
+  //walls[24] = new Wall(24, 215, 500, 20, 30, 0);
+  walls[24] = new Wall(25, 230, 550, 30, 10, 0);
+  //walls[26] = new Wall(26, 215, 580, 20, 30, 0);
+  //walls[27] = new Wall(27, 230, 630, 30, 10, 0);
 
   for(int i = 0; i < walls.length; i++){
     if(walls[i] == null){
@@ -286,6 +303,7 @@ void makeWalls(){
 }
 
 void makeMovingWalls(){
+  //Stage 3
   movingWalls[0] = new Wall(10, 50, 400, 10, 60, 50, 100, true, true, 1,0);
   movingWalls[1] = new Wall(11, 98, 580, 10, 60, 100, 200, true, true, 1,0);
   movingWalls[2] = new Wall(12, 198, 550, 10, 60, 100, 200, true, true, 1,0);
@@ -295,6 +313,11 @@ void makeMovingWalls(){
   movingWalls[6] = new Wall(16, 198, 250, 10, 60, 100, 200, true, true, 2,0);
   movingWalls[7] = new Wall(17, 140, 300, 10, 60, 100, 165, true, true, 3,0);
   movingWalls[8] = new Wall(18, 100, 200, 10, 60, 100, 200, true, true, 3,0);
+  
+  //Stage 6
+  movingWalls[9] = new Wall(24, 215, 500, 20, 30, 200, 250, true, true, 1, 0);
+  movingWalls[10] = new Wall(26, 215, 580, 20, 30, 200, 250, true, true, 1, 0);
+  movingWalls[11] = new Wall(27, 230, 630, 30, 10, 200, 240, true, true, 1, 0);
  
   for(int i = 0; i < movingWalls.length; i++){
     if(movingWalls[i] == null){
@@ -310,8 +333,9 @@ void makeRPs(){
   RP[2] = new RestartPoint(160, 150, 3);
   RP[3] = new RestartPoint(210, 10, 4);
   RP[4] = new RestartPoint(210, 280, 5);
+  RP[5] = new RestartPoint(210, 650, 6);
   
-  RP[5] = new RestartPoint(500, 500, 6);
+  RP[6] = new RestartPoint(500, 500, 7);
   
   for(int i = 0; i < RP.length; i++){
     if(RP[i] == null){

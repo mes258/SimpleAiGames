@@ -38,6 +38,9 @@ class Wall {
     } else if (type == 1){
       fill(173, 216, 230);
       rect(x, y, w, h);
+    } else if (type == 2){
+      fill(0);
+      rect(x, y, w, h);
     } 
     
     fill(255, 0, 0);

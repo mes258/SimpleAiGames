@@ -93,7 +93,7 @@ class Dot {
   void calculateFitness() {
    if(atRP >= numberOfRPs){
      atRP = 0;
-     fitness = 1;
+     fitness = 1000000000;
    }else{
      RestartPoint t = RP[atRP];
      float distanceToGoal = dist(pos.x, pos.y, t.x + t.w/2, t.y + t.h/2);
