@@ -70,19 +70,6 @@ class Dot {
         dead = true;
         
       }
-      //else{
-      //  RestartPoint t = RP[atRP];
-      //  if(dist(pos.x, pos.y, t.x + t.w/2, t.y + t.h/2) < 51){
-          
-      //  }
-          
- 
-      //}
-      //} else if (dist(pos.x, pos.y, 100, 20) < 5) {//if reached goal
-      //  atRP = 1;
-      //} else if (dist(pos.x, pos.y, 170, 730) < 5) {//if reached goal2
-      //  atRP = 2;
-      //}
     }
   }
 

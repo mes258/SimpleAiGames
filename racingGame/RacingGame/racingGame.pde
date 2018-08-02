@@ -45,7 +45,7 @@ void setup() {
     stageComplete[i] = true;
   }
   
-  allStages = new Stage[6];
+  allStages = new Stage[10];
   for(int i = 0; i < 6; i++){
     allStages[i] = new Stage(i+1);
   }
@@ -74,39 +74,7 @@ void draw() {
   
   //END STAGE TEST AREA
   
-  
-  
-  
-  
-  
-  
-  ///* SHOW OBJECTS AND CHECK FOR COLLISIONS */
-  //for(int i = 0; i < numberOfRPs; i++){
-  //  RP[i].show();
-  //  car = carHitRP(car, RP[i]);
-  //  for(int j = 0; j < bots.dots.length; j++){
-  //    dotHitRP(bots.dots[j], RP[i]);
-  //  }
-  //}
-  
-  //for(int i = 0; i < numberOfMovingWalls; i++){
-  //  updateWall(movingWalls[i]);
-  //  movingWalls[i].show(movingWalls[i].type);
-  //  car = carHitWall(car, movingWalls[i], i);
-  //  for(int j = 0; j < bots.dots.length; j++){
-  //      dotHitWall(bots.dots[j], movingWalls[i], i);
-  //  }
-  //}
-  
-  //for(int i = 0; i < numberOfWalls; i++){
-  //  walls[i].show(walls[i].type);
-  //  car = carHitWall(car, walls[i], i);
-  //  for(int j = 0; j < bots.dots.length; j++){
-  //    dotHitWall(bots.dots[j], walls[i], i);
-  //  }
-  //}
-  
-  /* END SHOWING OBJECTS AND CHECKING FOR COLLISIONS */
+
   if(step % 10 == 0){
     if(car.dead){
         car.reset();
@@ -244,9 +212,9 @@ void draw() {
       }
       //Check Walls
       for(int k = 0; k < currentStages[i].numWalls; k++){
-        car = carHitWall(car, currentStages[i].walls[k], k);
+        car = carHitWall(car, currentStages[i].walls[k], i, k);
         for(int j = 0; j < bots.dots.length; j++){
-          dotHitWall(bots.dots[j], currentStages[i].walls[k], k);
+          dotHitWall(bots.dots[j], currentStages[i].walls[k], i, k);
         }
       }
     }
@@ -255,38 +223,6 @@ void draw() {
 
 //end of stage methods
 
-
-
-
-
-
-
-/* CHECK STAGE COMPLETION */
-void checkCompletedStage(){
-  for(int j = 0; j < numberOfStages; j++){
-    stageComplete[j] = true;
-    for(int i = 0; i < bots.dots.length; i++){
-      if(bots.dots[i].atRP == j){
-        stageComplete[j] = false;
-      }
-    }
-    if(car.atRP == j){
-      stageComplete[j] = false;
-    }
-  
-    if(stageComplete[0] == true){
-      walls[1].w = 95;
-    }else{
-      walls[1].w = 30;
-    }
-    if(stageComplete[1] == true){
-      walls[11].x = 50;
-    }else{
-      walls[11].x = -75;
-    }
-  }
-}
-/* END STAGE COMPLETION CHECK */
 
 /* MOVE WALLS */
 void updateWall(Wall w){
@@ -327,34 +263,32 @@ void updateWall(Wall w){
 /* END OF MOVE WALLS */
 
 /* CHECK COLLISIONS */
-void dotHitWall(Dot d, Wall w, int index){
+void dotHitWall(Dot d, Wall w, int stage, int index){
   boolean b = overLap(d.pos.x, d.pos.y, 1, 1, w.x, w.y, w.w, w.h);
-  if(w.type == 0){
+  if(w.type == 0 || w.type == 2){
     if(b){
       d.dead = true;
     }
+  }else if(w.type == 1){
+    if(b){
+      currentStages[stage].walls[index+1].x = -500;
+      currentStages[stage].walls[index+1].x = -500;
+    }
   }
-  //else if(w.type == 1){
-  //  if(b){
-  //    walls[index+1].x = -500;
-  //    walls[index].x = -500;
-  //  }
-  //}
 }
 
-PlayerCar carHitWall(PlayerCar c, Wall w, int index){
+PlayerCar carHitWall(PlayerCar c, Wall w, int stage, int index){
   boolean b = overLap(c.x, c.y, c.w, c.h, w.x, w.y, w.w, w.h);
-  if(w.type == 0){
+  if(w.type == 0 || w.type == 2){
     if(b){
       c.dead = true;
     }
+  }else if(w.type == 1){
+    if(b){
+      currentStages[stage].walls[index+1].x = -500;
+      currentStages[stage].walls[index+1].x = -500;
+    }
   }
-  //else if(w.type == 1){
-  //  if(b){
-  //    walls[index+1].x = -500;
-  //    walls[index].x = -500;
-  //  }
-  //}
   return c;
 }
 
@@ -449,48 +383,8 @@ void makeWalls(){
   }
 }
 
-void makeMovingWalls(){
-  //Stage 3
-  movingWalls[0] = new Wall(10, 50, 400, 10, 60, 50, 100, true, true, 1,3);
-  movingWalls[1] = new Wall(11, 98, 580, 10, 60, 100, 200, true, true, 1,3);
-  movingWalls[2] = new Wall(12, 198, 550, 10, 60, 100, 200, true, true, 1,3);
-  movingWalls[3] = new Wall(13, 120, 450, 10, 60, 100, 200, true, true, 1,3);
-  movingWalls[4] = new Wall(14, 150, 400, 10, 60, 100, 200, true, true, 2,3);
-  movingWalls[5] = new Wall(15, 180, 350, 10, 60, 100, 200, true, true, 1,3);
-  movingWalls[6] = new Wall(16, 198, 250, 10, 60, 100, 200, true, true, 2,3);
-  movingWalls[7] = new Wall(17, 140, 300, 10, 60, 100, 165, true, true, 3,3);
-  movingWalls[8] = new Wall(18, 100, 200, 10, 60, 100, 200, true, true, 3,3);
-  
-  //Stage 6
-  movingWalls[9] = new Wall(24, 215, 500, 20, 30, 200, 250, true, true, 1, 3);
-  movingWalls[10] = new Wall(26, 215, 580, 20, 30, 200, 250, true, true, 1, 3);
-  movingWalls[11] = new Wall(27, 230, 630, 30, 10, 200, 240, true, true, 1, 3);
- 
-  for(int i = 0; i < movingWalls.length; i++){
-    if(movingWalls[i] == null){
-      numberOfMovingWalls = i;
-      break;
-    }
-  }
-}
 
-void makeRPs(){
-  RP[0] = new RestartPoint(75, 0, 1);
-  RP[1] = new RestartPoint(80, 650, 2);
-  RP[2] = new RestartPoint(160, 150, 3);
-  RP[3] = new RestartPoint(210, 10, 4);
-  RP[4] = new RestartPoint(210, 280, 5);
-  RP[5] = new RestartPoint(210, 650, 6);
-  
-  RP[6] = new RestartPoint(500, 500, 7);
-  
-  for(int i = 0; i < RP.length; i++){
-    if(RP[i] == null){
-      numberOfRPs = i;
-      break;
-    }
-  }
-  
-}
+
+
 /*END OF MAKE OBSTACLES*/
   

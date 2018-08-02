@@ -41,7 +41,9 @@ class Wall {
     } else if (type == 2){
       fill(0);
       rect(x, y, w, h);
-    } 
+    } else if (type == 3){
+      
+    }
     
     fill(255, 0, 0);
     text(num, x, y + 10);
