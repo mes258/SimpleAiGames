@@ -138,6 +138,7 @@ void draw() {
 
 //stage methods
   void getCurrentStages(int carRP, int dotRP){
+    
     if(carRP == dotRP){
       if(carRP != 0){
         currentStages[0] = allStages[carRP-1];
@@ -173,16 +174,29 @@ void draw() {
       }
       
     }else{
-      if(carRP != 0){
+      if(carRP != 0){ //car is not zero
         currentStages[0] = allStages[carRP - 1];
         currentStages[1] = allStages[carRP];
         currentStages[2] = allStages[carRP + 1];
-      }
-      if(dotRP != 0){
+        
+        if(dotRP != 0){ //neither car or dots are zero
         currentStages[3] = allStages[dotRP - 1];
         currentStages[4] = allStages[dotRP];
         currentStages[5] = allStages[dotRP + 1];
+        }else{ // car is not zero, dots are zero
+          currentStages[3] = allStages[dotRP];
+          currentStages[4] = allStages[dotRP + 1];
+        }
+      }else if(dotRP != 0){ // dots are not zero, car is zero
+        currentStages[0] = allStages[dotRP - 1];
+        currentStages[1] = allStages[dotRP];
+        currentStages[2] = allStages[dotRP + 1];
+        currentStages[3] = allStages[carRP];
+        currentStages[4] = allStages[carRP + 1];
+      }else{
+        println("You should not see this message");
       }
+      
     }
     
     for(int i = 0; i < currentStages.length; i++){
