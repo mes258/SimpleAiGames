@@ -13,6 +13,7 @@ class PlayerCar{
   float leftBorderC;
   boolean dead;
   int atRP = 0;
+  int numberOfDeaths;
   
   PlayerCar(int RP) {
     c = color(175);
@@ -46,6 +47,9 @@ class PlayerCar{
     if (!dead) {
       move();
       if (x< 0|| y<0 || x>width-10 || y>height-10) {
+        if(!dead){
+          numberOfDeaths++;
+        }
         dead = true;
       } 
     }

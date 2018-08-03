@@ -46,15 +46,15 @@ void setup() {
     stageComplete[i] = true;
   }
   
-  allStages = new Stage[11];
-  for(int i = 0; i < 11; i++){
+  allStages = new Stage[13];
+  for(int i = 0; i < 13; i++){
     allStages[i] = new Stage(i+1);
   }
-  numberOfStages = 7;
+  numberOfStages = 13;
   currentStages = new Stage[allStages.length];
   
   bots = new Population(2000);
-  //car.atRP = 6;
+  //car.atRP = 9;
 }
 int step = 0;
 /* UPDATE EACH STEP */
@@ -62,21 +62,24 @@ void draw() {
   step++;
   background(255);
   fill(255, 0, 0);
-  text(generation, 500, 20);
-  
+  text("Generation: " + generation, 605, 20);
+  text("Deaths: " + car.numberOfDeaths, 605, 40);
+  if(car.atRP > bots.dots[0].atRP){
+    text("You're Winning!!", 605, 60);
+  }else if(car.atRP < bots.dots[0].atRP){
+    text("You're Losing!!", 605, 60);
+  }else if(car.atRP == bots.dots[0].atRP){
+    text("It's a tie!!", 605, 60);
+  }
   
   getCurrentStages(car.atRP, bots.dots[0].atRP);
   for(int i = 0; i < numCurrentStages; i++){
     currentStages[i].show();
   }
   
-  //allStages[6].show();
-  //allStages[4].show();
-  //allStages[1].show();
-  
   checkCollisions();
   
-  if(step % 10 == 0){
+  if(step % 5 == 0){
     if(car.dead){
         car.reset();
     }
@@ -228,6 +231,9 @@ PlayerCar carHitWall(PlayerCar c, Wall w, int stage, int index){
   boolean b = overLap(c.x, c.y, c.w, c.h, w.x, w.y, w.w, w.h);
   if(w.type == 0 || w.type == 2){
     if(b){
+      if(!c.dead){
+         c.numberOfDeaths ++;
+      }
       c.dead = true;
     }
   }else if(w.type == 1){
