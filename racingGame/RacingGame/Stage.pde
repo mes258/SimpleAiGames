@@ -143,8 +143,15 @@ class Stage {
       RP = new RestartPoint(630, 650, 7);
       walls[0] = new Wall(-11, 210, 640, 50, 10, 3);
       walls[1] = new Wall(-12, 200, 640, 10, 60, 3);
-
-      walls[2] = new Wall(28, 260, 640, 440, 10, 0);
+  
+      
+      walls[2] = new Wall(2, 260, 640, 440, 10, 0);
+      walls[3] = new Wall(3, 270, 686, 10, 10, 300, (int)random(400, 600), true, true, (int)random(1,4), 2);
+      walls[4] = new Wall(4, 270, 674, 10, 10, 300, (int)random(400, 600), true, true, (int)random(1,4), 2);
+      walls[5] = new Wall(5, 270, 662, 10, 10, 300, (int)random(400, 600), true, true, (int)random(1,4), 2);
+      walls[6] = new Wall(6, 270, 650, 10, 10, 300, (int)random(400, 600), true, true, (int)random(1,4), 2);
+      hasMovingWalls = true;
+      
     } else if (n == 8) {
       RP = new RestartPoint(270, 200, 8);
       walls[0] = new Wall(13, 620, 640, 10, 60, 3);
