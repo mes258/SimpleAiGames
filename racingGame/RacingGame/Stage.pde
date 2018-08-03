@@ -175,37 +175,44 @@ class Stage {
       }
     } else if (n == 9) {
       RP = new RestartPoint(540, 0, 9);
-      walls[0] = new Wall(-13, 530, 0, 10, 60, 0);
-      walls[1] = new Wall(-14, -650, 55, 10, 10, 0);
+      walls[0] = new Wall(-13, 260, 250, 70, 10, 3);
+      walls[1] = new Wall(-14, -650, 55, 10, 10, 3);
       
       walls[2] = new Wall(1, 590, 0, 10, 60, 0);
-      walls[3] = new Wall(2, 620, 70, 80, 10, 0);
-      
-      walls[4] = new Wall(3, 320, 50, 10, 200, 0);
-      walls[5] = new Wall(4, 330, 50, 210, 10, 0);
-      
+      walls[3] = new Wall(3, 320, 50, 10, 200, 0);
+      walls[4] = new Wall(4, 330, 50, 210, 10, 0);
+      walls[5] = new Wall(5, 260, 0, 10, 250, 0);
       
     } else if (n == 10) {
       RP = new RestartPoint(650, 590, 10);
-      walls[0] = new Wall(-13, 650, 590, 10, 10, 3);
-      walls[1] = new Wall(-14, 650, 590, 10, 10, 3);
-
-      //walls[2] = new Wall(3, 620, 80, 10, 90, 0);
+      walls[0] = new Wall(-13, 590, 60, 110, 10, 3);
+      walls[1] = new Wall(-14, 530, 0, 10, 60, 3);
+      
+      walls[2] = new Wall(1, 590, 0, 10, 60, 0);
+      
+      walls[3] = new Wall(3, 320, 50, 10, 200, 0);
+      walls[4] = new Wall(4, 330, 50, 210, 10, 0);
+      walls[5] = new Wall(5, 330, 240, 50, 10, 0);
+      walls[6] = new Wall(6, 370, 250, 10, 400, 0);
+      walls[7] = new Wall(7, 370, 640, 330, 10, 0);
+      //walls[2] = new Wall(50, 260, 0, 10, 700, 0);
       //walls[3] = new Wall(4, 620, 170, 80, 10, 0);
     } else if (n == 11) {
-      RP = new RestartPoint(550, 590, 11);
-      walls[0] = new Wall(-13, 550, 590, 10, 10, 3);
-      walls[1] = new Wall(-14, 550, 590, 10, 10, 3);
+      RP = new RestartPoint(150, -590, 11);
+      walls[0] = new Wall(-13, -550, 590, 10, 10, 3);
+      walls[1] = new Wall(-14, -550, 590, 10, 10, 3);
 
-      walls[2] = new Wall(3, 370, 570, 250, 10, 0);
-      walls[3] = new Wall(4, 610, 580, 10, 60, 0);
+      walls[2] = new Wall(50, -260, 0, 10, 700, 0);
+      //walls[2] = new Wall(3, 370, 570, 250, 10, 0);
+      //walls[3] = new Wall(4, 610, 580, 10, 60, 0);
     } else if (n == 12) {
-      RP = new RestartPoint(450, 590, 12);
-      walls[0] = new Wall(-13, 550, 590, 10, 10, 3);
-      walls[1] = new Wall(-14, 550, 590, 10, 10, 3);
+      RP = new RestartPoint(50, -590, 12);
+      walls[0] = new Wall(-13, -550, 590, 10, 10, 3);
+      walls[1] = new Wall(-14, -550, 590, 10, 10, 3);
 
-      walls[2] = new Wall(3, 550, 590, 10, 90, 3);
-      walls[3] = new Wall(4, 550, 590, 80, 10, 3);
+      walls[2] = new Wall(50, -260, 0, 10, 700, 0);
+      //walls[2] = new Wall(3, 550, 590, 10, 90, 3);
+      //walls[3] = new Wall(4, 550, 590, 80, 10, 3);
     } 
 
 

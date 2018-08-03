@@ -54,7 +54,7 @@ void setup() {
   currentStages = new Stage[allStages.length];
   
   bots = new Population(2000);
-  //car.atRP = 9;
+  car.atRP = 8;
 }
 int step = 0;
 /* UPDATE EACH STEP */
@@ -62,14 +62,14 @@ void draw() {
   step++;
   background(255);
   fill(255, 0, 0);
-  text("Generation: " + generation, 605, 20);
-  text("Deaths: " + car.numberOfDeaths, 605, 40);
+  text("Generation: " + generation, 605, 15);
+  text("Deaths: " + car.numberOfDeaths, 605, 35);
   if(car.atRP > bots.dots[0].atRP){
-    text("You're Winning!!", 605, 60);
+    text("You're Winning!!", 605, 55);
   }else if(car.atRP < bots.dots[0].atRP){
-    text("You're Losing!!", 605, 60);
+    text("You're Losing!!", 605, 55);
   }else if(car.atRP == bots.dots[0].atRP){
-    text("It's a tie!!", 605, 60);
+    text("It's a tie!!", 605, 55);
   }
   
   getCurrentStages(car.atRP, bots.dots[0].atRP);
@@ -256,6 +256,9 @@ void dotHitRP(Dot d, RestartPoint p){
     for(int i = 0; i < bots.dots.length; i++){
       if(bots.dots[i].atRP + 1 == p.val){
          bots.dots[i].atRP = p.val;
+      }
+      if(bots.dots[i].atRP == 1){
+         bots.dots[i].atRP = 7;
       }
      
     }
