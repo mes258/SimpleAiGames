@@ -46,15 +46,15 @@ void setup() {
     stageComplete[i] = true;
   }
   
-  allStages = new Stage[10];
-  for(int i = 0; i < 10; i++){
+  allStages = new Stage[11];
+  for(int i = 0; i < 11; i++){
     allStages[i] = new Stage(i+1);
   }
   numberOfStages = 7;
   currentStages = new Stage[6];
   
   bots = new Population(2000);
-  //car.atRP = 7;
+  //car.atRP = 8;
 }
 int step = 0;
 /* UPDATE EACH STEP */
@@ -122,83 +122,6 @@ void draw() {
       currentStages[2] = allStages[dotRP];
       currentStages[3] = allStages[dotRP + 1];
     }
-    
-    
-    //if(carRP != 0 && dotRP != 0){
-    //  if(carRP == dotRP){
-    //      currentStages[0] = allStages[carRP - 1];
-    //      currentStages[1] = allStages[carRP];
-    //      currentStages[2] = allStages[carRP + 1];
-    //  }else if(carRP > dotRP){
-    //    if(carRP - dotRP == 1){
-    //      currentStages[0] = allStages[dotRP - 1];
-    //      currentStages[1] = allStages[dotRP];
-    //      currentStages[2] = allStages[carRP];
-    //      currentStages[3] = allStages[carRP + 1];
-    //    }else if(carRP - dotRP == 2){
-    //      currentStages[0] = allStages[dotRP - 1];
-    //      currentStages[1] = allStages[dotRP];
-    //      currentStages[2] = allStages[dotRP + 1];
-    //      currentStages[3] = allStages[carRP];
-    //      currentStages[4] = allStages[carRP + 1];
-    //    }else{
-    //      currentStages[0] = allStages[dotRP - 1];
-    //      currentStages[1] = allStages[dotRP];
-    //      currentStages[2] = allStages[dotRP + 1];
-    //      currentStages[3] = allStages[carRP - 1];
-    //      currentStages[4] = allStages[carRP];
-    //      currentStages[5] = allStages[carRP + 1];
-    //    }
-    //  }else if(dotRP > carRP){
-    //    if(carRP - dotRP == 1){
-    //      currentStages[0] = allStages[carRP];
-    //      currentStages[1] = allStages[dotRP];
-    //      currentStages[2] = allStages[dotRP + 1];
-    //    }else if(carRP - dotRP == 2){
-    //      currentStages[0] = allStages[carRP - 1];
-    //      currentStages[1] = allStages[carRP];
-    //      currentStages[2] = allStages[carRP + 1];
-    //      currentStages[3] = allStages[dotRP];
-    //      currentStages[4] = allStages[dotRP + 1];
-    //    }else{
-    //      currentStages[0] = allStages[carRP - 1];
-    //      currentStages[1] = allStages[carRP];
-    //      currentStages[2] = allStages[carRP + 1];
-    //      currentStages[3] = allStages[dotRP - 1];
-    //      currentStages[4] = allStages[dotRP];
-    //      currentStages[5] = allStages[dotRP + 1];
-    //    }
-    //  }
-    //}else if(carRP == 0 && dotRP == 0){
-    //  currentStages[0] = allStages[carRP];
-    //  currentStages[1] = allStages[carRP + 1];
-    //}else if(carRP == 0){
-    //  currentStages[0] = allStages[carRP];
-    //  currentStages[1] = allStages[carRP + 1];
-    //  if(dotRP - carRP == 1){
-    //    currentStages[2] = allStages[dotRP + 1];
-    //  }else if(dotRP - carRP == 2){
-    //    currentStages[2] = allStages[dotRP];
-    //    currentStages[3] = allStages[dotRP + 1];
-    //  }else{
-    //    currentStages[2] = allStages[dotRP - 1];
-    //    currentStages[3] = allStages[dotRP];
-    //    currentStages[4] = allStages[dotRP + 1];
-    //  }
-    //}else if(dotRP == 0){
-    //  currentStages[0] = allStages[dotRP];
-    //  currentStages[1] = allStages[dotRP + 1];
-    //  if(carRP - dotRP == 1){
-    //    currentStages[2] = allStages[carRP + 1];
-    //  }else if(carRP - dotRP == 2){
-    //    currentStages[2] = allStages[carRP];
-    //    currentStages[3] = allStages[carRP + 1];
-    //  }else{
-    //    currentStages[2] = allStages[carRP - 1];
-    //    currentStages[3] = allStages[carRP];
-    //    currentStages[4] = allStages[carRP + 1];
-    //  }
-    //}
     
     for(int i = 0; i < currentStages.length; i++){
       if(currentStages[i] == null){

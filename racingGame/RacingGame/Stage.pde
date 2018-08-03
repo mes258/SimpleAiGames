@@ -173,6 +173,13 @@ class Stage {
 
       walls[2] = new Wall(1, 620, 0, 10, 70, 0);
       walls[3] = new Wall(2, 620, 70, 80, 10, 0);
+    } else if (n == 10) {
+      RP = new RestartPoint(650, 100, 10);
+      walls[0] = new Wall(-13, 635, 105, 10, 10, 3);
+      walls[1] = new Wall(-14, 650, 155, 10, 10, 3);
+
+      walls[2] = new Wall(3, 620, 80, 10, 90, 0);
+      walls[3] = new Wall(4, 620, 170, 80, 10, 0);
     } 
 
 
