@@ -19,14 +19,14 @@ class Stage {
   Stage(int stageNum) {
    this.stageNum = stageNum;
    walls = new Wall[30];
-   bugs = new Critter[5];
+   bugs = new Critter[15];
    makeStage(stageNum);
   }
   
   void show(){
-    RP.show();
+    
     if(hasBugs){
-      for(int i = 0; i < 5; i++){
+      for(int i = 0; i < bugs.length; i++){
         bugs[i].show();
       }
     }
@@ -44,6 +44,7 @@ class Stage {
     for(int i = 0; i < numWalls; i++){
       walls[i].show(walls[i].type);
     }
+    RP.show();
   }
   
   void makeStage(int n){
@@ -141,22 +142,20 @@ class Stage {
       walls[0] = new Wall(-11, 210, 640, 50, 10, 3);
       walls[1] = new Wall(-12, -210, 620, 50, 20, 3);
       
-      walls[2] = new Wall(29, 370, 250, 10, 390, 0);
-      walls[3] = new Wall(30, 320, 240, 60, 10, 0);
-      walls[4] = new Wall(80, 680, 650, 20, 50, 4);
-      walls[5] = new Wall(81, 270, 590, 100, 50, 4);
+      walls[2] = new Wall(1, 270, 240, 100, 10, 5);
+      walls[3] = new Wall(2, 370, 251, 10, 340, 5);
+      walls[4] = new Wall(1, 270, 589, 100, 10, 5);
+      walls[5] = new Wall(2, 260, 251, 10, 340, 5);
       
-      walls[6] = new Wall(1, 270, 250, 100, 1, 5);
-      walls[7] = new Wall(2, 369, 251, 1, 340, 5);
-      walls[8] = new Wall(1, 270, 589, 100, 1, 5);
-      walls[9] = new Wall(2, 271, 251, 1, 340, 5);
+      walls[6] = new Wall(29, 370, 250, 10, 390, 0);
+      walls[7] = new Wall(30, 320, 240, 60, 10, 0);
+      walls[8] = new Wall(80, 680, 650, 20, 50, 4);
+      walls[9] = new Wall(81, 270, 590, 100, 50, 5);
+      walls[10] = new Wall(31, 260, 200, 10, 440, 0);
       
-      
-      bugs[0] = new Critter();
-      bugs[1] = new Critter();
-      bugs[2] = new Critter();
-      bugs[3] = new Critter();
-      bugs[4] = new Critter();
+      for(int i = 0; i < bugs.length; i++){
+        bugs[i] = new Critter();
+      }
       hasBugs = true;
       
     }
@@ -169,16 +168,13 @@ class Stage {
     
     
     for(int i = 0; i < walls.length; i++){
-    if(walls[i] == null){
-      numWalls = i;
-      break;
+      if(walls[i] == null){
+        numWalls = i;
+        break;
+      }
     }
   }
-  }
-  
-
-  
-
+ 
   void moveWalls(Wall w){
       if(w.increase){                //increase is true;
         if(w.moveX){                    //moving x

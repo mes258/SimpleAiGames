@@ -54,7 +54,7 @@ void setup() {
   currentStages = new Stage[6];
   
   bots = new Population(2000);
-  car.atRP = 6;
+  //car.atRP = 7;
 }
 int step = 0;
 /* UPDATE EACH STEP */
@@ -213,8 +213,12 @@ void draw() {
         }
       }
       if(currentStages[i].hasBugs){
-        for(int k = 0; k < currentStages[i].numWalls; k++){
-          for(int j = 0; j < currentStages[i].bugs.length; j++){
+        for(int j = 0; j < currentStages[i].bugs.length; j++){
+          car = carHitBug(car, currentStages[i].bugs[j]);
+          for(int l = 0; l < bots.dots.length; l++){
+            dotHitBug(bots.dots[l], currentStages[i].bugs[j]);
+          }
+          for(int k = 0; k < currentStages[i].numWalls; k++){
             bugHitWall(currentStages[i].bugs[j], currentStages[i].walls[k]);
           }
         }
@@ -223,6 +227,21 @@ void draw() {
   }
 
 /* CHECK COLLISIONS */
+PlayerCar carHitBug(PlayerCar c, Critter b){
+  boolean a = overLap(b.pos.x, b.pos.y, 4, 4, c.x, c.y, c.w, c.h);
+  if(a){
+    c.dead = true;
+  }
+  return c;
+}
+
+void dotHitBug(Dot d, Critter b){
+  boolean a = overLap(b.pos.x, b.pos.y, 4, 4, d.pos.x, d.pos.y, 4, 4);
+  if(a){
+    d.dead = true;
+  }
+}
+
 void bugHitWall(Critter b, Wall w){
   boolean a = overLap(b.pos.x, b.pos.y, 1, 1, w.x, w.y, w.w, w.h);
   if(a){
@@ -246,6 +265,12 @@ void dotHitWall(Dot d, Wall w, int stage, int index){
       currentStages[stage].walls[index+1].x = -500;
       currentStages[stage].walls[index+1].x = -500;
     }
+  }else if(w.type == 4){
+    if(b){
+      d.pos.x = 300;
+      d.pos.y = 620;
+    }
+    
   }
 }
 
@@ -259,6 +284,11 @@ PlayerCar carHitWall(PlayerCar c, Wall w, int stage, int index){
     if(b){
       currentStages[stage].walls[index+1].x = -500;
       currentStages[stage].walls[index+1].x = -500;
+    }
+  }else if(w.type == 4){
+    if(b){
+      c.x = 300;
+      c.y = 620;
     }
   }
   return c;
