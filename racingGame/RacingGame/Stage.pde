@@ -89,14 +89,14 @@ class Stage {
       walls[7] = new Wall(9, 100, 190, 35, 10, 0);
       walls[8] = new Wall(10, 100, 190, 10, 460, 0);
 
-      walls[9] = new Wall(11, random(101, 175), 580, 10, 60, 100, 200, true, false, 1, 2);
-      walls[10] = new Wall(12, random(101, 175), 550, 10, 60, 100, 200, true, true, 1, 2);
-      walls[11] = new Wall(13, random(101, 175), 450, 10, 60, 100, 200, true, true, 1, 2);
-      walls[12] = new Wall(14, random(101, 175), 400, 10, 60, 100, 200, true, true, 2, 2);
-      walls[13] = new Wall(15, random(101, 175), 350, 10, 60, 100, 200, true, true, 1, 2);
-      walls[14] = new Wall(16, random(101, 175), 250, 10, 60, 100, 200, true, true, 2, 2);
-      walls[15] = new Wall(17, random(101, 175), 300, 10, 60, 100, 165, true, true, 3, 2);
-      walls[16] = new Wall(18, random(101, 175), 200, 10, 60, 100, 200, true, true, 3, 2);
+      walls[9] = new Wall(11, random(101, 175), 580, 10, 60, 101, 199, true, false, 1, 2);
+      walls[10] = new Wall(12, random(101, 175), 550, 10, 60, 101, 199, true, true, 1, 2);
+      walls[11] = new Wall(13, random(101, 175), 450, 10, 60, 101, 199, true, true, 1, 2);
+      walls[12] = new Wall(14, random(101, 175), 400, 10, 60, 102, 198, true, true, 2, 2);
+      walls[13] = new Wall(15, random(101, 175), 350, 10, 60, 101, 199, true, true, 1, 2);
+      walls[14] = new Wall(16, random(101, 175), 250, 10, 60, 102, 198, true, true, 2, 2);
+      walls[15] = new Wall(17, random(101, 175), 300, 10, 60, 103, 162, true, true, 3, 2);
+      walls[16] = new Wall(18, random(101, 175), 200, 10, 60, 103, 197, true, true, 3, 2);
       hasMovingWalls = true;
     } else if (n == 4) {
       RP = new RestartPoint(210, 10, 4);
