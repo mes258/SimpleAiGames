@@ -51,7 +51,7 @@ void setup() {
     allStages[i] = new Stage(i+1);
   }
   numberOfStages = 7;
-  currentStages = new Stage[6];
+  currentStages = new Stage[allStages.length];
   
   bots = new Population(2000);
   //car.atRP = 6;
@@ -62,7 +62,7 @@ void draw() {
   step++;
   background(255);
   fill(255, 0, 0);
-  text(generation, 650, 20);
+  text(generation, 500, 20);
   
   
   getCurrentStages(car.atRP, bots.dots[0].atRP);
@@ -105,22 +105,27 @@ void draw() {
 }
 /* END OF STEP */
   void getCurrentStages(int carRP, int dotRP){
-    if(carRP == dotRP){
+    for(int i = 0; i < numCurrentStages; i++){
+      currentStages[i] = null;
+    }
+    int diff = carRP - dotRP;
+    int absDiff = abs(diff);
+    if(diff > 0){
+      for(int i = 0; i < diff; i++){
+        currentStages[i] = allStages[dotRP + i];
+      }
+      currentStages[diff] = allStages[carRP];
+      currentStages[diff + 1] = allStages[carRP + 1];
+    } else if(diff < 0){
+      for(int i = 0; i < absDiff; i++){
+        currentStages[i] = allStages[carRP + i];
+      }
+      currentStages[absDiff] = allStages[dotRP];
+      currentStages[absDiff+ 1] = allStages[dotRP + 1];
+    }else if(diff == 0){
         currentStages[0] = allStages[carRP];
         currentStages[1] = allStages[carRP + 1];
-    }else if(carRP - dotRP == 1){
-        currentStages[0] = allStages[dotRP];
-        currentStages[1] = allStages[carRP];
-        currentStages[2] = allStages[carRP + 1];
-    }else if(dotRP - carRP == 1){
-        currentStages[0] = allStages[carRP];
-        currentStages[1] = allStages[dotRP];
-        currentStages[2] = allStages[dotRP + 1];
-    }else{
-      currentStages[0] = allStages[carRP];
-      currentStages[1] = allStages[carRP + 1];
-      currentStages[2] = allStages[dotRP];
-      currentStages[3] = allStages[dotRP + 1];
+     
     }
     
     for(int i = 0; i < currentStages.length; i++){
