@@ -247,7 +247,13 @@ PlayerCar carHitWall(PlayerCar c, Wall w, int stage, int index){
 void dotHitRP(Dot d, RestartPoint p){
   boolean b = overLap(d.pos.x, d.pos.y, 1, 1, p.x, p.y, p.w, p.h);
   if(b){
-    d.atRP = p.val;
+    for(int i = 0; i < bots.dots.length; i++){
+      if(bots.dots[i].atRP + 1 == p.val){
+         bots.dots[i].atRP = p.val;
+      }
+     
+    }
+    //d.atRP = p.val;
   }
 }
 
