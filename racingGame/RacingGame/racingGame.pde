@@ -20,6 +20,10 @@ int numberOfStages = 0;
 Stage currentStages[];
 int numCurrentStages = 0;
 
+int winner = -1;//-1 = none, 0 = user, 1 = dots
+
+int numHitTeleporter = 0;
+
 /* END DATA TYPE SET UP */
 
 
@@ -63,7 +67,7 @@ void draw() {
   background(255);
   fill(255, 0, 0);
   text("Generation: " + generation, 605, 15);
-  text("Deaths: " + car.numberOfDeaths, 605, 35);
+  text("Your Deaths: " + car.numberOfDeaths, 605, 35);
   if(car.atRP > bots.dots[0].atRP){
     text("You're Winning!!", 605, 55);
   }else if(car.atRP < bots.dots[0].atRP){
@@ -71,11 +75,18 @@ void draw() {
   }else if(car.atRP == bots.dots[0].atRP){
     text("It's a tie!!", 605, 55);
   }
+  numHitTeleporter = 0;
+  if(winner == 0){
+    text("YOU WIN!!" + generation, 500, 15);
+  }else if(winner == 1){
+    text("THE DOTS WIN!!" + generation, 500, 15);
+  }
   
   getCurrentStages(car.atRP, bots.dots[0].atRP);
   for(int i = 0; i < numCurrentStages; i++){
     currentStages[i].show();
   }
+  
   
   checkCollisions();
   
@@ -187,6 +198,9 @@ void draw() {
 PlayerCar carHitBug(PlayerCar c, Critter b){
   boolean a = overLap(b.pos.x, b.pos.y, 4, 4, c.x, c.y, c.w, c.h);
   if(a){
+    if(!c.dead){
+         c.numberOfDeaths ++;
+      }
     c.dead = true;
   }
   return c;
@@ -224,11 +238,16 @@ void dotHitWall(Dot d, Wall w, int stage, int index){
     }
   }else if(w.type == 4){
     if(b){
-      for(int i = 0; i < bots.dots.length; i++){
-        bots.dots[i].atRP = 7;
-      }
+      
       d.pos.x = 300;
       d.pos.y = 620;
+      numHitTeleporter++;
+      if(numHitTeleporter > 200){
+        for(int i = 0; i < bots.dots.length; i++){
+          bots.dots[i].atRP = 7;
+        }
+      }
+      
     }
     
   }
@@ -265,8 +284,9 @@ void dotHitRP(Dot d, RestartPoint p){
       if(bots.dots[i].atRP + 1 == p.val){
          bots.dots[i].atRP = p.val;
       }
-      if(bots.dots[i].atRP == 1){
-         bots.dots[i].atRP = 10;
+      if(bots.dots[i].atRP == 10){
+         winner = 1;
+         bots.dots[i].atRP = 0;
       }
      
     }
@@ -278,6 +298,11 @@ PlayerCar carHitRP(PlayerCar c, RestartPoint p){
   boolean b = overLap(c.x, c.y, c.w, c.h, p.x, p.y, p.w, p.h);
   if(b){
     c.atRP = p.val;
+  }
+  if(c.atRP == 10){
+    winner = 0;
+    c.atRP = 0;
+    c.dead = true;
   }
   return c;
 }

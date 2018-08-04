@@ -18,7 +18,7 @@ class Stage {
 
   Stage(int stageNum) {
     this.stageNum = stageNum;
-    walls = new Wall[30];
+    walls = new Wall[50];
     bugs = new Critter[15];
     makeStage(stageNum);
   }
@@ -195,38 +195,70 @@ class Stage {
       walls[0] = new Wall(-13, 590, 60, 110, 10, 3);
       walls[1] = new Wall(-14, 530, 0, 10, 60, 3);
       
-    //Border Walls
-      //walls[10] = new Wall(1, 590, 0, 10, 60, 0);
-      //walls[11] = new Wall(3, 320, 50, 10, 200, 0);
-      //walls[12] = new Wall(4, 330, 50, 210, 10, 0);
-      //walls[13] = new Wall(5, 330, 240, 50, 10, 0);
-      //walls[14] = new Wall(6, 370, 250, 10, 400, 0);
-      //walls[15] = new Wall(7, 370, 640, 330, 10, 0);
-      //walls[16] = new Wall(8, 590, 60, 110, 10, 0);
+    //Border Walls [12 - 21]
+      walls[12] = new Wall(9, 550, 240, 150, 10, 0);
+      walls[13] = new Wall(1, 590, 0, 10, 60, 0);
+      walls[14] = new Wall(3, 320, 50, 10, 200, 0);
+      walls[15] = new Wall(4, 330, 50, 210, 10, 0);
+      walls[16] = new Wall(5, 330, 240, 50, 10, 0);
+      walls[17] = new Wall(6, 370, 250, 10, 400, 0);
+      walls[18] = new Wall(7, 370, 640, 330, 10, 0);
+      walls[19] = new Wall(10, 500, 300, 10, 350, 0);
+      walls[20] = new Wall(8, 590, 60, 110, 10, 0);
+      walls[21] = new Wall(8, 590, 60, 110, 10, 0);
+      
       
     //Obstacles
-      //Moving Walls
-      walls[2] = new Wall(20, 330, 70, 10, 30, 330, 700, true, true, (int)random(1,4), 2);
-    
-      //Teleportation areas:
-      //walls[2] = new Wall(81, 600, 100, 20, 50, 4);
+      //Moving Walls [23-31]
+      //First part
+      walls[32] = new Wall(20, (int)random(300, 500), 60, 10, 20, 380, 580, true, true, (int)random(2,7), 2);
+      walls[23] = new Wall(20, (int)random(300, 600), 80, 10, 20, 380, 690, true, false, (int)random(2,7), 2);
+      walls[24] = new Wall(20, (int)random(300, 600), 100, 10, 20, 380, 690, true, true, (int)random(2,7), 2);
+      walls[25] = new Wall(20, (int)random(300, 600), 120, 10, 20, 380, 690, true, true, (int)random(2,7), 2);
+      walls[26] = new Wall(20, (int)random(300, 600), 140, 10, 20, 380, 690, true, true, (int)random(2,7), 2);
+      walls[27] = new Wall(20, (int)random(300, 600), 160, 10, 20, 380, 690, true, false, (int)random(1,4), 2);
+      walls[28] = new Wall(20, (int)random(300, 600), 180, 10, 20, 380, 690, true, true, (int)random(2,7), 2);
+      walls[29] = new Wall(20, (int)random(300, 600), 200, 10, 20, 380, 690, true, false, (int)random(2,7), 2);
+      walls[30] = new Wall(20, (int)random(300, 600), 220, 10, 20, 380, 690, true, true, (int)random(2,7), 2);
       
-      //Dot Zones [3 - 9]
+      //Second part
+      walls[31] = new Wall(20, 380, (int)random(301, 640), 20, 10, 300, 630, false, true, (int)random(2,7), 2);
+      walls[32] = new Wall(20, 400, (int)random(301, 640), 20, 10, 300, 630, false, true, (int)random(2,7), 2);
+      walls[33] = new Wall(20, 420, (int)random(301, 640), 20, 10, 300, 630, false, false, (int)random(2,7), 2);
+      walls[34] = new Wall(20, 440, (int)random(301, 640), 20, 10, 300, 630, false, true, (int)random(2,7), 2);
+      walls[35] = new Wall(20, 460, (int)random(301, 640), 20, 10, 300, 630, false, false, (int)random(2,7), 2);
+      walls[36] = new Wall(20, 480, (int)random(301, 520), 20, 10, 300, 570, false, true, (int)random(2,7), 2);
+      
+      
+      
+      //Teleportation areas [22]
+      walls[22] = new Wall(81, 330, 60, 50, 180, 4);
+      
+      //Dot Zones [2 - 11]
+      walls[2] = new Wall(2, 530, 0, 10, 59, 5);
       walls[3] = new Wall(2, 320, 50, 10, 200, 5);
-      walls[4] = new Wall(1, 330, 50, 210, 10, 5);
+      walls[4] = new Wall(1, 330, 50, 209, 10, 5);
       walls[5] = new Wall(1, 330, 240, 49, 10, 5);
       walls[6] = new Wall(2, 370, 251, 10, 400, 5);
       walls[7] = new Wall(1, 370, 640, 330, 10, 5);
       walls[8] = new Wall(1, 591, 60, 110, 10, 5);
       walls[9] = new Wall(2, 700, 60, 10, 590, 5);
-      walls[10] = new Wall(1, 540, 40, 50, 10, 5);
-      walls[11] = new Wall(2, 590, 50, 10, 19, 5);
+      walls[10] = new Wall(1, 540, -10, 50, 10, 5);
+      walls[11] = new Wall(2, 590, 0, 10, 69, 5);
       
-      hasBugs = true;
+      
+     
       //Triggers and trigger walls
+      walls[37] = new Wall(15, 480, 580, 20, 60, 1);
+      walls[38] = new Wall(16, 500, 290, 50, 10, 0);
+      walls[39] = new Wall(17, 480, 580, 20, 60, 1);
+      walls[40] = new Wall(18, 550, 240, 10, 60, 0);
+      
+      
+      
+      
       hasMovingWalls = true;
-      
-      
+      hasBugs = true;
       //Bugs: 
       for (int i = 0; i < bugs.length; i++) {
         bugs[i] = new Critter(385, 695, 70, 640);
