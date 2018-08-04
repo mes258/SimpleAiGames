@@ -184,6 +184,7 @@ class Stage {
       walls[15] = new Wall(15, random(270, 360), 290, 10, 40, 263, 367, true, true, 3, 2);
       walls[16] = new Wall(16, random(270, 360), 250, 10, 40, 263, 367, true, true, 3, 2);
       hasMovingWalls = true;
+      
     } else if (n == 9) {
       RP = new RestartPoint(540, 0, 9);
       walls[0] = new Wall(-13, 260, 250, 70, 10, 3);
@@ -233,9 +234,9 @@ class Stage {
       walls[36] = new Wall(20, 480, (int)random(301, 520), 20, 10, 300, 570, false, true, (int)random(2, 7), 2);
 
 
-
       //Teleportation areas [22]
       walls[22] = new Wall(81, 330, 60, 50, 180, 4);
+      
 
       //Dot Zones [2 - 11]
       walls[2] = new Wall(2, 530, 0, 10, 59, 5);

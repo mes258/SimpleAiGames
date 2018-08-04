@@ -58,7 +58,7 @@ void setup() {
   currentStages = new Stage[allStages.length];
   
   bots = new Population(2000);
-  car.atRP = 7;
+  //car.atRP = 9;
 }
 int step = 0;
 /* UPDATE EACH STEP */
@@ -76,7 +76,7 @@ void draw() {
   }else if(car.atRP == bots.dots[0].atRP){
     text("It's a tie!!", 605, 55);
   }
-  numHitTeleporter = 0;
+  
   textSize(26); 
   if(winner == 0){
     text("YOU WIN!!", 300, 40);
@@ -104,6 +104,8 @@ void draw() {
   
   /* CHECK IF GENERATION IS OVER, ELSE UPDATE */
   if (bots.allDotsDead()) {
+    println("numHitTeleporter: " + numHitTeleporter);
+    numHitTeleporter = 0;
     println("carRP: " + car.atRP);
     //genetic algorithm
     bots.calculateFitness();
@@ -145,7 +147,6 @@ void draw() {
     }else if(diff == 0){
         currentStages[0] = allStages[carRP];
         currentStages[1] = allStages[carRP + 1];
-     
     }
     
     for(int i = 0; i < currentStages.length; i++){
@@ -154,6 +155,14 @@ void draw() {
         break;
       }
     }
+    
+    if(carRP > 7 && dotRP > 7){
+      if(numHitTeleporter > 0){
+        currentStages[numCurrentStages] = allStages[7];
+        numCurrentStages++;
+      }
+    }
+    
     checkStageCompletion(carRP, dotRP);
   }
   
@@ -244,17 +253,16 @@ void dotHitWall(Dot d, Wall w, int stage, int index){
     }
   }else if(w.type == 4){
     if(b){
-      d.pos.x = 300;
-      d.pos.y = 620;
+      d.pos.x = 320;
+      d.pos.y = 615;
+      d.atRP = 7;
       numHitTeleporter++;
       if(numHitTeleporter > 200){
         for(int i = 0; i < bots.dots.length; i++){
           bots.dots[i].atRP = 7;
         }
       }
-      
     }
-    
   }
 }
 
@@ -275,8 +283,8 @@ PlayerCar carHitWall(PlayerCar c, Wall w, int stage, int index){
   }else if(w.type == 4){
     if(b){
       c.atRP = 7;
-      c.x = 300;
-      c.y = 620;
+      c.x = 315;
+      c.y = 610;
     }
   }
   return c;
@@ -293,9 +301,7 @@ void dotHitRP(Dot d, RestartPoint p){
          winner = 1;
          bots.dots[i].atRP = 0;
       }
-     
     }
-    //d.atRP = p.val;
   }
 }
 
