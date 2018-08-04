@@ -79,9 +79,9 @@ void draw() {
   numHitTeleporter = 0;
   textSize(26); 
   if(winner == 0){
-    text("YOU WIN!!", 300, 25);
+    text("YOU WIN!!", 300, 40);
   }else if(winner == 1){
-    text("THE DOTS WIN!!", 300, 15);
+    text("THE DOTS WIN!!", 300, 40);
   }
   textSize(14);
   
