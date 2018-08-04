@@ -40,6 +40,9 @@ class Stage {
     if (dotsCompletedPrevious && carCompletedPrevious) {
       walls[0].type = 0;
       walls[1].type = 0;
+    }else{
+      walls[0].type = 3;
+      walls[1].type = 3;
     }
     for (int i = 0; i < numWalls; i++) {
       walls[i].show(walls[i].type);
@@ -161,18 +164,21 @@ class Stage {
       walls[3] = new Wall(2, 370, 251, 10, 340, 5);
       walls[4] = new Wall(1, 270, 590, 100, 50, 5);
       walls[5] = new Wall(2, 260, 251, 10, 340, 5);
+      
       walls[6] = new Wall(29, 370, 250, 10, 400, 0);
       walls[7] = new Wall(30, 320, 240, 60, 10, 0);
       walls[8] = new Wall(80, 680, 650, 20, 50, 4);
       walls[9] = new Wall(31, 260, 200, 10, 440, 0);
       walls[10] = new Wall(11, 270, 640, 100, 10, 0);
       walls[11] = new Wall(12, 630, 640, 120, 10, 0);
+      
 
       hasBugs = true;
 
       for (int i = 0; i < bugs.length; i++) {
-        bugs[i] = new Critter();
+        bugs[i] = new Critter(275, 365, 255, 585);
       }
+    
     } else if (n == 9) {
       RP = new RestartPoint(540, 0, 9);
       walls[0] = new Wall(-13, 260, 250, 70, 10, 3);
@@ -183,21 +189,53 @@ class Stage {
       walls[4] = new Wall(4, 330, 50, 210, 10, 0);
       walls[5] = new Wall(5, 260, 0, 10, 250, 0);
       
+      
     } else if (n == 10) {
       RP = new RestartPoint(650, 590, 10);
       walls[0] = new Wall(-13, 590, 60, 110, 10, 3);
       walls[1] = new Wall(-14, 530, 0, 10, 60, 3);
       
-      walls[2] = new Wall(1, 590, 0, 10, 60, 0);
+    //Border Walls
+      //walls[10] = new Wall(1, 590, 0, 10, 60, 0);
+      //walls[11] = new Wall(3, 320, 50, 10, 200, 0);
+      //walls[12] = new Wall(4, 330, 50, 210, 10, 0);
+      //walls[13] = new Wall(5, 330, 240, 50, 10, 0);
+      //walls[14] = new Wall(6, 370, 250, 10, 400, 0);
+      //walls[15] = new Wall(7, 370, 640, 330, 10, 0);
+      //walls[16] = new Wall(8, 590, 60, 110, 10, 0);
       
-      walls[3] = new Wall(3, 320, 50, 10, 200, 0);
-      walls[4] = new Wall(4, 330, 50, 210, 10, 0);
-      walls[5] = new Wall(5, 330, 240, 50, 10, 0);
-      walls[6] = new Wall(6, 370, 250, 10, 400, 0);
-      walls[7] = new Wall(7, 370, 640, 330, 10, 0);
-      //walls[2] = new Wall(50, 260, 0, 10, 700, 0);
-      //walls[3] = new Wall(4, 620, 170, 80, 10, 0);
-    } else if (n == 11) {
+    //Obstacles
+      //Moving Walls
+      walls[2] = new Wall(20, 330, 70, 10, 30, 330, 700, true, true, (int)random(1,4), 2);
+    
+      //Teleportation areas:
+      //walls[2] = new Wall(81, 600, 100, 20, 50, 4);
+      
+      //Dot Zones [3 - 9]
+      walls[3] = new Wall(2, 320, 50, 10, 200, 5);
+      walls[4] = new Wall(1, 330, 50, 210, 10, 5);
+      walls[5] = new Wall(1, 330, 240, 49, 10, 5);
+      walls[6] = new Wall(2, 370, 251, 10, 400, 5);
+      walls[7] = new Wall(1, 370, 640, 330, 10, 5);
+      walls[8] = new Wall(1, 591, 60, 110, 10, 5);
+      walls[9] = new Wall(2, 700, 60, 10, 590, 5);
+      walls[10] = new Wall(1, 540, 40, 50, 10, 5);
+      walls[11] = new Wall(2, 590, 50, 10, 19, 5);
+      
+      hasBugs = true;
+      //Triggers and trigger walls
+      hasMovingWalls = true;
+      
+      
+      //Bugs: 
+      for (int i = 0; i < bugs.length; i++) {
+        bugs[i] = new Critter(385, 695, 70, 640);
+      }
+      
+      
+    } 
+    //11 and 12 ARE BUFFERS FOR WINNING AFTER TEN LEVELS
+    else if (n == 11) {
       RP = new RestartPoint(150, -590, 11);
       walls[0] = new Wall(-13, -550, 590, 10, 10, 3);
       walls[1] = new Wall(-14, -550, 590, 10, 10, 3);

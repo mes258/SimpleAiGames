@@ -54,7 +54,7 @@ void setup() {
   currentStages = new Stage[allStages.length];
   
   bots = new Population(2000);
-  car.atRP = 8;
+  car.atRP = 9;
 }
 int step = 0;
 /* UPDATE EACH STEP */
@@ -144,9 +144,13 @@ void draw() {
     for(int i = 0; i < allStages.length; i++){
       if(carRP >= i){
         allStages[i].carCompletedPrevious = true;
+      }else{
+        allStages[i].carCompletedPrevious = false;
       }
       if(dotRP >= i){
         allStages[i].dotsCompletedPrevious = true;
+      }else{
+        allStages[i].dotsCompletedPrevious = false;
       }
     }
   }
@@ -220,6 +224,9 @@ void dotHitWall(Dot d, Wall w, int stage, int index){
     }
   }else if(w.type == 4){
     if(b){
+      for(int i = 0; i < bots.dots.length; i++){
+        bots.dots[i].atRP = 7;
+      }
       d.pos.x = 300;
       d.pos.y = 620;
     }
@@ -243,6 +250,7 @@ PlayerCar carHitWall(PlayerCar c, Wall w, int stage, int index){
     }
   }else if(w.type == 4){
     if(b){
+      c.atRP = 7;
       c.x = 300;
       c.y = 620;
     }
@@ -258,7 +266,7 @@ void dotHitRP(Dot d, RestartPoint p){
          bots.dots[i].atRP = p.val;
       }
       if(bots.dots[i].atRP == 1){
-         bots.dots[i].atRP = 7;
+         bots.dots[i].atRP = 10;
       }
      
     }

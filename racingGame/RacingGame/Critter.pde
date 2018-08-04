@@ -5,11 +5,9 @@ class Critter{
   int step = 0;
   
 
-  public Critter(){
-    float randomAngle = random(2*PI);
-    //acc = PVector.fromAngle(randomAngle);
-    float randomx = random(275, 365);
-    float randomy = random(255, 585);
+  public Critter(int randXMin, int randXMax, int randYMin, int randYMax){
+    float randomx = random(randXMin, randXMax);
+    float randomy = random(randYMin, randYMax);
     pos = new PVector(randomx, randomy);
     vel = new PVector(random(-2,2), random(-2,2));
     //acc = new PVector(1, 0);
