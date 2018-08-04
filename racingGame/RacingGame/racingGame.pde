@@ -58,7 +58,7 @@ void setup() {
   currentStages = new Stage[allStages.length];
   
   bots = new Population(2000);
-  car.atRP = 9;
+  //car.atRP = 7;
 }
 int step = 0;
 /* UPDATE EACH STEP */
@@ -66,6 +66,7 @@ void draw() {
   step++;
   background(255);
   fill(255, 0, 0);
+  textSize(12);
   text("Generation: " + generation, 605, 15);
   text("Your Deaths: " + car.numberOfDeaths, 605, 35);
   if(car.atRP > bots.dots[0].atRP){
@@ -76,11 +77,13 @@ void draw() {
     text("It's a tie!!", 605, 55);
   }
   numHitTeleporter = 0;
+  textSize(26); 
   if(winner == 0){
-    text("YOU WIN!!" + generation, 500, 15);
+    text("YOU WIN!!", 300, 25);
   }else if(winner == 1){
-    text("THE DOTS WIN!!" + generation, 500, 15);
+    text("THE DOTS WIN!!", 300, 15);
   }
+  textSize(14);
   
   getCurrentStages(car.atRP, bots.dots[0].atRP);
   for(int i = 0; i < numCurrentStages; i++){
@@ -238,7 +241,6 @@ void dotHitWall(Dot d, Wall w, int stage, int index){
     }
   }else if(w.type == 4){
     if(b){
-      
       d.pos.x = 300;
       d.pos.y = 620;
       numHitTeleporter++;

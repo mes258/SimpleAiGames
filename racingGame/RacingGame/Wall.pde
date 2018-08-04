@@ -32,6 +32,7 @@ class Wall {
   }
   
   void show(int type){
+    noStroke();
     fill(0, 0, 255);
     if(type == 0){
       rect(x, y, w, h);
@@ -47,11 +48,14 @@ class Wall {
       fill(255, 255, 0);
       rect(x, y, w, h);
     }else if (type == 5){
+      fill(255);
+      rect(x, y, w, h);
+    }else if (type == 6){
       fill(0, 255, 0);
       rect(x, y, w, h);
     }
     
-    fill(255, 0, 0);
-    text(num, x, y + 10);
+    //fill(255, 0, 0);
+    //text(num, x, y + 10);
   }
 }

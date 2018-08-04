@@ -162,7 +162,7 @@ class Stage {
 
       walls[2] = new Wall(1, 270, 240, 100, 10, 5);
       walls[3] = new Wall(2, 370, 251, 10, 340, 5);
-      walls[4] = new Wall(1, 270, 590, 100, 50, 5);
+      walls[4] = new Wall(1, 270, 590, 100, 2, 5);
       walls[5] = new Wall(2, 260, 251, 10, 340, 5);
       
       walls[6] = new Wall(29, 370, 250, 10, 400, 0);
@@ -171,7 +171,7 @@ class Stage {
       walls[9] = new Wall(31, 260, 200, 10, 440, 0);
       walls[10] = new Wall(11, 270, 640, 100, 10, 0);
       walls[11] = new Wall(12, 630, 640, 120, 10, 0);
-      
+      walls[4] = new Wall(1, 270, 590, 100, 50, 6);
 
       hasBugs = true;
 
