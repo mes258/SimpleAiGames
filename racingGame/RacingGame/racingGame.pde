@@ -21,6 +21,7 @@ Stage currentStages[];
 int numCurrentStages = 0;
 
 int winner = -1;//-1 = none, 0 = user, 1 = dots
+boolean gameOver = false;
 
 int numHitTeleporter = 0;
 
@@ -58,7 +59,7 @@ void setup() {
   currentStages = new Stage[allStages.length];
   
   bots = new Population(2000);
-  //car.atRP = 9;
+  car.atRP = 9;
 }
 int step = 0;
 /* UPDATE EACH STEP */
@@ -77,51 +78,51 @@ void draw() {
     text("It's a tie!!", 605, 55);
   }
   
-  textSize(26); 
-  if(winner == 0){
-    text("YOU WIN!!", 300, 40);
-  }else if(winner == 1){
-    text("THE DOTS WIN!!", 300, 40);
-  }
-  textSize(14);
-  
-  getCurrentStages(car.atRP, bots.dots[0].atRP);
-  for(int i = 0; i < numCurrentStages; i++){
-    currentStages[i].show();
-  }
-  //allStages[1].show();
-  //allStages[2].show();
-  
-  
-  
-  checkCollisions();
-  
-  if(step % 5 == 0){
-    if(car.dead){
-        car.reset();
+  if(gameOver){
+    textSize(26); 
+    if(winner == 0){
+      text("YOU WIN!!", 300, 40);
+    }else if(winner == 1){
+      text("THE DOTS WIN!!", 300, 40);
     }
-  }
-  
-  /* CHECK IF GENERATION IS OVER, ELSE UPDATE */
-  if (bots.allDotsDead()) {
-    println("numHitTeleporter: " + numHitTeleporter);
-    numHitTeleporter = 0;
-    println("carRP: " + car.atRP);
-    //genetic algorithm
-    bots.calculateFitness();
-    bots.naturalSelection();
-    //makeMovingWalls();
-    bots.mutateDots();
-    generation++;
-    //if(car.dead){
-    //  car.reset();
-    //}
-  } else {
-    //if any of the dots are still alive then update and then show them
-    bots.update();
-    bots.show();
-    car.update();
-    car.display();
+  }else{
+    textSize(14);
+    
+    getCurrentStages(car.atRP, bots.dots[0].atRP);
+    for(int i = 0; i < numCurrentStages; i++){
+      currentStages[i].show();
+    }
+    //allStages[1].show();
+    //allStages[2].show();
+    
+    checkCollisions();
+    
+    if(step % 5 == 0){
+      if(car.dead){
+          car.reset();
+      }
+    }
+    /* CHECK IF GENERATION IS OVER, ELSE UPDATE */
+    if (bots.allDotsDead()) {
+      println("numHitTeleporter: " + numHitTeleporter);
+      numHitTeleporter = 0;
+      println("carRP: " + car.atRP);
+      //genetic algorithm
+      bots.calculateFitness();
+      bots.naturalSelection();
+      //makeMovingWalls();
+      bots.mutateDots();
+      generation++;
+      //if(car.dead){
+      //  car.reset();
+      //}
+    } else {
+      //if any of the dots are still alive then update and then show them
+      bots.update();
+      bots.show();
+      car.update();
+      car.display();
+    }
   }
   /* END GENERATION CHECK */
 }
@@ -299,7 +300,7 @@ void dotHitRP(Dot d, RestartPoint p){
       }
       if(bots.dots[i].atRP == 10){
          winner = 1;
-         bots.dots[i].atRP = 0;
+         gameOver = true;
       }
     }
   }
@@ -312,8 +313,7 @@ PlayerCar carHitRP(PlayerCar c, RestartPoint p){
   }
   if(c.atRP == 10){
     winner = 0;
-    c.atRP = 0;
-    c.dead = true;
+    gameOver = true;
   }
   return c;
 }

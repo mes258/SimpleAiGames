@@ -13,6 +13,7 @@ class RestartPoint{
   }
   
   void show(){
+    noStroke();
     fill(0, 50, 0);
     rect(x, y, w, h);
     fill(255);

@@ -6,6 +6,7 @@ class Stage {
   int numWalls = 0; 
 
   RestartPoint RP; //Restart Point
+  StartingArea SA;
 
   boolean dotsCompletedPrevious = false;
   boolean carCompletedPrevious = false;
@@ -24,6 +25,7 @@ class Stage {
   }
 
   void show() {
+    
     if (hasMovingWalls) {
       for (int i = 0; i < numWalls; i ++) {
         if (walls[i].type == 2) {
@@ -33,6 +35,7 @@ class Stage {
       }
     }
     if (dotsCompletedPrevious && carCompletedPrevious) {
+      SA.show();
       walls[0].type = 0;
       walls[1].type = 0;
     } else {
@@ -56,6 +59,7 @@ class Stage {
     //Wall types: 0 = normal wall, 1 = trigger wall, 2 = moving wall, 3 = hidden wall, 4 = teleporter, 5 = bug bounce wall
     if (n == 1) {               //STAGE 1
       RP  = new RestartPoint(75, 0, 1);
+      SA  = new StartingArea(0, 650);
       walls[0] = new Wall(-1, -65, 50, 30, 10, 3);
       walls[1] = new Wall(-2, -65, 0, 10, 50, 3);
 
@@ -65,6 +69,7 @@ class Stage {
       walls[5] = new Wall(3, 60, 100, 80, 10, 0);
     } else if (n == 2) {         //STAGE 2
       RP = new RestartPoint(80, 650, 2);
+      SA  = new StartingArea(75, 0);
       walls[0] = new Wall(-1, 65, 50, 30, 10, 3);
       walls[1] = new Wall(-2, 65, 0, 10, 50, 3);
 
@@ -82,7 +87,7 @@ class Stage {
       hasMovingWalls = true;
     } else if (n == 3) {         //STAGE 3
       RP = new RestartPoint(160, 150, 3);
-
+      SA  = new StartingArea(80, 650);
       walls[0] = new Wall(-3, 70, 640, 30, 10, 0);
       walls[1] = new Wall(-4, 70, 640, 10, 60, 0);
 
@@ -111,6 +116,7 @@ class Stage {
       }
     } else if (n == 4) {
       RP = new RestartPoint(210, 10, 4);
+      SA  = new StartingArea(160, 150);
       walls[0] = new Wall(-5, 150, 170, 10, 30, 3);
       walls[1] = new Wall(-6, 150, 200, 60, 10, 3);
 
@@ -128,6 +134,7 @@ class Stage {
       walls[12] = new Wall(19, 210, 260, 50, 10, 0);
     } else if (n == 5) {
       RP = new RestartPoint(210, 280, 5);
+      SA  = new StartingArea(210, 10);
       walls[0] = new Wall(-7, 210, 0, 50, 10, 3);
       walls[1] = new Wall(-8, 200, 150, 10, 50, 3);
 
@@ -136,6 +143,7 @@ class Stage {
       walls[4] = new Wall(4, 200, 0, 10, 150, 0);
     } else if (n == 6) {
       RP = new RestartPoint(210, 650, 6);
+      SA  = new StartingArea(210, 280);
       walls[0] = new Wall(-9, 210, 270, 50, 10, 3);
       walls[1] = new Wall(-10, -200, 270, 50, 10, 3);
 
@@ -152,6 +160,7 @@ class Stage {
       walls[11] = new Wall(2, 200, 270, 10, 430, 0);
     } else if (n == 7) {
       RP = new RestartPoint(630, 650, 7);
+      SA  = new StartingArea(210, 650);
       walls[0] = new Wall(-11, 210, 640, 50, 10, 3);
       walls[1] = new Wall(-12, 200, 640, 10, 60, 3);
 
@@ -164,6 +173,7 @@ class Stage {
       hasMovingWalls = true;
     } else if (n == 8) {
       RP = new RestartPoint(270, 200, 8);
+      SA  = new StartingArea(630, 650);
       walls[0] = new Wall(13, 620, 640, 10, 60, 3);
       walls[1] = new Wall(-12, -210, 620, 50, 20, 3);
 
@@ -171,7 +181,7 @@ class Stage {
       walls[3] = new Wall(30, 320, 240, 60, 10, 0);
       walls[4] = new Wall(80, 680, 650, 20, 50, 4);
       walls[5] = new Wall(31, 260, 200, 10, 440, 0);
-      walls[6] = new Wall(11, 270, 640, 100, 10, 0);
+      walls[6] = new Wall(11, 260, 640, 110, 10, 0);
       walls[7] = new Wall(12, 630, 640, 120, 10, 0);
       walls[8] = new Wall(1, 270, 590, 100, 50, 6);
 
@@ -187,6 +197,7 @@ class Stage {
       
     } else if (n == 9) {
       RP = new RestartPoint(540, 0, 9);
+      SA  = new StartingArea(270, 200);
       walls[0] = new Wall(-13, 260, 250, 70, 10, 3);
       walls[1] = new Wall(-14, -650, 55, 10, 10, 3);
 
@@ -196,6 +207,7 @@ class Stage {
       walls[5] = new Wall(5, 260, 0, 10, 250, 0);
     } else if (n == 10) {
       RP = new RestartPoint(650, 590, 10);
+      SA  = new StartingArea(540, 0);
       walls[0] = new Wall(-13, 590, 60, 110, 10, 3);
       walls[1] = new Wall(-14, 530, 0, 10, 60, 3);
 
@@ -271,6 +283,7 @@ class Stage {
     //11 and 12 ARE BUFFERS FOR WINNING AFTER TEN LEVELS
     else if (n == 11) {
       RP = new RestartPoint(150, -590, 11);
+      SA  = new StartingArea(650, 590);
       walls[0] = new Wall(-13, -550, 590, 10, 10, 3);
       walls[1] = new Wall(-14, -550, 590, 10, 10, 3);
 

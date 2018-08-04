@@ -34,22 +34,22 @@ class Wall {
   void show(int type){
     noStroke();
     fill(0, 0, 255);
-    if(type == 0){
+    if(type == 0){ //regular blue walls
       rect(x, y, w, h);
-    } else if (type == 1){
+    } else if (type == 1){ //Trigger Walls
       fill(173, 216, 230);
       rect(x, y, w, h);
-    } else if (type == 2){
+    } else if (type == 2){ //Moving Walls
       fill(0);
       rect(x, y, w, h);
       //fill(255, 0, 0);
       //text(num, x, y + 10);
     } else if (type == 3){
-      
-    } else if (type == 4){
+      //hidden walls, not to be seen or to kill
+    } else if (type == 4){ //Teleportation walls
       fill(255, 255, 0);
       rect(x, y, w, h);
-    }else if (type == 5){
+    }else if (type == 5){//
       fill(255);
       rect(x, y, w, h);
     }else if (type == 6){
