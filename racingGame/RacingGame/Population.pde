@@ -7,62 +7,24 @@ class Population {
   int bestDot = 0;//the index of the best dot in the dots[]
 
   int minStep = 1000;
+  float bestFitness = 0;
+
+  Dot topDot = new Dot(0);
+  
 
   Population(int size) {
     dots = new Dot[size];
     for (int i = 0; i< size; i++) {
       dots[i] = new Dot(0);
     }
+    topDot.fitness = 0;
   }
-
-
-  //------------------------------------------------------------------------------------------------------------------------------
-  //show all dots
-  void show() {
-    for (int i = 1; i< dots.length; i++) {
-      dots[i].show();
-    }
-    dots[0].show();
-  }
-
-  //-------------------------------------------------------------------------------------------------------------------------------
-  //update all dots 
-  void update() {
-    for (int i = 0; i< dots.length; i++) {
-      if (dots[i].brain.step > minStep) {//if the dot has already taken more steps than the best dot has taken to reach the goal
-        dots[i].dead = true;//then it dead
-      } else {
-        dots[i].update();
-      }
-    }
-  }
-
-  //-----------------------------------------------------------------------------------------------------------------------------------
-  //calculate all the fitnesses
-  void calculateFitness() {
-    for (int i = 0; i< dots.length; i++) {
-      dots[i].calculateFitness();
-    }
-  }
-
-
-  //------------------------------------------------------------------------------------------------------------------------------------
-  //returns whether all the dots are either dead or have reached the goal
-  boolean allDotsDead() {
-    for (int i = 0; i< dots.length; i++) {
-      if (!dots[i].dead && !dots[i].reachedGoal) { 
-        return false;
-      }
-    }
-    return true;
-  }
-
-
 
   //-------------------------------------------------------------------------------------------------------------------------------------
 
   //gets the next generation of dots
   void naturalSelection() {
+    println("Natural selection");
     Dot[] newDots = new Dot[dots.length];//next gen
     setBestDot();
     calculateFitnessSum();
@@ -79,7 +41,11 @@ class Population {
     }
 
     dots = newDots;
-    gen++;
+    //gen++;
+    for(int i = 0; i < dots.length; i++){
+      dots[i].show();
+    }
+
   }
 
 
@@ -105,9 +71,9 @@ class Population {
 
     float runningSum = 0;
     
-    for(int i = 0; i < dots.length * 0.75; i++){
-      runningSum += dots[0].fitness;
-    }
+    // for(int i = 0; i < dots.length * 0.75; i++){
+    //   runningSum += dots[bestDot].fitness;
+    // }
     
     for (int i = 0; i< dots.length; i++) {
       runningSum+= dots[i].fitness;
@@ -115,7 +81,7 @@ class Population {
         return dots[i];
       }
     }
-
+    
     //should never get to this point
 
     return null;
@@ -126,6 +92,34 @@ class Population {
     for(int i = 1; i < dots.length; i++){
       dots[i].brain.mutate();
     }
+  }
+
+//getNewDot ______-----------------------------------------------
+  void getNewDot(int i){
+    dots[i].calculateFitness();
+    // if(i == 5){
+    //   println("Dot 5 RP: " + dots[5].atRP + "; Fitness: " + dots[5].fitness);
+    // }
+    if(dots[i].rpChanged){
+      //println("RP changed");
+      dots[i].fitness = 0;
+    }
+    if(dots[i].fitness >= dots[0].fitness){
+      if(dots[i].atRP > dots[0].atRP){
+        println("New Best: " + dots[i].atRP + "; topdot: " + dots[i].fitness);
+      }
+      dots[0] = dots[i];
+   
+    //new dot
+      // dots[i] = dots[0].newBaby();
+      dots[i].isBest = true;
+    }else{
+      Dot temp = dots[0].newBaby();
+      dots[i] = null;
+      temp.brain.mutate();
+      dots[i] = temp;
+    }
+  
   }
 
   //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -148,6 +142,7 @@ class Population {
         }
       }
     }
+    bestFitness = max;
 
     bestDot = maxIndex;
     

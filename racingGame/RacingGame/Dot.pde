@@ -10,14 +10,16 @@ class Dot {
   int steps = 0;
   
   int atRP = 0;
+  boolean rpChanged = false;
   
   int atCheckpoint = 0;
   float fitness = 0;
+  float oldFitness = 0;
 
   Dot(int thisRP) {
     brain = new Brain(1000);//new brain with 1000 instructions
     this.atRP = thisRP;
-    //atCheckpoint = 1;
+    rpChanged = false;
     //start the dots at the bottom of the window with a no velocity or acceleration
     if(atRP == 0){
       pos = new PVector(20, height- 20);
@@ -34,7 +36,7 @@ class Dot {
   //-----------------------------------------------------------------------------------------------------------------
   //draws the dot on the screen
   void show() {
-    stroke(0);
+    noStroke();
     //if this dot is the best dot from the previous generation then draw it as a big green dot
     if (isBest) {
       fill(0, 255, 0);
@@ -48,45 +50,36 @@ class Dot {
   //-----------------------------------------------------------------------------------------------------------------------
   //moves the dot according to the brains directions
   void move() {
-
     if (brain.directions.length > brain.step) {//if there are still directions left then set the acceleration as the next PVector in the direcitons array
       acc = brain.directions[brain.step];
       brain.step++;
     } else {//if at the end of the directions array then the dot is dead
       dead = true;
     }
-
     //apply the acceleration and move the dot
     vel.add(acc);
-    vel.limit(6);//not too fast
+    vel.limit(4);//not too fast
     pos.add(vel);
   }
 
   //-------------------------------------------------------------------------------------------------------------------
   //calls the move function and check for collisions and stuff
   void update() {
-    if (!dead && !reachedGoal) {
+    if (!dead) {
       move();
       if (pos.x< 2|| pos.y<2 || pos.x>width-2 || pos.y>height -2) {//if near the edges of the window then kill it 
         dead = true;
-        
       }
     }
   }
-
 
   //--------------------------------------------------------------------------------------------------------------------------------------
   //calculates the fitness
   
   void calculateFitness() {
-   //if(atRP >= numberOfRPs){
-   //  atRP = 0;
-   //  fitness = 1000000000;
-   //}else{
-     RestartPoint t = allStages[atRP].RP;
-     float distanceToGoal = dist(pos.x, pos.y, t.x + t.w/2, t.y + t.h/2);
-     fitness = 1.0/(distanceToGoal * distanceToGoal) + atRP;
-   //}
+    RestartPoint t = allStages[atRP].RP;
+    float distanceToGoal = dist(pos.x, pos.y, t.x + t.w/2, t.y + t.h/2);
+    fitness = 1.0/(distanceToGoal * distanceToGoal) + atRP;
   }
 
   //---------------------------------------------------------------------------------------------------------------------------------------

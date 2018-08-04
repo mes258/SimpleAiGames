@@ -108,7 +108,7 @@ void draw() {
     }
   }else{
     textSize(14);
-    textAlign(RIGHT);
+    //textAlign(RIGHT);
     
     getCurrentStages(car.atRP, bots.dots[0].atRP);
     for(int i = 0; i < numCurrentStages; i++){
@@ -124,28 +124,20 @@ void draw() {
           car.reset();
       }
     }
-    /* CHECK IF GENERATION IS OVER, ELSE UPDATE */
-    if (bots.allDotsDead()) {
-      println("numHitTeleporter: " + numHitTeleporter);
-      numHitTeleporter = 0;
-      println("carRP: " + car.atRP);
-      //genetic algorithm
-      bots.calculateFitness();
-      bots.naturalSelection();
-      //makeMovingWalls();
-      bots.mutateDots();
-      generation++;
-      //if(car.dead){
-      //  car.reset();
-      //}
-    } else {
-      //if any of the dots are still alive then update and then show them
-      bots.update();
-      bots.show();
-      car.update();
-      car.display();
+    
+    for(int i = 0; i < bots.dots.length; i++){
+      if(bots.dots[i].dead){
+        bots.getNewDot(i);
+      } else {
+        bots.dots[i].update();
+        bots.dots[i].show();
+      }
     }
-  }
+    
+    car.update();
+    car.display();
+    
+    }
   /* END GENERATION CHECK */
 }
 /* END OF STEP */
@@ -302,11 +294,11 @@ void dotHitWall(Dot d, Wall w, int stage, int index){
       d.pos.y = 615;
       d.atRP = 7;
       numHitTeleporter++;
-      if(numHitTeleporter > 200){
-        for(int i = 0; i < bots.dots.length; i++){
-          bots.dots[i].atRP = 7;
-        }
-      }
+      //if(numHitTeleporter > 200){
+      //  for(int i = 0; i < bots.dots.length; i++){
+      //    bots.dots[i].atRP = 7;
+      //  }
+      //}
     }
   }
 }
@@ -336,17 +328,27 @@ PlayerCar carHitWall(PlayerCar c, Wall w, int stage, int index){
 }
 
 void dotHitRP(Dot d, RestartPoint p){
+  boolean newRP = false;
   boolean b = overLap(d.pos.x, d.pos.y, 1, 1, p.x, p.y, p.w, p.h);
   if(b){
     for(int i = 0; i < bots.dots.length; i++){
       if(bots.dots[i].atRP + 1 == p.val){
+         bots.dots[i].rpChanged = true;
          bots.dots[i].atRP = p.val;
+         newRP = true;
       }
       if(bots.dots[i].atRP == 10){
          winner = 1;
          gameOver = true;
       }
+      //if(bots.dots[i].atRP == 1){
+      //   bots.dots[i].atRP = 2;
+      //}
     }
+    if(newRP){
+        //bots.naturalSelection();
+        newRP = false;
+      }
   }
 }
 
