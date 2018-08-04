@@ -78,7 +78,7 @@ class Population {
       newDots[i] = parent.newBaby();
     }
 
-    dots = newDots.clone(); 
+    dots = newDots;
     gen++;
   }
 
