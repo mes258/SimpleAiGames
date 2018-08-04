@@ -58,7 +58,7 @@ void setup() {
   currentStages = new Stage[allStages.length];
   
   bots = new Population(2000);
-  //car.atRP = 7;
+  //car.atRP = 2;
 }
 int step = 0;
 /* UPDATE EACH STEP */
@@ -89,6 +89,9 @@ void draw() {
   for(int i = 0; i < numCurrentStages; i++){
     currentStages[i].show();
   }
+  //allStages[1].show();
+  //allStages[2].show();
+  
   
   
   checkCollisions();
