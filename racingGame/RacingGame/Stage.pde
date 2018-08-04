@@ -40,7 +40,7 @@ class Stage {
       walls[1].type = 3;
     }
     for (int i = 0; i < numWalls; i++) {
-      if(walls[i].type != 2){
+      if (walls[i].type != 2) {
         walls[i].show(walls[i].type);
       }
     }
@@ -167,26 +167,23 @@ class Stage {
       walls[0] = new Wall(13, 620, 640, 10, 60, 3);
       walls[1] = new Wall(-12, -210, 620, 50, 20, 3);
 
+      walls[2] = new Wall(29, 370, 250, 10, 400, 0);
+      walls[3] = new Wall(30, 320, 240, 60, 10, 0);
+      walls[4] = new Wall(80, 680, 650, 20, 50, 4);
+      walls[5] = new Wall(31, 260, 200, 10, 440, 0);
+      walls[6] = new Wall(11, 270, 640, 100, 10, 0);
+      walls[7] = new Wall(12, 630, 640, 120, 10, 0);
+      walls[8] = new Wall(1, 270, 590, 100, 50, 6);
 
-
-      walls[9] = new Wall(11, random(101, 175), 580, 10, 60, 101, 199, true, false, 1, 2);
-      walls[10] = new Wall(12, random(101, 175), 550, 10, 60, 101, 199, true, true, 1, 2);
-      walls[11] = new Wall(13, random(101, 175), 450, 10, 60, 101, 199, true, true, 1, 2);
-      walls[12] = new Wall(14, random(101, 175), 400, 10, 60, 102, 198, true, true, 2, 2);
-      walls[13] = new Wall(15, random(101, 175), 350, 10, 60, 101, 199, true, true, 1, 2);
-      walls[14] = new Wall(16, random(101, 175), 250, 10, 60, 102, 198, true, true, 2, 2);
-      walls[15] = new Wall(17, random(101, 175), 300, 10, 60, 103, 162, true, true, 3, 2);
-      walls[16] = new Wall(18, random(101, 175), 200, 10, 60, 103, 197, true, true, 3, 2);
+      walls[9] = new Wall(9, random(270, 360), 550, 10, 40, 261, 369, true, false, 1, 2);
+      walls[10] = new Wall(10, random(270, 360), 510, 10, 40, 261, 369, true, true, 1, 2);
+      walls[11] = new Wall(11, random(270, 360), 450, 10, 40, 261, 369, true, true, 1, 2);
+      walls[12] = new Wall(12, random(270, 360), 410, 10, 40, 262, 368, true, true, 2, 2);
+      walls[13] = new Wall(13, random(270, 360), 370, 10, 40, 262, 369, true, true, 1, 2);
+      walls[14] = new Wall(14, random(270, 360), 330, 10, 40, 262, 338, true, true, 2, 2);
+      walls[15] = new Wall(15, random(270, 360), 290, 10, 40, 263, 367, true, true, 3, 2);
+      walls[16] = new Wall(16, random(270, 360), 250, 10, 40, 263, 367, true, true, 3, 2);
       hasMovingWalls = true;
-
-
-      walls[6] = new Wall(29, 370, 250, 10, 400, 0);
-      walls[7] = new Wall(30, 320, 240, 60, 10, 0);
-      walls[8] = new Wall(80, 680, 650, 20, 50, 4);
-      walls[9] = new Wall(31, 260, 200, 10, 440, 0);
-      walls[10] = new Wall(11, 270, 640, 100, 10, 0);
-      walls[11] = new Wall(12, 630, 640, 120, 10, 0);
-      walls[4] = new Wall(1, 270, 590, 100, 50, 6);
     } else if (n == 9) {
       RP = new RestartPoint(540, 0, 9);
       walls[0] = new Wall(-13, 260, 250, 70, 10, 3);

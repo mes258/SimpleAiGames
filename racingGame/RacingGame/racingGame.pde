@@ -58,7 +58,7 @@ void setup() {
   currentStages = new Stage[allStages.length];
   
   bots = new Population(2000);
-  //car.atRP = 2;
+  car.atRP = 7;
 }
 int step = 0;
 /* UPDATE EACH STEP */
