@@ -25,6 +25,14 @@ boolean gameOver = false;
 
 int numHitTeleporter = 0;
 
+
+//Game over vars: 
+int rectX, rectY; // Position of square button
+int rectW = 180;     // Width of restart button
+int rectH = 90; 
+boolean rectOver = false; // True if mouse over button
+boolean restartButtonClicked = false; //True if clicked over button
+
 /* END DATA TYPE SET UP */
 
 
@@ -40,17 +48,6 @@ void setup() {
   frameRate(200);
   car = new PlayerCar(0);
   
-  walls = new Wall[30];
-  //makeWalls();
-  movingWalls = new Wall[30];
-  //makeMovingWalls();
-  RP = new RestartPoint[10];
-  //makeRPs();
-  stageComplete = new boolean[numberOfStages];
-  for(int i = 0; i < numberOfStages; i++){
-    stageComplete[i] = true;
-  }
-  
   allStages = new Stage[13];
   for(int i = 0; i < 13; i++){
     allStages[i] = new Stage(i+1);
@@ -59,7 +56,14 @@ void setup() {
   currentStages = new Stage[allStages.length];
   
   bots = new Population(2000);
-  car.atRP = 9;
+  
+  rectX = width/2-rectW/2;
+  rectY = height/2-rectH/2;
+  
+  //Cheating Area: 
+  //car.atRP = 9;
+  //car.x = 600;
+  //car.y = 600;
 }
 int step = 0;
 /* UPDATE EACH STEP */
@@ -79,14 +83,32 @@ void draw() {
   }
   
   if(gameOver){
-    textSize(26); 
+    textSize(26);
+    textAlign(CENTER);
     if(winner == 0){
-      text("YOU WIN!!", 300, 40);
+      text("YOU WIN!!", 350, 100);
     }else if(winner == 1){
-      text("THE DOTS WIN!!", 300, 40);
+      text("THE DOTS WIN!!", 350, 100);
+    }
+    update(mouseX, mouseY);
+    rect(rectX, rectY, rectW, rectH);
+    fill(0, 0, 255);
+    text("Restart", rectX + rectW/2, rectY + rectH/2);
+    if(restartButtonClicked){
+      car.atRP = 0;
+      car.dead = true;
+      for(int i = 0; i < bots.dots.length; i++){
+         bots.dots[i].atRP = 0; 
+         bots.dots[i].dead = true;
+      }
+      generation = 0;
+      car.numberOfDeaths = 0;
+      gameOver = false;
+      restartButtonClicked = false;
     }
   }else{
     textSize(14);
+    textAlign(RIGHT);
     
     getCurrentStages(car.atRP, bots.dots[0].atRP);
     for(int i = 0; i < numCurrentStages; i++){
@@ -127,6 +149,28 @@ void draw() {
   /* END GENERATION CHECK */
 }
 /* END OF STEP */
+
+  void update(int x, int y) {
+    if ( overRect(rectX, rectY, rectW, rectH) ) {
+      rectOver = true;
+    }
+  }
+
+  boolean overRect(int x, int y, int width, int height)  {
+    if (mouseX >= x && mouseX <= x+width && 
+        mouseY >= y && mouseY <= y+height) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  void mousePressed() {
+    if (rectOver) {
+      restartButtonClicked = true;
+    }
+  }
+  
   void getCurrentStages(int carRP, int dotRP){
     for(int i = 0; i < numCurrentStages; i++){
       currentStages[i] = null;

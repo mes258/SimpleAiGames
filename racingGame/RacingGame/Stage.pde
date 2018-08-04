@@ -270,9 +270,6 @@ class Stage {
       walls[39] = new Wall(17, 480, 580, 20, 60, 1);
       walls[40] = new Wall(18, 550, 240, 10, 60, 0);
 
-
-
-
       hasMovingWalls = true;
       hasBugs = true;
       //Bugs: 
