@@ -130,9 +130,10 @@ void draw() {
         bots.getNewDot(i);
       } else {
         bots.dots[i].update();
-        bots.dots[i].show();
       }
     }
+    
+    bots.show();
     
     car.update();
     car.display();
@@ -346,7 +347,7 @@ void dotHitRP(Dot d, RestartPoint p){
       //}
     }
     if(newRP){
-        //bots.naturalSelection();
+        bots.naturalSelection();
         newRP = false;
       }
   }

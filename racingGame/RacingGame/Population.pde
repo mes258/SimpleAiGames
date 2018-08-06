@@ -48,6 +48,13 @@ class Population {
 
   }
 
+  void show() {
+    for (int i = 1; i< dots.length; i++) {
+      dots[i].show();
+    }
+    dots[0].show();
+  }
+
 
   //---------------dots.-----------------------------------------------------------------------------------------------------------------------
   //you get it
@@ -84,7 +91,7 @@ class Population {
     
     //should never get to this point
 
-    return null;
+    return dots[0];
   }
 
   //------------------------------------------------------------------------------------------------------------------------------------------
@@ -100,14 +107,14 @@ class Population {
     // if(i == 5){
     //   println("Dot 5 RP: " + dots[5].atRP + "; Fitness: " + dots[5].fitness);
     // }
-    if(dots[i].rpChanged){
-      //println("RP changed");
-      dots[i].fitness = 0;
-    }
+    // if(dots[i].rpChanged){
+    //   //println("RP changed");
+    //   dots[i].fitness = 0;
+    // }
     if(i == 0){
       if(dots[0].fitness < oldTopDot.fitness){
         topDot = dots[0];
-      }else if(dots[0].fitness < topDot.fitness){
+      }else if(dots[0].fitness <= topDot.fitness){
         oldTopDot = dots[0];
         dots[0] = topDot.newBaby();
         dots[0].isBest = true;
