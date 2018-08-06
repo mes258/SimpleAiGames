@@ -10,7 +10,7 @@ class Population {
   float bestFitness = 0;
 
   Dot topDot = new Dot(0);
-  
+  Dot oldTopDot = new Dot(0);
 
   Population(int size) {
     dots = new Dot[size];
@@ -104,18 +104,29 @@ class Population {
       //println("RP changed");
       dots[i].fitness = 0;
     }
-    if(dots[i].fitness >= dots[0].fitness){
-      if(dots[i].atRP > dots[0].atRP){
-        println("New Best: " + dots[i].atRP + "; topdot: " + dots[i].fitness);
+    if(i == 0){
+      if(dots[0].fitness < oldTopDot.fitness){
+        topDot = dots[0];
+      }else if(dots[0].fitness < topDot.fitness){
+        oldTopDot = dots[0];
+        dots[0] = topDot.newBaby();
+        dots[0].isBest = true;
+        println("New Best: " + dots[0].fitness + "; topDot: " + topDot.fitness + "; oldTopDot: " + oldTopDot.fitness);
       }
-      dots[0] = dots[i];
+    }else if(dots[i].fitness >= topDot.fitness){
+      if(dots[i].atRP > topDot.atRP){
+        //println("New Best: " + dots[i].atRP + "; topDot: " + dots[i].fitness);
+      }
+      topDot = dots[i];
    
-    //new dot
-      // dots[i] = dots[0].newBaby();
-      dots[i].isBest = true;
-    }else{
+      //new dot
+      
+    }
+
+    if(i != 0){
       Dot temp = dots[0].newBaby();
       dots[i] = null;
+
       temp.brain.mutate();
       dots[i] = temp;
     }
