@@ -15,12 +15,15 @@ class Stage {
 
   Critter[] bugs;
   boolean hasBugs = false;
+  
+  Coin[] coins;
 
 
   Stage(int stageNum) {
     this.stageNum = stageNum;
     walls = new Wall[50];
     bugs = new Critter[15];
+    coins = new Coin[10];
     makeStage(stageNum);
   }
 
@@ -52,6 +55,9 @@ class Stage {
         bugs[i].show();
       }
     }
+    for(int i = 0; i < 3; i++){
+      coins[i].show();
+    }
     RP.show();
   }
 
@@ -67,6 +73,10 @@ class Stage {
       walls[3] = new Wall(1, 0, 60, 30, 10, 0);
       walls[4] = new Wall(2, 95, 50, 10, 60, 0);
       walls[5] = new Wall(3, 60, 100, 80, 10, 0);
+      
+      coins[0] = new Coin(30, 500, 10);
+      coins[1] = new Coin(10, 80, 10);
+      coins[2] = new Coin(10, 30, 10);
     } else if (n == 2) {         //STAGE 2
       RP = new RestartPoint(80, 650, 2);
       SA  = new StartingArea(75, 0);
@@ -85,6 +95,10 @@ class Stage {
       walls[11] = new Wall(10, 100, 190, 10, 460, 0);
       walls[12] = new Wall(10, 50, 400, 10, 60, 50, 100, true, true, 1, 2);
       hasMovingWalls = true;
+      
+      coins[0] = new Coin(70, 120, 10);
+      coins[1] = new Coin(70, 680, 10);
+      coins[2] = new Coin(80, 450, 10);
     } else if (n == 3) {         //STAGE 3
       RP = new RestartPoint(160, 150, 3);
       SA  = new StartingArea(80, 650);
@@ -110,10 +124,14 @@ class Stage {
       walls[10] = new Wall(2, 130, 650, 2, 50, 5);
       walls[11] = new Wall(1, 128, 700, 72, 2, 5);
       hasBugs = true;
-
+      
       for (int i = 0; i < bugs.length; i++) {
         bugs[i] = new Critter(115, 195, 205, 695);
       }
+      
+      coins[0] = new Coin(20, 500, 10);
+      coins[1] = new Coin(20, 500, 10);
+      coins[2] = new Coin(20, 500, 10);
     } else if (n == 4) {
       RP = new RestartPoint(210, 10, 4);
       SA  = new StartingArea(160, 150);
@@ -132,6 +150,10 @@ class Stage {
       walls[10] = new Wall(18, 210, 75, 50, 10, 0);
       walls[11] = new Wall(14, 210, 0, 50, 10, 1);
       walls[12] = new Wall(19, 210, 260, 50, 10, 0);
+      
+      coins[0] = new Coin(20, 500, 10);
+      coins[1] = new Coin(20, 500, 10);
+      coins[2] = new Coin(20, 500, 10);
     } else if (n == 5) {
       RP = new RestartPoint(210, 280, 5);
       SA  = new StartingArea(210, 10);
@@ -141,6 +163,10 @@ class Stage {
       walls[2] = new Wall(2, 200, 200, 10, 130, 0);
       walls[3] = new Wall(3, 260, 0, 10, 330, 0);
       walls[4] = new Wall(4, 200, 0, 10, 150, 0);
+      
+      coins[0] = new Coin(20, 500, 10);
+      coins[1] = new Coin(20, 500, 10);
+      coins[2] = new Coin(20, 500, 10);
     } else if (n == 6) {
       RP = new RestartPoint(210, 650, 6);
       SA  = new StartingArea(210, 280);
@@ -158,6 +184,10 @@ class Stage {
       walls[10] = new Wall(27, 230, 630, 30, 10, 200, 240, true, true, 1, 2);
       hasMovingWalls = true;
       walls[11] = new Wall(2, 200, 270, 10, 430, 0);
+      
+      coins[0] = new Coin(20, 500, 10);
+      coins[1] = new Coin(20, 500, 10);
+      coins[2] = new Coin(20, 500, 10);
     } else if (n == 7) {
       RP = new RestartPoint(630, 650, 7);
       SA  = new StartingArea(210, 650);
@@ -171,6 +201,10 @@ class Stage {
       walls[5] = new Wall(5, 270, 662, 10, 10, 300, (int)random(400, 600), true, true, (int)random(1, 4), 2);
       walls[6] = new Wall(6, 270, 650, 10, 10, 300, (int)random(400, 600), true, true, (int)random(1, 4), 2);
       hasMovingWalls = true;
+      
+      coins[0] = new Coin(20, 500, 10);
+      coins[1] = new Coin(20, 500, 10);
+      coins[2] = new Coin(20, 500, 10);
     } else if (n == 8) {
       RP = new RestartPoint(270, 200, 8);
       SA  = new StartingArea(630, 650);
@@ -195,6 +229,10 @@ class Stage {
       walls[16] = new Wall(16, random(270, 360), 250, 10, 40, 263, 367, true, true, 3, 2);
       hasMovingWalls = true;
       
+      coins[0] = new Coin(20, 500, 10);
+      coins[1] = new Coin(20, 500, 10);
+      coins[2] = new Coin(20, 500, 10);
+      
     } else if (n == 9) {
       RP = new RestartPoint(540, 0, 9);
       SA  = new StartingArea(270, 200);
@@ -205,6 +243,10 @@ class Stage {
       walls[3] = new Wall(3, 320, 50, 10, 200, 0);
       walls[4] = new Wall(4, 330, 50, 210, 10, 0);
       walls[5] = new Wall(5, 260, 0, 10, 250, 0);
+      
+      coins[0] = new Coin(20, 500, 10);
+      coins[1] = new Coin(20, 500, 10);
+      coins[2] = new Coin(20, 500, 10);
     } else if (n == 10) {
       RP = new RestartPoint(650, 590, 10);
       SA  = new StartingArea(540, 0);
@@ -222,7 +264,6 @@ class Stage {
       walls[19] = new Wall(10, 500, 300, 10, 350, 0);
       walls[20] = new Wall(8, 590, 60, 110, 10, 0);
       walls[21] = new Wall(8, 590, 60, 110, 10, 0);
-
 
       //Obstacles
       //Moving Walls [23-31]
@@ -276,6 +317,10 @@ class Stage {
       for (int i = 0; i < bugs.length; i++) {
         bugs[i] = new Critter(385, 695, 70, 640);
       }
+      
+      coins[0] = new Coin(20, 500, 10);
+      coins[1] = new Coin(20, 500, 10);
+      coins[2] = new Coin(20, 500, 10);
     } 
     //11 and 12 ARE BUFFERS FOR WINNING AFTER TEN LEVELS
     else if (n == 11) {

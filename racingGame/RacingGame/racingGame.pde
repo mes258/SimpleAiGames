@@ -25,6 +25,9 @@ boolean gameOver = false;
 
 int numHitTeleporter = 0;
 
+int carScore = 0;
+int dotScore = 0;
+
 
 //Game over vars: 
 int rectX, rectY; // Position of square button
@@ -108,7 +111,7 @@ void draw() {
     }
   }else{
     textSize(14);
-    textAlign(RIGHT);
+    //textAlign(RIGHT);
     
     getCurrentStages(car.atRP, bots.dots[0].atRP);
     for(int i = 0; i < numCurrentStages; i++){
@@ -128,16 +131,11 @@ void draw() {
     if (bots.allDotsDead()) {
       println("numHitTeleporter: " + numHitTeleporter);
       numHitTeleporter = 0;
-      println("carRP: " + car.atRP);
       //genetic algorithm
       bots.calculateFitness();
       bots.naturalSelection();
-      //makeMovingWalls();
       bots.mutateDots();
       generation++;
-      //if(car.dead){
-      //  car.reset();
-      //}
     } else {
       //if any of the dots are still alive then update and then show them
       bots.update();
